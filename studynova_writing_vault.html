@@ -1325,7 +1325,7 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 const KEY='writingvault_data_v1';
 const VOCAB_KEY='vocabmaster_data_v1';
 const defaultTopics=['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture','Urbanisation','Family','Globalisation','Art','Transport','Housing'];
-let S={essays:[],corrections:[],topics:[...defaultTopics],importedVocab:[],darkMode:true,lastBackup:null};
+let S={essays:[],corrections:[],topics:[...defaultTopics],importedVocab:[],drafts:[],darkMode:true,lastBackup:null};
 let Vocab=[];
 function $(id){return document.getElementById(id)}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
@@ -1333,7 +1333,16 @@ function today(){return new Date().toISOString().slice(0,10)}
 function fmt(d){try{return new Date(d).toLocaleDateString('vi-VN')}catch(e){return d||''}}
 function esc(s){return String(s||'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[m]))}
 function save(){localStorage.setItem(KEY,JSON.stringify(S))}
-function load(){try{let raw=localStorage.getItem(KEY);if(raw){let p=JSON.parse(raw);S=Object.assign(S,p);S.topics=[...new Set([...(S.topics||[]),...defaultTopics])];S.essays=S.essays||[];S.corrections=S.corrections||[];S.importedVocab=S.importedVocab||[]}}catch(e){console.warn(e)}}
+window.WritingVaultState={
+  getDrafts(){return Array.isArray(S.drafts)?S.drafts:[]},
+  updateDrafts(drafts){
+    if(!Array.isArray(drafts))throw new TypeError('drafts must be an array');
+    S.drafts=drafts;
+    save();
+    return S.drafts;
+  }
+};
+function load(){try{let raw=localStorage.getItem(KEY);if(raw){let p=JSON.parse(raw);S=Object.assign(S,p);S.topics=[...new Set([...(S.topics||[]),...defaultTopics])];S.essays=S.essays||[];S.corrections=S.corrections||[];S.importedVocab=S.importedVocab||[];S.drafts=Array.isArray(S.drafts)?S.drafts:[]}}catch(e){console.warn(e)}}
 function msg(id,text,ok=true){let el=$(id);el.className='msg '+(ok?'ok':'no');el.textContent=text;setTimeout(()=>{el.className='msg'},3200)}
 function goTo(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));let page=$('page-'+p);if(page)page.classList.add('active');wvCloseAllMenus();document.querySelectorAll('.wv-primary-nav .tab').forEach(x=>x.classList.remove('active'));let group=({home:'home',write:'write',library:'library',dash:'progress',corrections:'progress',vocab:'more',settings:'more'}[p]||'home');let host=document.querySelector('[data-nav-group="'+group+'"]');let tab=host?(host.matches('.tab')?host:host.querySelector('.tab')):null;if(tab)tab.classList.add('active');renderAll()}
 function toggleTheme(){S.darkMode=!S.darkMode;applyTheme();save()}function applyTheme(){document.body.classList.toggle('light',!S.darkMode);$('themeBtn').textContent=S.darkMode?'🌙':'☀️'}
@@ -2728,6 +2737,7 @@ setTimeout(function(){
     save();
     applyTree(document.body);
     renderAll();
+    window.dispatchEvent(new CustomEvent('studynova-language-change',{detail:{language:S.lang}}));
     setTimeout(function(){applyTree(document.body);wvTranslationAudit(false)},20);
   };
 
@@ -3410,4 +3420,3 @@ setTimeout(function(){
 
 </body>
 </html>
-    window.dispatchEvent(new CustomEvent('studynova-language-change',{detail:{language:S.lang}}));

@@ -1,11 +1,13 @@
-const CACHE_NAME = "novalab-pwa-v8";
-const RUNTIME_CACHE = "novalab-runtime-v8";
+const CACHE_NAME = "novalab-pwa-v9";
+const RUNTIME_CACHE = "novalab-runtime-v9";
 
 const APP_SHELL = [
   "./",
   "./index.html",
   "./studynova_writing_vault.html",
   "./manifest.webmanifest",
+  "./studynova-supabase.js",
+  "./writing-drafts.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",

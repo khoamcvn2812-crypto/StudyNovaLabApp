@@ -497,8 +497,8 @@ body:not(.light) .fb{
 .sn-close:hover{color:#f87171;background:rgba(239,68,68,.15)}
 .sn-auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .sn-auth-status{font-size:12.5px;color:var(--t3);line-height:1.6;background:var(--bg3);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:12px}
-.sn-firebase-warning{display:none;color:#fbbf24;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.28);border-radius:16px;padding:12px;margin-bottom:12px;font-size:12.5px;line-height:1.65}
-.sn-firebase-warning.show{display:block}
+.sn-cloud-warning{display:none;color:#fbbf24;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.28);border-radius:16px;padding:12px;margin-bottom:12px;font-size:12.5px;line-height:1.65}
+.sn-cloud-warning.show{display:block}
 .sn-ai-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .sn-ai-pane{display:none}.sn-ai-pane.active{display:block}
 .sn-ai-output{min-height:160px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.6}
@@ -2467,7 +2467,7 @@ function wordHasChunks(w){return splitChunks(w).length>0}
 function toggleTheme(){S.darkMode=!S.darkMode;save();applyTheme()}
 function applyTheme(){document.body.className=(S.darkMode?'':'light');document.getElementById('theme-btn').textContent=S.darkMode?'🌙':'☀️'}
 
-function toggleLang(){S.lang=(S.lang==='vi')?'en':'vi';save();applyLang();renderAllDynamic()}
+function toggleLang(){S.lang=(S.lang==='vi')?'en':'vi';save();applyLang();renderAllDynamic();window.dispatchEvent(new CustomEvent('studynova-language-change',{detail:{language:S.lang}}))}
 function applyLang(){
   document.getElementById('lang-label').textContent=(S.lang==='vi')?'EN':'VI';
   document.documentElement.lang=S.lang;
@@ -3519,8 +3519,8 @@ renderBackupBanner();
       <button class="sn-close" onclick="snCloseAuth()">✕</button>
     </div>
     <div class="sn-modal-body">
-      <div class="sn-firebase-warning" id="sn-firebase-warning">
-        Tính năng đồng bộ chưa được bật. Bạn vẫn có thể dùng và lưu dữ liệu trên thiết bị này.
+      <div class="sn-cloud-warning" id="sn-cloud-warning">
+        Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị này.
       </div>
       <div class="sn-auth-status" id="sn-auth-status">Chưa đăng nhập.</div>
 
@@ -3536,6 +3536,7 @@ renderBackupBanner();
           <button class="btn btn-green btn-sm" onclick="snSaveCloud(false)">☁️ Giữ bản máy → Cloud</button>
           <button class="btn btn-blue btn-sm" onclick="snLoadCloudSafe('cloud')">⬇ Giữ bản Cloud</button>
           <button class="btn btn-purple btn-sm" onclick="snLoadCloudSafe('merge')">🔀 Gộp hai bản</button>
+          <button class="btn btn-default btn-sm" onclick="snRestoreSafetyBackup()">↩ Khôi phục safety backup</button>
         </div>
         <div class="nova-cloud-note">Trước khi tải hoặc gộp, web tự tạo một bản backup cục bộ để tránh mất dữ liệu.</div>
       </div>
@@ -3553,7 +3554,7 @@ renderBackupBanner();
       <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:12px">
         <button class="btn btn-green" onclick="snRegisterEmail()">Tạo tài khoản</button>
         <button class="btn btn-blue" onclick="snLoginEmail()">Đăng nhập email</button>
-        <button class="btn btn-purple" onclick="snLoginGoogle()">Đăng nhập Google</button>
+        <button class="btn btn-purple" onclick="snLoginFacebook()">Tiếp tục với Facebook</button>
         <button class="btn btn-default" onclick="snLocalDemoLogin()">Dùng local</button>
         <button class="btn btn-red" onclick="snLogout()">Đăng xuất</button>
       </div>
@@ -3619,157 +3620,15 @@ renderBackupBanner();
 </div>
 
 
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
-/* ================= STUDYNOVA AUTH + CLOUD + AI =================
-   Điền config Firebase ở đây sau khi tạo project Firebase.
-   API key Firebase web config là public bình thường; bảo vệ dữ liệu bằng Firestore Rules.
-*/
-window.STUDYNOVA_FIREBASE_CONFIG = window.STUDYNOVA_FIREBASE_CONFIG || {
-  apiKey: "PASTE_FIREBASE_API_KEY",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId: "PASTE_APP_ID"
-};
-window.STUDYNOVA_APP_NAME = window.STUDYNOVA_APP_NAME || "vocabulary";
-
-var SN = { ready:false, app:null, auth:null, db:null, user:null, localUser:null, saveTimer:null, cloudBusy:false };
-
-function snHideSplash(){var s=document.getElementById('sn-splash'); if(s){setTimeout(function(){s.classList.add('hide')},420);}}
-window.addEventListener('load', snHideSplash);
-setTimeout(snHideSplash, 1200);
-
-function snFirebaseConfigured(){
-  var c=window.STUDYNOVA_FIREBASE_CONFIG||{};
-  return !!(c.apiKey && c.projectId && !String(c.apiKey).includes('PASTE_') && !String(c.projectId).includes('PASTE_'));
-}
-function snInitFirebase(){
-  var warn=document.getElementById('sn-firebase-warning');
-  if(warn) warn.classList.toggle('show', !snFirebaseConfigured());
-  if(!snFirebaseConfigured() || typeof firebase==='undefined') { snUpdateAuthUI(); return; }
-  try{
-    if(!firebase.apps.length){ SN.app=firebase.initializeApp(window.STUDYNOVA_FIREBASE_CONFIG); } else { SN.app=firebase.app(); }
-    SN.auth=firebase.auth();
-    SN.db=firebase.firestore();
-    SN.ready=true;
-    SN.auth.onAuthStateChanged(function(user){
-      SN.user=user||null;
-      snUpdateAuthUI();
-      if(user){ snCloudListen(); }
-    });
-  }catch(e){ console.warn('StudyNova Firebase init failed:', e); snUpdateAuthUI(); }
-}
-function snOpenAuth(){var m=document.getElementById('sn-auth-modal'); if(m){m.classList.add('open'); snUpdateAuthUI();}}
-function snCloseAuth(){var m=document.getElementById('sn-auth-modal'); if(m)m.classList.remove('open');}
-function snSetAuthStatus(txt){var el=document.getElementById('sn-auth-status'); if(el)el.textContent=txt;}
-function snUpdateAuthUI(){
-  var label=document.getElementById('sn-auth-label');
-  var warn=document.getElementById('sn-firebase-warning');
-  if(warn) warn.classList.toggle('show', !snFirebaseConfigured());
-  var name='Đăng nhập';
-  if(SN.user){ name=(SN.user.displayName||SN.user.email||'Account').split('@')[0]; snSetAuthStatus('Đang đăng nhập: '+(SN.user.email||SN.user.displayName||SN.user.uid)); }
-  else if(SN.localUser){
-    var localIdentity=SN.localUser.email||'Local';
-    name=String(localIdentity).includes('@')?String(localIdentity).split('@')[0]:String(localIdentity);
-    snSetAuthStatus('Đang dùng local account: '+localIdentity);
-  }
-  else { snSetAuthStatus(snFirebaseConfigured()?'Chưa đăng nhập.':'Firebase chưa cấu hình — đang dùng localStorage.'); }
-  if(label){
-    label.textContent=name;
-    label.title=SN.user?(SN.user.email||SN.user.displayName||name):(SN.localUser?(SN.localUser.email||name):name);
-  }
-}
-function snAuthEmail(){return (document.getElementById('sn-auth-email')||{}).value||''}
-function snAuthPass(){return (document.getElementById('sn-auth-pass')||{}).value||''}
-function snRegisterEmail(){
-  if(!SN.ready||!SN.auth){alert('Chưa cấu hình Firebase. Điền config Firebase trong 2 file HTML để bật Email/Google login.');return}
-  var email=snAuthEmail(), pass=snAuthPass();
-  if(!email||!pass){alert('Nhập email và mật khẩu trước đã.');return}
-  SN.auth.createUserWithEmailAndPassword(email,pass).catch(function(e){alert(e.message)});
-}
-function snLoginEmail(){
-  if(!SN.ready||!SN.auth){alert('Chưa cấu hình Firebase. Điền config Firebase trong 2 file HTML để bật Email/Google login.');return}
-  var email=snAuthEmail(), pass=snAuthPass();
-  if(!email||!pass){alert('Nhập email và mật khẩu trước đã.');return}
-  SN.auth.signInWithEmailAndPassword(email,pass).catch(function(e){alert(e.message)});
-}
-function snLoginGoogle(){
-  if(!SN.ready||!SN.auth){alert('Chưa cấu hình Firebase. Điền config Firebase trong 2 file HTML để bật Google login.');return}
-  var provider=new firebase.auth.GoogleAuthProvider();
-  SN.auth.signInWithPopup(provider).catch(function(e){alert(e.message)});
-}
-function snLocalDemoLogin(){
-  var email=snAuthEmail()||('local-'+Date.now()+'@studynova.local');
-  SN.localUser={uid:'local',email:email};
-  try{localStorage.setItem('studynova_local_user',JSON.stringify(SN.localUser));}catch(e){}
-  snUpdateAuthUI();
-}
-function snLogout(){
-  SN.localUser=null; try{localStorage.removeItem('studynova_local_user')}catch(e){}
-  if(SN.auth){SN.auth.signOut().catch(function(e){alert(e.message)})}
-  snUpdateAuthUI();
-}
-function snCurrentUid(){return SN.user&&SN.user.uid}
-function snDocRef(){
-  var uid=snCurrentUid();
-  if(!SN.ready||!SN.db||!uid)return null;
-  return SN.db.collection('studynovaUsers').doc(uid).collection('apps').doc(window.STUDYNOVA_APP_NAME||'app');
-}
-function snLocalData(){
-  try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}
-}
-async function snSaveCloud(){
-  var ref=snDocRef();
-  if(!ref){alert('Cần đăng nhập Firebase trước khi đồng bộ cloud.');return}
-  try{
-    SN.cloudBusy=true;
-    await ref.set({data:snLocalData(), updatedAt:firebase.firestore.FieldValue.serverTimestamp(), appName:window.STUDYNOVA_APP_NAME||'app'}, {merge:true});
-    alert('Đã đồng bộ dữ liệu lên cloud.');
-  }catch(e){alert('Lỗi sync: '+e.message)}
-  finally{SN.cloudBusy=false}
-}
-async function snLoadCloud(){
-  var ref=snDocRef();
-  if(!ref){alert('Cần đăng nhập Firebase trước khi tải dữ liệu cloud.');return}
-  try{
-    var snap=await ref.get();
-    if(!snap.exists){alert('Chưa có dữ liệu cloud cho app này.');return}
-    var data=(snap.data()||{}).data||{};
-    if(!confirm('Tải dữ liệu cloud sẽ ghi đè dữ liệu local của app hiện tại. Tiếp tục?'))return;
-    localStorage.setItem(KEY, JSON.stringify(data));
-    location.reload();
-  }catch(e){alert('Lỗi tải cloud: '+e.message)}
-}
-function snCloudListen(){
-  var ref=snDocRef(); if(!ref || SN._listening)return;
-  SN._listening=true;
-  ref.onSnapshot(function(snap){
-    // giữ nhẹ: không auto ghi đè local để tránh mất dữ liệu khi user đang sửa
-  }, function(e){console.warn('StudyNova cloud listen:', e)});
-}
-function snDebouncedCloudSave(){
-  if(!SN.ready||!SN.user||SN.cloudBusy)return;
-  clearTimeout(SN.saveTimer);
-  SN.saveTimer=setTimeout(function(){ snSaveCloud().catch(function(){}) }, 2500);
-}
-(function(){
-  try{
-    SN.localUser=JSON.parse(localStorage.getItem('studynova_local_user')||'null');
-  }catch(e){}
-  var oldSave=window.save;
-  if(typeof oldSave==='function'){
-    window.save=function(){
-      oldSave.apply(this, arguments);
-      snDebouncedCloudSave();
-    }
-  }
-  snInitFirebase();
-})();
-
+/* Splash safety is deliberately independent from every cloud script. */
+function snHideSplash(){var splash=document.getElementById('sn-splash');if(splash){splash.classList.add('hide')}}
+window.addEventListener('load',snHideSplash);
+setTimeout(snHideSplash,1200);
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="./studynova-supabase.js"></script>
+<script>
 function snOpenAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.add('open');}
 function snCloseAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.remove('open');}
 function snAiTab(name){
@@ -4205,7 +4064,7 @@ var SN_UI_TRANSLATIONS={
   'Chọn dạng bài kiểm tra':'Choose test mode','Kết hợp trắc nghiệm + điền từ':'Mixed multiple choice + fill-in','Trắc nghiệm 4 đáp án':'Four-option multiple choice','Điền từ theo nghĩa/câu ví dụ':'Fill in from meaning/example','Điền từ':'Fill in','Trắc nghiệm':'Multiple choice','Nhập đáp án...':'Enter your answer...',
   'Bắt đầu':'Start','Tiếp theo →':'Next →','Kiểm tra đáp án':'Check','Bỏ qua →':'Skip →','Ôn lại':'Review again','Làm lại':'Try again',
   'Dán bài, hiển thị passage rồi bôi đen từ để lưu nhanh vào Vocabulary.':'Paste a passage, display it, then select words to save them quickly.','Luyện lại các collocations đã lưu để dùng tự nhiên hơn trong Writing và Speaking.':'Practise saved collocations for more natural Writing and Speaking.','Chọn câu hỏi, bật timer, nói và lưu lại kết quả luyện tập.':'Choose a question, start the timer, speak, and save your practice.','Dữ liệu đang lưu trong trình duyệt. Hãy xuất file sao lưu trước khi đổi máy hoặc xoá dữ liệu.':'Your data is stored in this browser. Export a backup before switching devices or clearing data.','Nên sao lưu sau mỗi tuần hoặc sau khi thêm nhiều từ mới.':'Back up weekly or after adding many new words.',
-  'Tính năng đồng bộ chưa được bật. Bạn vẫn có thể dùng và lưu dữ liệu trên thiết bị này.':'Cloud sync is not enabled. You can still use the app and save data on this device.','Đăng nhập để đồng bộ dữ liệu giữa các thiết bị.':'Sign in to sync data across devices.'
+  'Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị này.':'Cloud sync is not enabled. You can still use the app and save data on this device.','Đăng nhập để đồng bộ dữ liệu giữa các thiết bị.':'Sign in to sync data across devices.'
 };
 
 Object.assign(SN_UI_TRANSLATIONS,{
@@ -4252,8 +4111,8 @@ if(typeof renderAllDynamic==='function'){
 }
 function snRefreshAuthLanguage(){
   if(typeof SN==='undefined')return;var label=document.getElementById('sn-auth-label'),status=document.getElementById('sn-auth-status'),en=S.lang==='en';
-  if(label&&!SN.user&&!SN.localUser)label.textContent=en?'Sign in':'Đăng nhập';
-  if(status&&!SN.user&&!SN.localUser)status.textContent=snFirebaseConfigured()?(en?'Not signed in.':'Chưa đăng nhập.'):(en?'Cloud sync is not enabled — using local storage.':'Đồng bộ chưa được bật — đang dùng bộ nhớ trên thiết bị.');
+  if(label&&!SN.user)label.textContent=en?'Sign in':'Đăng nhập';
+  if(status&&!SN.user)status.textContent=SN.ready?(en?'Not signed in. Device data remains available.':'Chưa đăng nhập. Dữ liệu máy vẫn khả dụng.'):(en?'Cloud is temporarily unavailable — using local storage.':'Cloud tạm thời không khả dụng — đang dùng bộ nhớ trên thiết bị.');
 }
 if(typeof snUpdateAuthUI==='function'){
   var snBaseUpdateAuthUI=snUpdateAuthUI;
@@ -4947,231 +4806,6 @@ function novaApplyUpdate(){
   });
 })();
 
-function novaFormatDateTime(value){
-  if(!value)return 'Chưa có';
-  try{
-    var date=value.toDate?value.toDate():new Date(value);
-    if(isNaN(date.getTime()))return 'Chưa có';
-    return date.toLocaleString('vi-VN');
-  }catch(e){return 'Chưa có'}
-}
-function novaDataSummary(data,appName){
-  data=data||{};
-  if(appName==='writing'){
-    return (Array.isArray(data.essays)?data.essays.length:0)+' bài · '+
-      (Array.isArray(data.corrections)?data.corrections.length:0)+' lỗi';
-  }
-  return (Array.isArray(data.words)?data.words.length:0)+' từ · '+
-    (Array.isArray(data.mistakes)?data.mistakes.length:0)+' lỗi · '+
-    (Array.isArray(data.speakingLogs)?data.speakingLogs.length:0)+' speaking';
-}
-function novaRefreshLocalCloudUI(){
-  var local=document.getElementById('nova-local-summary');
-  var last=document.getElementById('nova-last-sync');
-  var backup=document.getElementById('nova-safety-backup');
-  if(local&&typeof KEY!=='undefined'){
-    local.textContent=novaDataSummary(snLocalData(),window.STUDYNOVA_APP_NAME||'app');
-  }
-  try{
-    var meta=JSON.parse(localStorage.getItem((typeof KEY!=='undefined'?KEY:'novalab')+'_sync_meta')||'{}');
-    if(last)last.textContent=novaFormatDateTime(meta.lastSync);
-    if(backup)backup.textContent=meta.lastSafetyBackup?novaFormatDateTime(meta.lastSafetyBackup):'Chưa tạo';
-  }catch(e){}
-}
-function novaSafetyBackup(){
-  if(typeof KEY==='undefined')return null;
-  var data=snLocalData();
-  var stamp=new Date().toISOString();
-  var storageKey=KEY+'_precloud_'+stamp.replace(/[:.]/g,'-');
-  try{
-    localStorage.setItem(storageKey,JSON.stringify(data));
-    var meta=JSON.parse(localStorage.getItem(KEY+'_sync_meta')||'{}');
-    meta.lastSafetyBackup=stamp;
-    meta.lastSafetyBackupKey=storageKey;
-    localStorage.setItem(KEY+'_sync_meta',JSON.stringify(meta));
-    novaRefreshLocalCloudUI();
-    return storageKey;
-  }catch(e){
-    return null;
-  }
-}
-function novaMergeByKey(localArr,cloudArr,keyFn){
-  var map=new Map();
-  (cloudArr||[]).forEach(function(item){
-    map.set(keyFn(item),item);
-  });
-  (localArr||[]).forEach(function(item){
-    var key=keyFn(item);
-    if(!map.has(key)){
-      map.set(key,item);
-      return;
-    }
-    var old=map.get(key)||{};
-    var oldTime=Date.parse(old.updatedAt||old.date||old.createdAt||old.at||0)||0;
-    var newTime=Date.parse(item.updatedAt||item.date||item.createdAt||item.at||0)||0;
-    var chosen=newTime>=oldTime?item:old;
-    var other=chosen===item?old:item;
-    var merged=Object.assign({},other,chosen);
-    Object.keys(merged).forEach(function(k){
-      if((merged[k]===null||merged[k]===undefined||merged[k]==='')&&other[k]){
-        merged[k]=other[k];
-      }
-    });
-    map.set(key,merged);
-  });
-  return Array.from(map.values());
-}
-function novaMergeObjectsMax(a,b){
-  var out=Object.assign({},b||{});
-  Object.keys(a||{}).forEach(function(k){
-    if(
-      typeof a[k]==='object'&&a[k]&&!Array.isArray(a[k])&&
-      typeof out[k]==='object'&&out[k]&&!Array.isArray(out[k])
-    ){
-      out[k]=novaMergeObjectsMax(a[k],out[k]);
-    }else if(typeof a[k]==='number'&&typeof out[k]==='number'){
-      out[k]=Math.max(a[k],out[k]);
-    }else{
-      out[k]=a[k]!==undefined?a[k]:out[k];
-    }
-  });
-  return out;
-}
-function novaMergeAppData(localData,cloudData,appName){
-  localData=localData||{};
-  cloudData=cloudData||{};
-  if(appName==='writing'){
-    var writing=Object.assign({},cloudData,localData);
-    writing.essays=novaMergeByKey(
-      localData.essays,cloudData.essays,
-      function(x){return String(x&&x.id||((x&&x.title)||'')+'|'+((x&&x.createdAt)||''))}
-    );
-    writing.corrections=novaMergeByKey(
-      localData.corrections,cloudData.corrections,
-      function(x){return String(x&&x.id||((x&&x.wrong)||'')+'|'+((x&&x.right)||''))}
-    );
-    writing.topics=Array.from(new Set([].concat(cloudData.topics||[],localData.topics||[])));
-    writing.importedVocab=novaMergeByKey(
-      localData.importedVocab,cloudData.importedVocab,
-      function(x){return String((x&&x.term)||'').toLowerCase()}
-    );
-    return writing;
-  }
-  var vocab=Object.assign({},cloudData,localData);
-  vocab.words=novaMergeByKey(
-    localData.words,cloudData.words,
-    function(x){return String((x&&x.term)||x&&x.id||'').toLowerCase()}
-  );
-  vocab.topics=Array.from(new Set([].concat(cloudData.topics||[],localData.topics||[])));
-  vocab.days=novaMergeObjectsMax(localData.days,cloudData.days);
-  vocab.activityDays=novaMergeObjectsMax(localData.activityDays,cloudData.activityDays);
-  vocab.mistakes=novaMergeByKey(
-    localData.mistakes,cloudData.mistakes,
-    function(x){return String(x&&x.id||((x&&x.wrong)||'')+'|'+((x&&x.right)||''))}
-  );
-  vocab.speakingLogs=novaMergeByKey(
-    localData.speakingLogs,cloudData.speakingLogs,
-    function(x){return String(x&&x.id||x&&x.date||'')}
-  );
-  if(localData.reading||cloudData.reading){
-    vocab.reading=Object.assign({},cloudData.reading||{},localData.reading||{});
-    ['passages','questions','paraphrases','mistakes'].forEach(function(key){
-      vocab.reading[key]=novaMergeByKey(
-        localData.reading&&localData.reading[key],
-        cloudData.reading&&cloudData.reading[key],
-        function(x){return String(x&&x.id||JSON.stringify(x||{}))}
-      );
-    });
-  }
-  return vocab;
-}
-async function snInspectCloud(){
-  novaRefreshLocalCloudUI();
-  var ref=snDocRef();
-  if(!ref){
-    alert('Cần đăng nhập Firebase trước khi kiểm tra cloud.');
-    return null;
-  }
-  try{
-    var snap=await ref.get();
-    var cloudEl=document.getElementById('nova-cloud-summary');
-    if(!snap.exists){
-      if(cloudEl)cloudEl.textContent='Chưa có dữ liệu';
-      return null;
-    }
-    var payload=snap.data()||{};
-    var data=payload.data||{};
-    if(cloudEl){
-      cloudEl.textContent=novaDataSummary(data,window.STUDYNOVA_APP_NAME||'app')+
-        ' · '+novaFormatDateTime(payload.updatedAtClient||payload.updatedAt);
-    }
-    return {data:data,payload:payload};
-  }catch(e){
-    alert('Không đọc được cloud: '+e.message);
-    return null;
-  }
-}
-async function snSaveCloud(silent){
-  if(typeof silent==='undefined')silent=true;
-  var ref=snDocRef();
-  if(!ref){
-    if(!silent)alert('Cần đăng nhập Firebase trước khi đồng bộ cloud.');
-    return;
-  }
-  try{
-    SN.cloudBusy=true;
-    var data=snLocalData();
-    var now=new Date().toISOString();
-    await ref.set({
-      data:data,
-      summary:novaDataSummary(data,window.STUDYNOVA_APP_NAME||'app'),
-      updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
-      updatedAtClient:now,
-      appName:window.STUDYNOVA_APP_NAME||'app',
-      schemaVersion:5
-    },{merge:true});
-    var meta=JSON.parse(localStorage.getItem(KEY+'_sync_meta')||'{}');
-    meta.lastSync=now;
-    localStorage.setItem(KEY+'_sync_meta',JSON.stringify(meta));
-    novaRefreshLocalCloudUI();
-    if(!silent)alert('Đã đồng bộ bản trên máy lên cloud.');
-  }catch(e){
-    if(!silent)alert('Lỗi sync: '+e.message);
-  }finally{
-    SN.cloudBusy=false;
-  }
-}
-async function snLoadCloudSafe(mode){
-  var inspected=await snInspectCloud();
-  if(!inspected)return;
-  var cloudData=inspected.data||{};
-  var localData=snLocalData();
-  novaSafetyBackup();
-  var nextData=mode==='merge'
-    ?novaMergeAppData(localData,cloudData,window.STUDYNOVA_APP_NAME||'app')
-    :cloudData;
-  var action=mode==='merge'?'gộp dữ liệu máy và cloud':'thay dữ liệu máy bằng bản cloud';
-  if(!confirm('Web đã tạo backup an toàn. Tiếp tục '+action+'?'))return;
-  try{
-    localStorage.setItem(KEY,JSON.stringify(nextData));
-    var meta=JSON.parse(localStorage.getItem(KEY+'_sync_meta')||'{}');
-    meta.lastSync=new Date().toISOString();
-    localStorage.setItem(KEY+'_sync_meta',JSON.stringify(meta));
-    location.reload();
-  }catch(e){
-    alert('Không thể lưu dữ liệu: '+e.message);
-  }
-}
-window.snLoadCloud=function(){return snLoadCloudSafe('cloud')};
-
-if(typeof snOpenAuth==='function'){
-  var novaBaseOpenAuth=snOpenAuth;
-  snOpenAuth=function(){
-    novaBaseOpenAuth();
-    setTimeout(novaRefreshLocalCloudUI,30);
-  };
-}
-setTimeout(novaRefreshLocalCloudUI,100);
 </script>
 
 

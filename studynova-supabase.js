@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var URL='https://mamxrfcelttluvlonvsqx.supabase.co',KEY='sb_publishable_c6fDpnw-f8t7xnFMlsLHZA_hMi-Wwp1';
+var URL='https://mamxrfceltluvlonvsqx.supabase.co',KEY='sb_publishable_c6fDpnw-f8t7xnFMlsLHZA_hMi-Wwp1';
 var VK='vocabmaster_data_v1',WK='writingvault_data_v1',LK='novalab_language_v1',DK='novalab_device_id_v1',BK='novalab_safety_backups_v2',MK='novalab_supabase_sync_meta_v1';
 var client=null;try{client=window.supabase&&window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})}catch(e){console.warn('Supabase unavailable',e)}
 var SN=window.SN=window.SN||{};Object.assign(SN,{client:client,ready:!!client,user:null,cloudBusy:false});

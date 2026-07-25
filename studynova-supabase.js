@@ -32,3 +32,43 @@ function markModified(){try{setMeta({localModifiedAt:new Date().toISOString()})}
 window.addEventListener('studynova-language-change',refresh);window.addEventListener('storage',function(e){if(e.key===LK)refresh()});window.addEventListener('online',refresh);window.addEventListener('offline',refresh);
 if(client){client.auth.getSession().then(function(r){SN.user=r.data.session&&r.data.session.user;refresh()}).catch(function(e){console.warn(e);refresh()});client.auth.onAuthStateChange(function(_,session){SN.user=session&&session.user;setTimeout(refresh,0)})}setTimeout(refresh,100);
 })();
+
+/* Review fill skip: reveal the answer before moving on. */
+(function(){
+'use strict';
+if(typeof window.renderFill!=='function'||typeof window.novaSchedule!=='function')return;
+window.novaSkipReviewFill=function(index){
+  if(typeof window.novaClearAutoTimer==='function')window.novaClearAutoTimer();
+  var word=window.S&&S.rvWords&&S.rvWords[S.rvIdx];
+  var input=document.getElementById('fill-in');
+  var checkButton=document.getElementById('review-fill-check');
+  var skipButton=document.getElementById('review-fill-skip');
+  if(!word||S.rvIdx!==index||!input||input.disabled)return;
+  input.value=word.term||'';
+  input.disabled=true;
+  input.classList.remove('chunk-bad');
+  input.classList.add('chunk-good');
+  if(checkButton)checkButton.disabled=true;
+  if(skipButton)skipButton.disabled=true;
+  if(typeof window.novaApplySrs==='function')window.novaApplySrs(word,'again');
+  if(typeof window.showFB==='function')window.showFB('qfb','Đáp án đúng: '+word.term+' — Đang chuyển câu tiếp theo...','no');
+  window.novaSchedule(function(){
+    if(window.S&&S.rvIdx===index){
+      S.rvIdx++;
+      S.rvRetryState=null;
+      window.renderRvCard('fill');
+    }
+  },1500);
+};
+var originalRenderFill=window.renderFill;
+window.renderFill=function(word,progress){
+  originalRenderFill(word,progress);
+  var index=window.S?S.rvIdx:0;
+  var buttons=document.querySelectorAll('#rv-area .quiz-box button');
+  if(buttons.length>=2){
+    buttons[0].id='review-fill-check';
+    buttons[1].id='review-fill-skip';
+    buttons[1].onclick=function(){window.novaSkipReviewFill(index)};
+  }
+};
+})();

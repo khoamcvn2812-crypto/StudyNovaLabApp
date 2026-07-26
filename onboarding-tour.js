@@ -35,7 +35,13 @@
     ['#sn-profile-panel','Hồ sơ và đăng xuất','Bạn có thể sửa tên hiển thị, đổi mật khẩu và đăng xuất. Tên không dùng làm định danh tài khoản.']
   ];
 
-  function demos() { const session = `tour_${Date.now()}`; localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, topic:'Tour demo', type:'word', level:'beginner', status:'new', at:new Date().toISOString().slice(0,10), rv:0, ex:`This is an easy example with ${term}.`, coll:'', wex:`Learners can ${term} their academic goals.`, sex:`I use ${term} when discussing everyday topics.`, isTourDemo:true, tourSessionId:session })))); document.dispatchEvent(new CustomEvent('studynova-tour-demo-change')); }
+  function demos() {
+    if (!active || active.demoSessionId) return;
+    const session = `tour_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    active.demoSessionId = session;
+    localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, topic:'Tour demo', type:'word', level:'beginner', status:'new', at:new Date().toISOString().slice(0,10), rv:0, ex:`This is an easy example with ${term}.`, coll:'', wex:`Learners can ${term} their academic goals.`, sex:`I use ${term} when discussing everyday topics.`, isTourDemo:true, tourSessionId:session }))));
+    document.dispatchEvent(new CustomEvent('studynova-tour-demo-change'));
+  }
   function clearStage() {
     if (activeTarget && targetClickHandler) activeTarget.removeEventListener('click', targetClickHandler, false);
     document.querySelectorAll('.sn-tour-target,.tour-active-target').forEach(x => x.classList.remove('sn-tour-target','tour-active-target'));
@@ -112,7 +118,9 @@
   }
   function render() {
     if (!active) return;
-    clearStage(); if (active.type === 'home') demos();
+    clearStage();
+    // Demo vocabulary starts at the dedicated demo step, not merely when the tour opens.
+    if (active.type === 'home' && active.index >= 6) demos();
     const step = active.steps[active.index], target = targetFor(step[0]);
     if (!target) {
       console.warn('StudyNova tour skipped a missing target', step[0]);
@@ -146,6 +154,7 @@
   window.StudyNovaTour={start,cleanup,steps:{home:homeSteps,writing:writingSteps,cloud:cloudSteps},demoWords:words.slice()};
   addEventListener('keydown',e=>{if(!active)return;if(e.key==='Escape')end(false);if(e.key==='ArrowRight')active.layer.querySelector('.sn-tour-next').click();if(e.key==='ArrowLeft'&&!active.layer.querySelector('.sn-tour-back').disabled)active.layer.querySelector('.sn-tour-back').click()});
   addEventListener('resize',()=>active&&render());
+  addEventListener('pagehide',()=>active&&cleanup());
   document.addEventListener('DOMContentLoaded',()=>{
     cleanup();
     const menu=document.querySelector('.sn-top-menu,.wv-top-menu');

@@ -27,7 +27,14 @@ test('every guided-tour selector resolves on its owning page', async ({ page }) 
 test('ten isolated demo words render in Vocabulary and all Review modes', async ({ page }) => {
   await prepare(page, '/index.html');
   await page.evaluate(() => StudyNovaTour.start('home', true));
+  await page.evaluate(() => {
+    for (let step = 0; step < 6; step++) document.querySelector('.sn-tour-next').click();
+  });
   await expect.poll(() => page.evaluate(() => S.words.filter(word => word.isTourDemo).map(word => word.term).sort())).toEqual([...demoWords].sort());
+  expect(await page.evaluate(() => {
+    const demos = S.words.filter(word => word.isTourDemo);
+    return demos.length === 10 && demos.every(word => word.tourSessionId === demos[0].tourSessionId);
+  })).toBe(true);
 
   await page.evaluate(() => { goTo('vocab'); renderVocab(); });
   for (const word of demoWords) await expect(page.locator('#word-list')).toContainText(word);
@@ -55,6 +62,26 @@ test('ten isolated demo words render in Vocabulary and all Review modes', async 
     return JSON.parse(localStorage.getItem('vocabmaster_data_v1')).words.filter(word => word.isTourDemo).length;
   });
   expect(persistedDemoCount).toBe(0);
+
+  const isolation = await page.evaluate(() => {
+    const demo = S.words.find(word => word.isTourDemo);
+    S.words.unshift({ id: 42, term: 'real-word', def: 'real', status: 'new', at: '2026-07-26', rv: 0 });
+    novaApplySrs(demo, 'easy');
+    renderTest();
+    const before = JSON.stringify(S.words.find(word => word.id === 42));
+    const testCount = document.getElementById('test-area').textContent;
+    document.querySelector('.sn-tour-close').click();
+    return {
+      demoCount: S.words.filter(word => word.isTourDemo).length,
+      realUnchanged: JSON.stringify(S.words.find(word => word.id === 42)) === before,
+      realPresent: S.words.some(word => word.id === 42),
+      testCount
+    };
+  });
+  expect(isolation.demoCount).toBe(0);
+  expect(isolation.realPresent).toBe(true);
+  expect(isolation.realUnchanged).toBe(true);
+  expect(isolation.testCount).toContain('1');
 });
 
 test('clicking an actionable highlighted target performs its action and advances once', async ({ page }) => {

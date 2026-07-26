@@ -17,3 +17,16 @@ The frontend uses the public Supabase browser client and keeps `localStorage` as
 ## Preview checklist
 
 Use two separate confirmed test users to verify RLS isolation. Test first and repeated upload, empty-cloud download protection, compare without writes, merge preservation, offline drafts, language switching, service-worker update, and both navigation directions. Do not promote the preview to production until manual checks pass.
+
+## Profiles, password and recovery upgrade
+
+Run `supabase/migrations/202607260001_create_profiles.sql` in the Supabase SQL editor. The table uses `auth.users.id` as its only identity key; display names are intentionally **not unique**. RLS limits select, insert, and update to `auth.uid()`.
+
+The project owner must also configure these Dashboard settings before production approval:
+
+1. **Authentication → Providers → Email**: enable email confirmation. Under password security, require at least 8 characters, one uppercase letter, and one number where the current Supabase plan exposes a password-strength policy.
+2. **Authentication → URL Configuration**: set the site URL to `https://studynovaielts.vercel.app/`; allow `https://studynovaielts.vercel.app/**` and the exact Vercel Preview URL (or the team's approved preview wildcard) before testing OAuth/recovery.
+3. Review email rate limits. Configure custom SMTP for reliable production confirmation and recovery delivery if the built-in quota is insufficient.
+4. Keep the Facebook identity and Supabase callback configured in Meta. Never put the Meta secret or a Supabase service-role key in frontend files.
+
+Recovery email redirects and Facebook OAuth use the single production origin constant in `studynova-auth.js`. Preview OAuth can only be tested after its URL is explicitly allowed in Supabase.

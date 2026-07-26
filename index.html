@@ -1470,6 +1470,8 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 @media(max-width:760px){.topbar-right.sn-topbar-compact{display:flex!important;width:auto!important;grid-template-columns:none!important;align-items:center;justify-content:flex-end;gap:7px!important}.sn-top-auth{min-width:44px;padding:8px}.sn-top-auth-label{display:none}#page-home .sn-landing{gap:12px;margin-bottom:12px}#page-home .sn-home-density{gap:12px}#page-home .sn-today-v8{padding:15px}#page-home .sn-density-strip{grid-template-columns:1fr 1fr;gap:8px}#page-home .sn-density-card{min-height:78px;padding:11px}#page-home{overflow-x:clip}}
 @media(max-width:360px){#page-home .sn-density-strip{grid-template-columns:1fr}#page-home .sn-today-v8-stats{grid-template-columns:repeat(3,minmax(0,1fr))}#page-home .sn-today-v8-stat{padding:7px 5px}#page-home .sn-today-v8-stat small{font-size:8.5px}}
 </style>
+<link rel="stylesheet" href="./studynova-auth.css">
+<link rel="stylesheet" href="./onboarding-tour.css">
 </head>
 <body>
 
@@ -2456,8 +2458,21 @@ function tf(key,repl){var s=t(key);for(var k in repl){s=s.split('{'+k+'}').join(
 var S={words:[],topics:['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture','Công nghệ','Kinh doanh','Du lịch','Học thuật','Đời sống','IELTS','Giao tiếp'],cfg:{daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},days:{},testsDone:0,mistakes:[],speakingLogs:[],rvIdx:0,rvWords:[],chItems:[],chIdx:0,chCorrect:0,chChecked:false,txWords:[],txIdx:0,txAns:[],txActive:false,darkMode:true,lang:'vi',lastBackup:null};
 var KEY='vocabmaster_data_v1';
 
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},S.cfg);if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}}catch(e){}}
+function persistedState(){var copy=Object.assign({},S);copy.words=(S.words||[]).filter(function(w){return !w.isTourDemo});copy.rvWords=(S.rvWords||[]).filter(function(w){return !w.isTourDemo});return copy}
+function realWords(){return (S.words||[]).filter(function(w){return !w.isTourDemo})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(persistedState()))}catch(e){}}
+function syncTourDemoWords(){
+  S.words=(S.words||[]).filter(function(w){return !w.isTourDemo});
+  S.rvWords=(S.rvWords||[]).filter(function(w){return !w.isTourDemo});
+  S.txWords=(S.txWords||[]).filter(function(w){return !w.isTourDemo});
+  try{
+    var demo=JSON.parse(localStorage.getItem('studynova_tour_demo_v1')||'[]');
+    if(Array.isArray(demo))S.words=S.words.concat(demo.filter(function(w){return w&&w.isTourDemo}));
+  }catch(e){console.warn('Không thể đọc dữ liệu demo của tour.',e)}
+  if(document.getElementById('word-list')){fillSel();renderVocab()}
+}
+document.addEventListener('studynova-tour-demo-change',syncTourDemoWords);
+function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},S.cfg);if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}syncTourDemoWords()}catch(e){}}
 function addDefaultIELTSTopics(){['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture'].forEach(function(x){if(!S.topics.includes(x))S.topics.push(x)})}
 function upgradeOldWords(){S.words.forEach(function(w){if(!w.status)w.status='learning';if(!w.coll)w.coll='';if(!w.wex)w.wex='';if(!w.sex)w.sex='';if(!w.family)w.family=''})}
 function statusLabel(st){return ({new:'New',learning:'Learning',weak:'Weak',mastered:'Mastered',ielts_ready:'IELTS-ready'}[st]||'Learning')}
@@ -2473,7 +2488,7 @@ function lL(l){return t('level_'+l)}
 function splitChunks(w){
   return String((w&&w.coll)||'').split(/[;\n,]+/).map(function(x){return x.trim()}).filter(function(x){return x.length>1});
 }
-function chunkCount(){return S.words.reduce(function(sum,w){return sum+splitChunks(w).length},0)}
+function chunkCount(){return realWords().reduce(function(sum,w){return sum+splitChunks(w).length},0)}
 function normChunk(s){return String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9\s'\-]/g,'').replace(/\s+/g,' ').trim()}
 function wordHasChunks(w){return splitChunks(w).length>0}
 
@@ -2578,7 +2593,7 @@ function saveGoal(){var v=parseInt(document.getElementById('inline-goal').value)
 
 function renderDash(){
   fillSel();
-  var total=S.words.length,streak=calcStreak(),tc=S.days[today()]||0,goal=S.cfg.daily,ready=S.words.filter(function(w){return (w.status||'learning')==='ielts_ready'}).length,weak=S.words.filter(function(w){return (w.status||'learning')==='weak'}).length,chunks=chunkCount();
+  var dashboardWords=realWords(),total=dashboardWords.length,streak=calcStreak(),tc=S.days[today()]||0,goal=S.cfg.daily,ready=dashboardWords.filter(function(w){return (w.status||'learning')==='ielts_ready'}).length,weak=dashboardWords.filter(function(w){return (w.status||'learning')==='weak'}).length,chunks=chunkCount();
   document.getElementById('streak-disp').textContent=streak;
   document.getElementById('top-streak-num').textContent=streak;
   document.getElementById('streak-sub-txt').textContent=streak===0?t('streak_sub_zero'):streak===1?t('streak_sub_one'):t('streak_sub_many');
@@ -2613,7 +2628,7 @@ function renderStreak(){
 
 function renderCharts(){
   var tc={},tyc={};
-  S.words.forEach(function(w){var top=w.topic||'Chung';tc[top]=(tc[top]||0)+1;var ty=tL(w.type);tyc[ty]=(tyc[ty]||0)+1});
+  realWords().forEach(function(w){var top=w.topic||'Chung';tc[top]=(tc[top]||0)+1;var ty=tL(w.type);tyc[ty]=(tyc[ty]||0)+1});
   renderBar('chart-topic',tc,'linear-gradient(90deg,#10d4a0,#0ea5e9)');
   renderBar('chart-type',tyc,'linear-gradient(90deg,#8b5cf6,#c084fc)');
 }
@@ -3643,6 +3658,8 @@ setTimeout(snHideSplash,1200);
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="./studynova-supabase.js"></script>
+<script defer src="./studynova-auth.js"></script>
+<script defer src="./onboarding-tour.js"></script>
 <script>
 function snOpenAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.add('open');}
 function snCloseAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.remove('open');}
@@ -3813,10 +3830,11 @@ function renderStreak(){
 function renderDash(){
   ensureActivityState();
   fillSel();
-  var total=S.words.length,streak=calcStreak(),key=today(),tc=dayLearningScore(key),goal=Math.max(1,Number(S.cfg.daily)||1);
+  var dashboardWords=realWords();
+  var total=dashboardWords.length,streak=calcStreak(),key=today(),tc=dayLearningScore(key),goal=Math.max(1,Number(S.cfg.daily)||1);
   var activity=activitySnapshot(key),wordsToday=Number(S.days[key]||0);
-  var ready=S.words.filter(function(w){return (w.status||'learning')==='ielts_ready'}).length;
-  var weak=S.words.filter(function(w){return (w.status||'learning')==='weak'}).length,chunks=chunkCount();
+  var ready=dashboardWords.filter(function(w){return (w.status||'learning')==='ielts_ready'}).length;
+  var weak=dashboardWords.filter(function(w){return (w.status||'learning')==='weak'}).length,chunks=chunkCount();
   var streakDisp=document.getElementById('streak-disp'),topNum=document.getElementById('top-streak-num'),sub=document.getElementById('streak-sub-txt');
   if(streakDisp)streakDisp.textContent=streak;
   if(topNum)topNum.textContent=streak;
@@ -3851,6 +3869,7 @@ function startReview(){
 }
 function recordReviewCompletion(){
   if(!S.rvSessionToken || S.rvRecordedToken===S.rvSessionToken)return false;
+  if(!(S.rvWords||[]).some(function(word){return !word.isTourDemo}))return false;
   S.rvRecordedToken=S.rvSessionToken;
   recordLearningActivity('review');
   return true;
@@ -4151,7 +4170,7 @@ function snRenderDensityUI(){
   var streak=typeof calcStreak==='function'?calcStreak():0;
   var act=typeof activitySnapshot==='function'?activitySnapshot(key):{reviews:0,tests:0};
   var wordsToday=Number((S.days||{})[key]||0),goal=Math.max(1,Number((S.cfg||{}).daily)||1),score=typeof dayLearningScore==='function'?dayLearningScore(key):wordsToday;
-  var due=(S.words||[]).filter(function(w){var st=w.status||'learning';return st==='new'||st==='weak'||st==='learning'}).length;
+  var due=realWords().filter(function(w){var st=w.status||'learning';return st==='new'||st==='weak'||st==='learning'}).length;
   var readings=(S.reading&&Array.isArray(S.reading.passages))?S.reading.passages:[];
   var current=null;
   if(S.reading&&S.reading.currentId)current=readings.find(function(p){return String(p.id)===String(S.reading.currentId)});
@@ -4159,7 +4178,8 @@ function snRenderDensityUI(){
   snSetText('sn-d-label-streak',en?'Streak':'Chuỗi học');snSetText('sn-d-streak',streak+' '+(en?(streak===1?'day':'days'):'ngày'));snSetText('sn-d-streak-sub',streak?(en?'Keep it going today':'Giữ nhịp học hôm nay'):(en?'Start today':'Bắt đầu từ hôm nay'));
   snSetText('sn-d-label-review',en?'Due for review':'Cần ôn');snSetText('sn-d-review',due+' '+(en?(due===1?'word':'words'):'từ'));snSetText('sn-d-review-sub',en?'New, learning and weak words':'Từ mới, đang học và từ yếu');
   snSetText('sn-d-label-test',en?'Tests':'Kiểm tra');snSetText('sn-d-test',(act.tests||0)+' '+(en?(act.tests===1?'test':'tests'):'bài'));snSetText('sn-d-test-sub',en?'Completed today':'Hoàn thành hôm nay');
-  snSetText('sn-d-label-vocab',en?'Vocabulary':'Từ vựng');snSetText('sn-d-vocab',(S.words||[]).length+' '+(en?((S.words||[]).length===1?'word':'words'):'từ'));snSetText('sn-d-vocab-sub',en?'Total words saved':'Tổng số từ đã lưu');
+  var savedWordCount=realWords().length;
+  snSetText('sn-d-label-vocab',en?'Vocabulary':'Từ vựng');snSetText('sn-d-vocab',savedWordCount+' '+(en?(savedWordCount===1?'word':'words'):'từ'));snSetText('sn-d-vocab-sub',en?'Total words saved':'Tổng số từ đã lưu');
   snSetText('sn-plan-heading',en?'What should you study today?':'Hôm nay nên học gì?');snSetText('sn-plan-summary',en?'Pick one short activity to keep your learning rhythm.':'Chọn một hoạt động ngắn để giữ nhịp học.');snSetText('sn-plan-badge',Math.min(score,goal)+'/'+goal+' '+(en?'goal':'mục tiêu'));
   snSetText('sn-plan-review-title',en?'Review vocabulary':'Ôn từ cần nhớ');snSetText('sn-plan-review-sub',due?(en?due+' words are waiting for review':due+' từ đang chờ ôn'):(en?'Your review queue is clear':'Hiện không có từ cần ưu tiên'));
   snSetText('sn-plan-test-title',en?'Take a test':'Làm kiểm tra');snSetText('sn-plan-test-sub',en?'Multiple choice or fill-in.':'Trắc nghiệm hoặc điền từ.');
@@ -4172,7 +4192,7 @@ function snRenderDensityUI(){
     if(wordsToday)items.push({c:'#10d4a0',m:en?'Added '+wordsToday+' new words today':'Đã thêm '+wordsToday+' từ mới hôm nay',s:key});
     if(act.reviews)items.push({c:'#a78bfa',m:en?'Completed '+act.reviews+' review session'+(act.reviews>1?'s':''):'Đã hoàn thành '+act.reviews+' lượt ôn tập',s:en?'Counts toward today’s streak':'Được tính vào streak hôm nay'});
     if(act.tests)items.push({c:'#fbbf24',m:en?'Completed '+act.tests+' test'+(act.tests>1?'s':''):'Đã hoàn thành '+act.tests+' bài kiểm tra',s:en?'Counts toward today’s streak':'Được tính vào streak hôm nay'});
-    var latest=(S.words||[])[0];if(latest&&!wordsToday)items.push({c:'#60a5fa',m:(en?'Latest word: ':'Từ mới nhất: ')+(latest.term||''),s:latest.topic||''});
+    var latest=realWords()[0];if(latest&&!wordsToday)items.push({c:'#60a5fa',m:(en?'Latest word: ':'Từ mới nhất: ')+(latest.term||''),s:latest.topic||''});
     if(current)items.push({c:'#0ea5e9',m:(en?'Reading: ':'Reading: ')+(current.title||'Reading passage'),s:(current.topic||'Reading')});
     if(!items.length)items.push({c:'#64748b',m:en?'No activity yet today':'Hôm nay chưa có hoạt động',s:en?'Start with a quick review or test':'Bắt đầu bằng một lượt ôn hoặc kiểm tra'});
     list.innerHTML=items.slice(0,4).map(function(x){return '<div class="sn-recent-item"><span class="sn-recent-dot" style="background:'+x.c+';box-shadow:0 0 12px '+x.c+'66"></span><div><div class="sn-recent-main">'+(typeof esc==='function'?esc(x.m):x.m)+'</div><div class="sn-recent-meta">'+(typeof esc==='function'?esc(x.s):x.s)+'</div></div></div>'}).join('');
@@ -4874,7 +4894,7 @@ function novaSrsDue(word){
   return novaEnsureSrs(word).due<=novaLocalDateKey();
 }
 function novaDueWords(){
-  return S.words.filter(novaSrsDue);
+  return realWords().filter(novaSrsDue);
 }
 function novaSrsLabel(word){
   var s=novaEnsureSrs(word);
@@ -4882,6 +4902,7 @@ function novaSrsLabel(word){
   return 'Ôn '+s.due.slice(5).replace('-','/');
 }
 function novaApplySrs(word,rating){
+  if(word&&word.isTourDemo)return;
   var s=novaEnsureSrs(word);
   var old=Math.max(0,Number(s.interval)||0);
   if(rating==='again'){
@@ -5258,7 +5279,7 @@ function renderFlash(word,progress){
   var s=novaEnsureSrs(word);
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="flip-outer" id="fc" onclick="this.classList.toggle(\'flipped\')">'+
+    '<div class="flip-outer" data-review-term="'+ea(word.term)+'" id="fc" onclick="this.classList.toggle(\'flipped\')">'+
       '<div class="flip-inner">'+
         '<div class="flip-f">'+
           '<div style="font-size:11px;color:var(--t4);margin-bottom:10px;font-weight:600">Bấm để lật thẻ</div>'+
@@ -5296,7 +5317,7 @@ function renderMCRv(word,progress){
   var opts=mkOpts(word);
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="quiz-box">'+
+    '<div class="quiz-box" data-review-term="'+ea(word.term)+'">'+
       '<div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:8px">'+
         '<span class="tag tg">'+esc(word.topic||'')+'</span>'+
         '<span class="nova-srs-badge '+(novaSrsDue(word)?'due':'good')+'">'+novaSrsLabel(word)+'</span>'+
@@ -5346,7 +5367,7 @@ function renderFill(word,progress){
     :'Nhập từ hoặc cụm từ phù hợp.';
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="quiz-box">'+
+    '<div class="quiz-box" data-review-term="'+ea(word.term)+'">'+
       '<div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:8px">'+
         '<span class="tag tg">'+esc(word.topic||'')+'</span>'+
         '<span class="nova-srs-badge '+(novaSrsDue(word)?'due':'good')+'">'+novaSrsLabel(word)+'</span>'+
@@ -5436,9 +5457,10 @@ function renderVocab(){
   }
   list.innerHTML=words.map(function(word){
     var due=novaSrsDue(word);
-    return '<div class="word-item"><div style="flex:1">'+
+    return '<div class="word-item'+(word.isTourDemo?' tour-demo-word':'')+'"'+(word.isTourDemo?' data-tour-demo="true"':'')+'><div style="flex:1">'+
       '<div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:5px">'+
         '<span class="word-term">'+esc(word.term)+'</span>'+
+        (word.isTourDemo?'<span class="tag tour-demo-label">Từ hướng dẫn — sẽ tự xóa</span>':'')+
         (word.phon?'<span style="font-size:12px;color:var(--t4)">'+esc(word.phon)+'</span>':'')+
         '<span class="tag tg">'+esc(word.topic||'Chung')+'</span>'+
         '<span class="tag tt">'+esc(tL(word.type))+'</span>'+
@@ -5472,7 +5494,7 @@ function renderVocab(){
 function renderTest(){
   novaEnsureCompleteState();
   var area=document.getElementById('test-area');
-  var total=S.words.length;
+  var total=realWords().length;
   var thresh=S.cfg.thresh;
   if(total<thresh){
     area.innerHTML='<div class="quiz-box"><div class="quiz-q">'+t('locked_title')+'</div>'+
@@ -5521,7 +5543,7 @@ function beginTest(forceMode){
   S.txMode=forceMode||((modeSelect&&modeSelect.value)||S.txMode||'mix');
   S.txBehavior=(behaviorSelect&&behaviorSelect.value)||S.txBehavior||'practice';
   var pool=novaDueWords();
-  if(pool.length<S.cfg.qs)pool=S.words.slice();
+  if(pool.length<S.cfg.qs)pool=realWords();
   S.txWords=shuffle(pool).slice(0,Math.min(S.cfg.qs,pool.length));
   S.txAns=[];
   S.txIdx=0;

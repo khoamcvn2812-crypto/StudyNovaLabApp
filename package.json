@@ -1,0 +1,11 @@
+{
+  "name": "studynova-lab-app",
+  "private": true,
+  "scripts": {
+    "test": "node tests/home-layout-check.mjs && node tests/upgrade-check.mjs",
+    "test:browser": "playwright test tests/onboarding-tour.browser.spec.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.1"
+  }
+}

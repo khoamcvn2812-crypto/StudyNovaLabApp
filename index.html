@@ -2458,8 +2458,18 @@ function tf(key,repl){var s=t(key);for(var k in repl){s=s.split('{'+k+'}').join(
 var S={words:[],topics:['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture','Công nghệ','Kinh doanh','Du lịch','Học thuật','Đời sống','IELTS','Giao tiếp'],cfg:{daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},days:{},testsDone:0,mistakes:[],speakingLogs:[],rvIdx:0,rvWords:[],chItems:[],chIdx:0,chCorrect:0,chChecked:false,txWords:[],txIdx:0,txAns:[],txActive:false,darkMode:true,lang:'vi',lastBackup:null};
 var KEY='vocabmaster_data_v1';
 
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},S.cfg);if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}}catch(e){}}
+function persistedState(){var copy=Object.assign({},S);copy.words=(S.words||[]).filter(function(w){return !w.isTourDemo});copy.rvWords=(S.rvWords||[]).filter(function(w){return !w.isTourDemo});return copy}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(persistedState()))}catch(e){}}
+function syncTourDemoWords(){
+  S.words=(S.words||[]).filter(function(w){return !w.isTourDemo});
+  try{
+    var demo=JSON.parse(localStorage.getItem('studynova_tour_demo_v1')||'[]');
+    if(Array.isArray(demo))S.words=S.words.concat(demo.filter(function(w){return w&&w.isTourDemo}));
+  }catch(e){console.warn('Không thể đọc dữ liệu demo của tour.',e)}
+  if(document.getElementById('word-list')){fillSel();renderVocab()}
+}
+document.addEventListener('studynova-tour-demo-change',syncTourDemoWords);
+function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},S.cfg);if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}syncTourDemoWords()}catch(e){}}
 function addDefaultIELTSTopics(){['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture'].forEach(function(x){if(!S.topics.includes(x))S.topics.push(x)})}
 function upgradeOldWords(){S.words.forEach(function(w){if(!w.status)w.status='learning';if(!w.coll)w.coll='';if(!w.wex)w.wex='';if(!w.sex)w.sex='';if(!w.family)w.family=''})}
 function statusLabel(st){return ({new:'New',learning:'Learning',weak:'Weak',mastered:'Mastered',ielts_ready:'IELTS-ready'}[st]||'Learning')}
@@ -5262,7 +5272,7 @@ function renderFlash(word,progress){
   var s=novaEnsureSrs(word);
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="flip-outer" id="fc" onclick="this.classList.toggle(\'flipped\')">'+
+    '<div class="flip-outer" data-review-term="'+ea(word.term)+'" id="fc" onclick="this.classList.toggle(\'flipped\')">'+
       '<div class="flip-inner">'+
         '<div class="flip-f">'+
           '<div style="font-size:11px;color:var(--t4);margin-bottom:10px;font-weight:600">Bấm để lật thẻ</div>'+
@@ -5300,7 +5310,7 @@ function renderMCRv(word,progress){
   var opts=mkOpts(word);
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="quiz-box">'+
+    '<div class="quiz-box" data-review-term="'+ea(word.term)+'">'+
       '<div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:8px">'+
         '<span class="tag tg">'+esc(word.topic||'')+'</span>'+
         '<span class="nova-srs-badge '+(novaSrsDue(word)?'due':'good')+'">'+novaSrsLabel(word)+'</span>'+
@@ -5350,7 +5360,7 @@ function renderFill(word,progress){
     :'Nhập từ hoặc cụm từ phù hợp.';
   document.getElementById('rv-area').innerHTML=
     progress+
-    '<div class="quiz-box">'+
+    '<div class="quiz-box" data-review-term="'+ea(word.term)+'">'+
       '<div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:8px">'+
         '<span class="tag tg">'+esc(word.topic||'')+'</span>'+
         '<span class="nova-srs-badge '+(novaSrsDue(word)?'due':'good')+'">'+novaSrsLabel(word)+'</span>'+

@@ -200,7 +200,7 @@
   if (client) client.auth.onAuthStateChange((event, session) => {
     window.SN.user = session && session.user;
     if (event === 'PASSWORD_RECOVERY') { setTimeout(() => { window.snOpenAuth(); enhanceModal(); notify('Hãy đặt mật khẩu mới để hoàn tất khôi phục.'); $('sn-profile-panel').hidden = false; $('sn-new-password').focus(); }, 0); }
-    if (session && session.user) ensureProfile(session.user).catch(() => { displayName = 'Tài khoản'; updateAccountUI(); });
+    if (session && session.user) ensureProfile(session.user, session.user.user_metadata && session.user.user_metadata.display_name).catch(() => { displayName = 'Tài khoản'; updateAccountUI(); });
     else { displayName = ''; updateAccountUI(); }
   });
 })();

@@ -12,8 +12,8 @@
     ["[onclick*=\"goTo('vocab')\"]",'Sổ từ vựng','Mở Sổ từ vựng để tìm, sửa và nghe lại từ đã lưu.'],
     ["[onclick*=\"goTo('add')\"]",'Thêm một từ thủ công','Điền từ, nghĩa, topic, ví dụ và collocations rồi lưu.'],
     ['#bulk-in','Nhập nhanh','Mỗi dòng dùng format:\nterm | meaning | topic | type | level | example | collocations | Writing example | Speaking example'],
-    ['#bulk-preview','Preview trước khi nhập','Luôn xem Preview để phát hiện dòng thiếu hoặc sai cột trước khi nhập.'],
-    ['[onclick="snOpenAiPanel()"]','AI Coach và ảnh từ vựng','AI Coach có thể tạo đúng format Nhập nhanh. Web không tự OCR hay tải ảnh đi nơi khác. Hãy che tên, mặt, điểm số, mã học sinh và dữ liệu riêng tư trước khi gửi ảnh cho ChatGPT.'],
+    ['[onclick*="bulkImport()"]','Nhập danh sách','Luôn xem Preview để phát hiện dòng thiếu hoặc sai cột trước khi nhập.'],
+    ['[onclick*="snOpenAiPanel()"]','AI Coach và ảnh từ vựng','AI Coach có thể tạo đúng format Nhập nhanh. Web không tự OCR hay tải ảnh đi nơi khác. Hãy che tên, mặt, điểm số, mã học sinh và dữ liệu riêng tư trước khi gửi ảnh cho ChatGPT.'],
     ['#page-vocab','10 từ demo an toàn','Tour chuẩn bị 10 từ demo trong vùng tạm riêng. Chúng không vào cloud, streak, thống kê, kiểm tra hay Mistake Bank. Hãy thử nút phát âm từ và câu ví dụ khi xem từ.'],
     ["[onclick*=\"goTo('review')\"]",'Luyện tập → Ôn tập','Bạn có thể thử một câu ở từng dạng hiện có: flashcard, trắc nghiệm và điền từ. Demo sẽ được dọn khi tour kết thúc.'],
     ["[onclick*=\"goTo('test')\"]",'Kiểm tra','Phần Kiểm tra vẫn sẵn sàng, nhưng tour không bắt bạn làm bài.'],
@@ -22,8 +22,8 @@
   const writingSteps = [
     ["[onclick*=\"goTo('write')\"]",'Tạo bài viết mới','Mở trang viết để tạo bài mới. Tour không tự ghi hay đồng bộ bản nháp.'],
     ['#page-write','Thông tin bài viết','Chọn Task 1/Task 2, topic, band và trạng thái phù hợp.'],
-    ['#essay-text','Bản nháp tự lưu','Nội dung được autosave cục bộ. Khi rời trang, StudyNova flush phần draft đang chờ trước.'],
-    ["[onclick*=\"quickCorrection\"]",'Thêm lỗi nhanh','Chọn đoạn cần sửa rồi thêm lỗi nhanh vào hệ thống.'],
+    ['#e-text','Bản nháp tự lưu','Nội dung được autosave cục bộ. Khi rời trang, StudyNova flush phần draft đang chờ trước.'],
+    ["[onclick*=\"quickCheck()\"]",'Kiểm tra nhanh','Chạy kiểm tra nhanh cho bản nháp hiện tại trước khi lưu hoặc gửi chữa.'],
     ["[onclick*=\"goTo('corrections')\"]",'Mistake Bank','Ôn lại lỗi Writing đã lưu tại đây.'],
     ["[onclick*=\"snOpenAiPanel\"]",'AI Writing Coach','Tạo prompt chữa bài an toàn; tour không tự gửi bản nháp lên cloud.'],
     ['a[href="index.html"]','📚 NovaLab học tập','Dùng nút này hoặc Home để quay lại. Bản nháp local được flush trước khi chuyển trang.']
@@ -35,7 +35,7 @@
     ['#sn-profile-panel','Hồ sơ và đăng xuất','Bạn có thể sửa tên hiển thị, đổi mật khẩu và đăng xuất. Tên không dùng làm định danh tài khoản.']
   ];
 
-  function demos() { const session = `tour_${Date.now()}`; localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, ex:`This is an easy example with ${term}.`, isTourDemo:true, tourSessionId:session })))); }
+  function demos() { const session = `tour_${Date.now()}`; localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, topic:'Tour demo', type:'word', level:'beginner', status:'new', at:new Date().toISOString().slice(0,10), rv:0, ex:`This is an easy example with ${term}.`, coll:'', wex:`Learners can ${term} their academic goals.`, sex:`I use ${term} when discussing everyday topics.`, isTourDemo:true, tourSessionId:session })))); document.dispatchEvent(new CustomEvent('studynova-tour-demo-change')); }
   function clearStage() {
     if (activeTarget && targetClickHandler) activeTarget.removeEventListener('click', targetClickHandler, false);
     document.querySelectorAll('.sn-tour-target,.tour-active-target').forEach(x => x.classList.remove('sn-tour-target','tour-active-target'));
@@ -43,9 +43,17 @@
     activeTarget = null;
     targetClickHandler = null;
   }
-  function cleanup() { localStorage.removeItem(DEMO_KEY); clearStage(); }
+  function cleanup() { localStorage.removeItem(DEMO_KEY); document.dispatchEvent(new CustomEvent('studynova-tour-demo-change')); clearStage(); }
   function end(completed) { if (!active) return; if (completed) localStorage.setItem(KEYS[active.type], 'true'); cleanup(); active.layer.remove(); active = null; }
-  function targetFor(selector) { try { const all = [...document.querySelectorAll(selector)]; return all.find(x => x.offsetParent !== null) || all[0] || document.body; } catch (_) { return document.body; } }
+  function targetFor(selector) {
+    try {
+      const all = [...document.querySelectorAll(selector)];
+      return all.find(x => x.offsetParent !== null) || all[0] || null;
+    } catch (error) {
+      console.warn('StudyNova tour has an invalid selector', selector, error);
+      return null;
+    }
+  }
   function makeShade(layer, name, left, top, width, height) {
     if (width <= 0 || height <= 0) return;
     const shade = document.createElement('div');
@@ -90,7 +98,10 @@
   }
   function handleTourClick() {
     // Deliberately runs in the bubbling phase after the target's own click handler.
-    setTimeout(() => { if (active) render(); }, 0);
+    setTimeout(() => {
+      if (!active) return;
+      if (++active.index >= active.steps.length) end(true); else render();
+    }, 0);
   }
   function auditClickTarget(target, rect) {
     const stack = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -103,6 +114,11 @@
     if (!active) return;
     clearStage(); if (active.type === 'home') demos();
     const step = active.steps[active.index], target = targetFor(step[0]);
+    if (!target) {
+      console.warn('StudyNova tour skipped a missing target', step[0]);
+      if (++active.index >= active.steps.length) end(true); else render();
+      return;
+    }
     target.scrollIntoView({behavior:'smooth',block:'center'});
     requestAnimationFrame(() => {
       if (!active) return;
@@ -127,7 +143,7 @@
     document.body.append(layer); active={type,steps,index:0,layer};
     layer.querySelector('.sn-tour-close').onclick=()=>end(false); layer.querySelector('.sn-tour-skip').onclick=()=>{if(confirm('Bạn muốn bỏ qua hướng dẫn?'))end(true)}; layer.querySelector('.sn-tour-back').onclick=()=>{active.index--;render()}; layer.querySelector('.sn-tour-next').onclick=()=>{if(++active.index>=steps.length)end(true);else render()}; render();
   }
-  window.StudyNovaTour={start,cleanup};
+  window.StudyNovaTour={start,cleanup,steps:{home:homeSteps,writing:writingSteps,cloud:cloudSteps},demoWords:words.slice()};
   addEventListener('keydown',e=>{if(!active)return;if(e.key==='Escape')end(false);if(e.key==='ArrowRight')active.layer.querySelector('.sn-tour-next').click();if(e.key==='ArrowLeft'&&!active.layer.querySelector('.sn-tour-back').disabled)active.layer.querySelector('.sn-tour-back').click()});
   addEventListener('resize',()=>active&&render());
   document.addEventListener('DOMContentLoaded',()=>{

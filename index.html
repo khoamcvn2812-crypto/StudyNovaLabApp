@@ -1470,6 +1470,8 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 @media(max-width:760px){.topbar-right.sn-topbar-compact{display:flex!important;width:auto!important;grid-template-columns:none!important;align-items:center;justify-content:flex-end;gap:7px!important}.sn-top-auth{min-width:44px;padding:8px}.sn-top-auth-label{display:none}#page-home .sn-landing{gap:12px;margin-bottom:12px}#page-home .sn-home-density{gap:12px}#page-home .sn-today-v8{padding:15px}#page-home .sn-density-strip{grid-template-columns:1fr 1fr;gap:8px}#page-home .sn-density-card{min-height:78px;padding:11px}#page-home{overflow-x:clip}}
 @media(max-width:360px){#page-home .sn-density-strip{grid-template-columns:1fr}#page-home .sn-today-v8-stats{grid-template-columns:repeat(3,minmax(0,1fr))}#page-home .sn-today-v8-stat{padding:7px 5px}#page-home .sn-today-v8-stat small{font-size:8.5px}}
 </style>
+<link rel="stylesheet" href="./studynova-auth.css">
+<link rel="stylesheet" href="./onboarding-tour.css">
 </head>
 <body>
 
@@ -3643,6 +3645,8 @@ setTimeout(snHideSplash,1200);
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="./studynova-supabase.js"></script>
+<script defer src="./studynova-auth.js"></script>
+<script defer src="./onboarding-tour.js"></script>
 <script>
 function snOpenAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.add('open');}
 function snCloseAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.remove('open');}

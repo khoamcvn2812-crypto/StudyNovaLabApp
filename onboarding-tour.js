@@ -4,6 +4,8 @@
   const DEMO_KEY = 'studynova_tour_demo_v1';
   const words = ['achieve','benefit','challenge','education','environment','healthy','important','improve','reduce','support'];
   let active = null;
+  let activeTarget = null;
+  let targetClickHandler = null;
 
   const homeSteps = [
     ['#page-home .sn-hero','Chào mừng đến StudyNova Lab','Đây là trung tâm học IELTS của bạn. Dữ liệu học vẫn được lưu an toàn trên thiết bị.'],
@@ -34,27 +36,94 @@
   ];
 
   function demos() { const session = `tour_${Date.now()}`; localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, ex:`This is an easy example with ${term}.`, isTourDemo:true, tourSessionId:session })))); }
-  function cleanup() { localStorage.removeItem(DEMO_KEY); document.querySelectorAll('.sn-tour-target').forEach(x => x.classList.remove('sn-tour-target')); }
+  function clearStage() {
+    if (activeTarget && targetClickHandler) activeTarget.removeEventListener('click', targetClickHandler, false);
+    document.querySelectorAll('.sn-tour-target,.tour-active-target').forEach(x => x.classList.remove('sn-tour-target','tour-active-target'));
+    if (active && active.layer) active.layer.querySelectorAll('.sn-tour-shade,.sn-tour-focus,.tour-highlight,.tour-spotlight,.tour-spotlight-ring').forEach(x => x.remove());
+    activeTarget = null;
+    targetClickHandler = null;
+  }
+  function cleanup() { localStorage.removeItem(DEMO_KEY); clearStage(); }
   function end(completed) { if (!active) return; if (completed) localStorage.setItem(KEYS[active.type], 'true'); cleanup(); active.layer.remove(); active = null; }
   function targetFor(selector) { try { const all = [...document.querySelectorAll(selector)]; return all.find(x => x.offsetParent !== null) || all[0] || document.body; } catch (_) { return document.body; } }
+  function makeShade(layer, name, left, top, width, height) {
+    if (width <= 0 || height <= 0) return;
+    const shade = document.createElement('div');
+    shade.className = `sn-tour-shade sn-tour-shade-${name}`;
+    Object.assign(shade.style, { left:`${left}px`, top:`${top}px`, width:`${width}px`, height:`${height}px` });
+    layer.insertBefore(shade, layer.querySelector('.sn-tour-card'));
+  }
+  function buildSpotlight(layer, rect) {
+    const gap = 10;
+    const hole = {
+      left: Math.max(0, rect.left - gap), top: Math.max(0, rect.top - gap),
+      right: Math.min(innerWidth, rect.right + gap), bottom: Math.min(innerHeight, rect.bottom + gap)
+    };
+    makeShade(layer, 'top', 0, 0, innerWidth, hole.top);
+    makeShade(layer, 'bottom', 0, hole.bottom, innerWidth, innerHeight - hole.bottom);
+    makeShade(layer, 'left', 0, hole.top, hole.left, hole.bottom - hole.top);
+    makeShade(layer, 'right', hole.right, hole.top, innerWidth - hole.right, hole.bottom - hole.top);
+    const focus = document.createElement('div');
+    focus.className = 'sn-tour-focus tour-highlight tour-spotlight-ring';
+    Object.assign(focus.style, { left:`${hole.left}px`, top:`${hole.top}px`, width:`${hole.right-hole.left}px`, height:`${hole.bottom-hole.top}px` });
+    layer.insertBefore(focus, layer.querySelector('.sn-tour-card'));
+    return hole;
+  }
+  function placeCard(card, hole) {
+    card.style.removeProperty('bottom'); card.style.removeProperty('right');
+    const margin = 12, width = card.offsetWidth, height = card.offsetHeight;
+    const candidates = [
+      { fits: hole.bottom + margin + height <= innerHeight, left: Math.min(innerWidth-width-margin, Math.max(margin,hole.left)), top: hole.bottom + margin },
+      { fits: hole.top - margin - height >= 0, left: Math.min(innerWidth-width-margin, Math.max(margin,hole.left)), top: hole.top - margin - height },
+      { fits: hole.right + margin + width <= innerWidth, left: hole.right + margin, top: Math.min(innerHeight-height-margin, Math.max(margin,hole.top)) },
+      { fits: hole.left - margin - width >= 0, left: hole.left - margin - width, top: Math.min(innerHeight-height-margin, Math.max(margin,hole.top)) }
+    ];
+    const choice = candidates.find(item => item.fits);
+    if (choice) Object.assign(card.style, { left:`${choice.left}px`, top:`${choice.top}px` });
+    else {
+      const bottomSpace = innerHeight - hole.bottom, topSpace = hole.top;
+      const useBottom = bottomSpace >= topSpace;
+      card.style.left = `${Math.max(margin,(innerWidth-width)/2)}px`;
+      card.style.top = useBottom ? `${hole.bottom+margin}px` : `${margin}px`;
+      card.style.maxHeight = `${Math.max(80,(useBottom?bottomSpace:topSpace)-margin*2)}px`;
+    }
+  }
+  function handleTourClick() {
+    // Deliberately runs in the bubbling phase after the target's own click handler.
+    setTimeout(() => { if (active) render(); }, 0);
+  }
+  function auditClickTarget(target, rect) {
+    const stack = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    const receiver = stack[0];
+    const valid = receiver === target || target.contains(receiver);
+    if (!valid) console.warn('StudyNova tour target is obstructed', { target, receiver });
+    return valid;
+  }
   function render() {
     if (!active) return;
-    cleanup(); if (active.type === 'home') demos();
+    clearStage(); if (active.type === 'home') demos();
     const step = active.steps[active.index], target = targetFor(step[0]);
-    target.scrollIntoView({behavior:'smooth',block:'center'}); target.classList.add('sn-tour-target');
+    target.scrollIntoView({behavior:'smooth',block:'center'});
     requestAnimationFrame(() => {
-      if (!active) return; const rect = target.getBoundingClientRect(), focus = active.layer.querySelector('.sn-tour-focus'), card = active.layer.querySelector('.sn-tour-card');
-      Object.assign(focus.style,{left:`${Math.max(4,rect.left-5)}px`,top:`${Math.max(4,rect.top-5)}px`,width:`${Math.max(30,Math.min(innerWidth-8,rect.width+10))}px`,height:`${Math.max(30,Math.min(innerHeight-8,rect.height+10))}px`});
+      if (!active) return;
+      const rect = target.getBoundingClientRect(), card = active.layer.querySelector('.sn-tour-card');
+      target.classList.add('sn-tour-target','tour-active-target'); activeTarget = target;
+      if (target.matches(':disabled,[aria-disabled="true"]')) console.warn('StudyNova tour target is disabled', target);
+      if (getComputedStyle(target).pointerEvents === 'none') console.warn('StudyNova tour target cannot receive pointer events', target);
+      const hole = buildSpotlight(active.layer, rect);
       card.querySelector('h2').textContent=step[1]; card.querySelector('p').textContent=step[2]; card.querySelector('.sn-tour-progress').textContent=`${active.index+1}/${active.steps.length}`;
       card.querySelector('.sn-tour-back').disabled=active.index===0; card.querySelector('.sn-tour-next').textContent=active.index===active.steps.length-1?'Hoàn thành':'Tiếp tục';
-      const below=rect.bottom+12, top=below+card.offsetHeight<innerHeight?below:Math.max(12,rect.top-card.offsetHeight-12); card.style.top=`${top}px`; card.style.left=`${Math.min(innerWidth-card.offsetWidth-12,Math.max(12,rect.left))}px`;
-      card.focus();
+      placeCard(card, hole);
+      targetClickHandler = handleTourClick;
+      target.addEventListener('click', targetClickHandler, { once:true, capture:false });
+      requestAnimationFrame(() => auditClickTarget(target, target.getBoundingClientRect()));
+      card.focus({ preventScroll:true });
     });
   }
   function start(type, manual) {
     if (active || (!manual && localStorage.getItem(KEYS[type]) === 'true')) return;
     const steps=type==='writing'?writingSteps:type==='cloud'?cloudSteps:homeSteps;
-    const layer=document.createElement('div'); layer.className='sn-tour-layer'; layer.innerHTML='<div class="sn-tour-shade"></div><div class="sn-tour-focus"></div><section class="sn-tour-card" role="dialog" aria-modal="true" tabindex="-1"><button class="sn-tour-close" aria-label="Đóng">✕</button><h2></h2><p></p><div class="sn-tour-actions"><span class="sn-tour-progress"></span><button class="sn-tour-skip">Bỏ qua</button><button class="sn-tour-back">Quay lại</button><button class="sn-tour-next">Tiếp tục</button></div></section>';
+    const layer=document.createElement('div'); layer.className='sn-tour-layer'; layer.innerHTML='<section class="sn-tour-card" role="dialog" aria-modal="true" tabindex="-1"><button class="sn-tour-close" aria-label="Đóng">✕</button><h2></h2><p></p><div class="sn-tour-actions"><span class="sn-tour-progress"></span><button class="sn-tour-skip">Bỏ qua</button><button class="sn-tour-back">Quay lại</button><button class="sn-tour-next">Tiếp tục</button></div></section>';
     document.body.append(layer); active={type,steps,index:0,layer};
     layer.querySelector('.sn-tour-close').onclick=()=>end(false); layer.querySelector('.sn-tour-skip').onclick=()=>{if(confirm('Bạn muốn bỏ qua hướng dẫn?'))end(true)}; layer.querySelector('.sn-tour-back').onclick=()=>{active.index--;render()}; layer.querySelector('.sn-tour-next').onclick=()=>{if(++active.index>=steps.length)end(true);else render()}; render();
   }

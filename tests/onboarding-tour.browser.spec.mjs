@@ -27,9 +27,20 @@ test('every guided-tour selector resolves on its owning page', async ({ page }) 
 test('ten isolated demo words render in Vocabulary and all Review modes', async ({ page }) => {
   await prepare(page, '/index.html');
   await page.evaluate(() => StudyNovaTour.start('home', true));
-  await page.evaluate(() => {
-    for (let step = 0; step < 6; step++) document.querySelector('.sn-tour-next').click();
-  });
+  // Follow the real UI: Continue once, then use each visible highlighted control.
+  await page.locator('.sn-tour-next').click();
+  await page.locator('.sn-tour-target').click(); // Vocabulary
+  await page.locator('.sn-tour-target').click(); // Add
+  await page.locator('.sn-tour-next').click();   // Bulk input
+  await page.locator('.sn-tour-next').click();   // Bulk import
+  await page.locator('.sn-tour-target').click(); // AI Coach
+
+  await expect(page.locator('#page-vocab')).toHaveClass(/active/);
+  await expect(page.locator('#page-vocab')).toBeVisible();
+  await expect(page.locator('#word-list')).toHaveClass(/sn-tour-target/);
+  await expect(page.locator('#word-list .tour-demo-word:visible')).toHaveCount(10);
+  await expect(page.locator('#word-list .tour-demo-label:visible')).toHaveCount(10);
+  await expect(page.locator('#sn-ai-modal')).not.toHaveClass(/open/);
   await expect.poll(() => page.evaluate(() => S.words.filter(word => word.isTourDemo).map(word => word.term).sort())).toEqual([...demoWords].sort());
   expect(await page.evaluate(() => {
     const demos = S.words.filter(word => word.isTourDemo);

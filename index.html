@@ -5457,9 +5457,10 @@ function renderVocab(){
   }
   list.innerHTML=words.map(function(word){
     var due=novaSrsDue(word);
-    return '<div class="word-item"><div style="flex:1">'+
+    return '<div class="word-item'+(word.isTourDemo?' tour-demo-word':'')+'"'+(word.isTourDemo?' data-tour-demo="true"':'')+'><div style="flex:1">'+
       '<div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:5px">'+
         '<span class="word-term">'+esc(word.term)+'</span>'+
+        (word.isTourDemo?'<span class="tag tour-demo-label">Từ hướng dẫn — sẽ tự xóa</span>':'')+
         (word.phon?'<span style="font-size:12px;color:var(--t4)">'+esc(word.phon)+'</span>':'')+
         '<span class="tag tg">'+esc(word.topic||'Chung')+'</span>'+
         '<span class="tag tt">'+esc(tL(word.type))+'</span>'+

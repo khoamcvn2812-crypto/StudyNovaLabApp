@@ -13,7 +13,7 @@ ok(tour.includes('document.elementsFromPoint')&&tour.includes("{ once:true, capt
 ok(!tour.includes('preventDefault')&&!tour.includes('stopPropagation'),'Tour must not block target click events');
 ok(tourCss.includes('.tour-active-target')&&tourCss.includes('pointer-events: auto !important'),'Active target pointer rule missing');
 ok(tourCss.includes('.tour-spotlight-ring')&&tourCss.includes('pointer-events: none !important'),'Spotlight pointer rule missing');
-ok(sw.includes('novalab-pwa-v12')&&sw.includes('onboarding-tour.js')&&sw.includes('studynova-auth.js'),'PWA cache missing new assets');
+ok(sw.includes('novalab-pwa-v13')&&sw.includes('novalab-runtime-v13')&&sw.includes('onboarding-tour.js')&&sw.includes('studynova-auth.js'),'PWA cache missing new assets');
 ok(sql.includes('user_id uuid primary key')&&!/unique\s*\(\s*display_name/i.test(sql),'Profile identity/duplicate-name rule invalid');
 ok((sql.match(/auth\.uid\(\)/g)||[]).length>=4,'RLS ownership checks missing');
 console.log('Upgrade regression checks passed.');

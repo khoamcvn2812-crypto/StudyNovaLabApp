@@ -14,7 +14,7 @@
     ['#bulk-in','Nhập nhanh','Mỗi dòng dùng format:\nterm | meaning | topic | type | level | example | collocations | Writing example | Speaking example'],
     ['[onclick*="bulkImport()"]','Nhập danh sách','Luôn xem Preview để phát hiện dòng thiếu hoặc sai cột trước khi nhập.'],
     ['[onclick*="snOpenAiPanel()"]','AI Coach và ảnh từ vựng','AI Coach có thể tạo đúng format Nhập nhanh. Web không tự OCR hay tải ảnh đi nơi khác. Hãy che tên, mặt, điểm số, mã học sinh và dữ liệu riêng tư trước khi gửi ảnh cho ChatGPT.'],
-    ['#page-vocab','10 từ demo an toàn','Tour chuẩn bị 10 từ demo trong vùng tạm riêng. Chúng không vào cloud, streak, thống kê, kiểm tra hay Mistake Bank. Hãy thử nút phát âm từ và câu ví dụ khi xem từ.'],
+    ['#word-list','10 từ demo an toàn','Tour chuẩn bị 10 từ demo trong vùng tạm riêng. Chúng không vào cloud, streak, thống kê, kiểm tra hay Mistake Bank. Hãy thử nút phát âm từ và câu ví dụ khi xem từ.'],
     ["[onclick*=\"goTo('review')\"]",'Luyện tập → Ôn tập','Bạn có thể thử một câu ở từng dạng hiện có: flashcard, trắc nghiệm và điền từ. Demo sẽ được dọn khi tour kết thúc.'],
     ["[onclick*=\"goTo('test')\"]",'Kiểm tra','Phần Kiểm tra vẫn sẵn sàng, nhưng tour không bắt bạn làm bài.'],
     ['a[href="studynova_writing_vault.html"]','Writing Vault','Mở Writing Vault khi bạn muốn lưu bài, sửa lỗi và dùng AI Writing Coach.']
@@ -42,6 +42,27 @@
     localStorage.setItem(DEMO_KEY, JSON.stringify(words.map((term, i) => ({ id:`tour_demo_${session}_${i}`, term, def:`Nghĩa demo của ${term}`, topic:'Tour demo', type:'word', level:'beginner', status:'new', at:new Date().toISOString().slice(0,10), rv:0, ex:`This is an easy example with ${term}.`, coll:'', wex:`Learners can ${term} their academic goals.`, sex:`I use ${term} when discussing everyday topics.`, isTourDemo:true, tourSessionId:session }))));
     document.dispatchEvent(new CustomEvent('studynova-tour-demo-change'));
   }
+  function waitUntilVisible(selector, timeout = 2000) {
+    const started = performance.now();
+    return new Promise((resolve, reject) => {
+      function check() {
+        const element = targetFor(selector);
+        if (element) return resolve(element);
+        if (performance.now() - started >= timeout) return reject(new Error(`Timed out waiting for visible tour target: ${selector}`));
+        requestAnimationFrame(check);
+      }
+      check();
+    });
+  }
+  async function enterDemoStep() {
+    if (typeof window.snCloseAiPanel === 'function') window.snCloseAiPanel();
+    if (typeof window.goTo === 'function') window.goTo('vocab');
+    demos();
+    if (typeof window.syncTourDemoWords === 'function') window.syncTourDemoWords();
+    if (typeof window.renderVocab === 'function') window.renderVocab();
+    await waitUntilVisible('#page-vocab');
+    return waitUntilVisible('#word-list');
+  }
   function clearStage() {
     if (activeTarget && targetClickHandler) activeTarget.removeEventListener('click', targetClickHandler, false);
     document.querySelectorAll('.sn-tour-target,.tour-active-target').forEach(x => x.classList.remove('sn-tour-target','tour-active-target'));
@@ -54,7 +75,7 @@
   function targetFor(selector) {
     try {
       const all = [...document.querySelectorAll(selector)];
-      return all.find(x => x.offsetParent !== null) || all[0] || null;
+      return all.find(x => x.offsetParent !== null && x.getClientRects().length > 0) || null;
     } catch (error) {
       console.warn('StudyNova tour has an invalid selector', selector, error);
       return null;
@@ -116,11 +137,15 @@
     if (!valid) console.warn('StudyNova tour target is obstructed', { target, receiver });
     return valid;
   }
-  function render() {
+  async function render() {
     if (!active) return;
     clearStage();
-    // Demo vocabulary starts at the dedicated demo step, not merely when the tour opens.
-    if (active.type === 'home' && active.index >= 6) demos();
+    // Enter Vocabulary before resolving the demo target; a hidden page is never spotlighted.
+    if (active.type === 'home' && active.index === 6) {
+      try { await enterDemoStep(); }
+      catch (error) { console.warn('StudyNova tour could not prepare the demo vocabulary step', error); }
+      if (!active || active.index !== 6) return;
+    }
     const step = active.steps[active.index], target = targetFor(step[0]);
     if (!target) {
       console.warn('StudyNova tour skipped a missing target', step[0]);

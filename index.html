@@ -489,7 +489,7 @@ body:not(.light) .fb{
 .sn-ai-btn{color:#c084fc!important;border-color:rgba(167,139,250,.30)!important;background:linear-gradient(135deg,rgba(167,139,250,.16),rgba(96,165,250,.08))!important}
 .sn-modal{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.50);backdrop-filter:blur(5px);padding:16px}
 .sn-modal.open{display:flex}
-.sn-modal-box{width:min(780px,100%);max-height:90vh;overflow:auto;background:var(--bg1);border:1px solid var(--glass-bd);border-radius:28px;box-shadow:0 30px 90px rgba(0,0,0,.45)}
+.sn-modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--bg1);border:1px solid var(--glass-bd);border-radius:28px;box-shadow:0 30px 90px rgba(0,0,0,.45)}
 .sn-modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:1px solid var(--glass-bd);background:linear-gradient(135deg,rgba(16,212,160,.12),rgba(167,139,250,.08));position:sticky;top:0;z-index:2}
 .sn-modal-title{font-weight:950;color:var(--t1)}
 .sn-modal-body{padding:18px}
@@ -503,6 +503,7 @@ body:not(.light) .fb{
 .sn-ai-pane{display:none}.sn-ai-pane.active{display:block}
 .sn-ai-output{min-height:160px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.6}
 .sn-small{font-size:12px;color:var(--t4);line-height:1.6}
+.sn-auth-intro{color:var(--t3);font-size:13px;line-height:1.6;margin:0 0 14px}.sn-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--bg3);border-radius:14px;padding:5px;margin-bottom:16px}.sn-auth-tab{min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--t3);font-weight:850;cursor:pointer}.sn-auth-tab.active{background:linear-gradient(135deg,rgba(16,212,160,.22),rgba(96,165,250,.18));color:var(--t1);box-shadow:0 3px 12px rgba(0,0,0,.14)}.sn-auth-pane{display:none}.sn-auth-pane.active{display:block}.sn-field{margin-bottom:12px}.sn-field label{display:block;margin-bottom:6px;font-size:12px;font-weight:800;color:var(--t2)}.sn-field input{width:100%;min-height:44px}.sn-password-wrap{position:relative}.sn-password-wrap input{padding-right:48px}.sn-password-toggle{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;background:transparent;color:var(--t2);cursor:pointer;border-radius:9px}.sn-password-toggle:focus-visible,.sn-auth-tab:focus-visible{outline:3px solid rgba(96,165,250,.55);outline-offset:2px}.sn-link{border:0;background:none;color:#60a5fa;padding:4px 0;cursor:pointer;font-weight:750}.sn-forgot-row{text-align:right;margin-top:-6px;margin-bottom:10px}.sn-auth-actions{display:grid;gap:9px}.sn-auth-actions .btn{width:100%;min-height:44px;justify-content:center}.sn-divider{display:flex;align-items:center;gap:10px;color:var(--t4);font-size:12px;margin:14px 0}.sn-divider:before,.sn-divider:after{content:"";height:1px;background:var(--bd);flex:1}.sn-message{display:none;border-radius:11px;padding:10px 12px;font-size:12px;line-height:1.5;margin:10px 0}.sn-message.show{display:block}.sn-message.error{color:#fca5a5;background:rgba(248,113,113,.10);border:1px solid rgba(248,113,113,.25)}.sn-message.success{color:#6ee7b7;background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.25)}.sn-password-rules{display:grid;gap:3px;font-size:11.5px;color:var(--t4);margin-top:7px}.sn-password-rules span.met{color:#34d399}.sn-account-hero{display:flex;align-items:center;gap:12px;margin-bottom:14px}.sn-account-avatar{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:rgba(16,212,160,.14);font-size:24px}.sn-account-hero h3{margin:0;color:var(--t1)}.sn-account-hero p{margin:3px 0 0;color:var(--t3);font-size:12px}.sn-account-settings{border:1px solid var(--bd);border-radius:16px;margin-top:14px;overflow:hidden}.sn-account-settings summary{cursor:pointer;padding:14px;font-weight:850;color:var(--t2)}.sn-settings-body{padding:0 14px 14px}.sn-recovery-head h3{margin:0 0 6px}.sn-recovery-head p{color:var(--t3);font-size:13px;line-height:1.55;margin:0 0 15px}
 .sn-unified-nav-note{font-size:11.5px;color:var(--t4);margin-top:8px}
 @media(max-width:760px){
   #app{padding:14px 10px 90px!important}
@@ -520,6 +521,7 @@ body:not(.light) .fb{
 
 @media(max-width:520px){
   .topbar .sn-logo-svg{width:42px;height:42px;border-radius:14px}
+  .sn-modal{padding:10px}.sn-modal-box{max-height:calc(100vh - 20px);border-radius:20px}.sn-modal-body{padding:14px}.nova-cloud-actions{display:grid;grid-template-columns:1fr}.nova-cloud-actions .btn{width:100%;white-space:normal;min-height:44px}
 }
 
 /* ================= END STUDYNOVA PRODUCT UPGRADE ================= */
@@ -3533,12 +3535,36 @@ renderBackupBanner();
       <div class="sn-modal-title">👤 Tài khoản StudyNova</div>
       <button class="sn-close" onclick="snCloseAuth()">✕</button>
     </div>
-    <div class="sn-modal-body">
+    <div class="sn-modal-body" id="sn-auth-body">
       <div class="sn-cloud-warning" id="sn-cloud-warning">
         Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị này.
       </div>
-      <div class="sn-auth-status" id="sn-auth-status">Chưa đăng nhập.</div>
-
+      <section id="sn-signed-out-view">
+        <p class="sn-auth-intro">Đăng nhập để sao lưu và đồng bộ dữ liệu giữa các thiết bị.</p>
+        <div class="sn-auth-tabs" role="tablist" aria-label="Tài khoản">
+          <button id="sn-login-tab" class="sn-auth-tab active" role="tab" aria-selected="true" onclick="snSwitchAuthTab('login')">Đăng nhập</button>
+          <button id="sn-register-tab" class="sn-auth-tab" role="tab" aria-selected="false" onclick="snSwitchAuthTab('register')">Tạo tài khoản</button>
+        </div>
+        <div id="sn-auth-message" class="sn-message" role="status" aria-live="polite"></div>
+        <form id="sn-login-pane" class="sn-auth-pane active" onsubmit="snLoginEmail(event)">
+          <div class="sn-field"><label for="sn-login-email">Email</label><input id="sn-login-email" type="email" autocomplete="email" required></div>
+          <div class="sn-field"><label for="sn-login-pass">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-login-pass" type="password" autocomplete="current-password" required><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div>
+          <div class="sn-forgot-row"><button type="button" class="sn-link" onclick="snShowRecovery()">Quên mật khẩu?</button></div>
+          <div class="sn-auth-actions"><button id="sn-login-submit" class="btn btn-blue" type="submit">Đăng nhập</button></div>
+          <div class="sn-divider">hoặc</div><div class="sn-auth-actions"><button class="btn btn-purple" type="button" onclick="snLoginFacebook()">Tiếp tục với Facebook</button><button class="btn btn-default" type="button" onclick="snLocalDemoLogin()">Tiếp tục dùng local</button></div>
+        </form>
+        <form id="sn-register-pane" class="sn-auth-pane" onsubmit="snRegisterEmail(event)">
+          <div class="sn-field"><label for="sn-register-name">Tên hiển thị</label><input id="sn-register-name" maxlength="30" autocomplete="name" required></div>
+          <div class="sn-field"><label for="sn-register-email">Email</label><input id="sn-register-email" type="email" autocomplete="email" required></div>
+          <div class="sn-field"><label for="sn-register-pass">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-pass" type="password" autocomplete="new-password" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length">✓ Đủ 8 ký tự</span><span data-rule="upper">✓ Có chữ viết hoa</span><span data-rule="number">✓ Có số</span></div></div>
+          <div class="sn-field"><label for="sn-register-confirm">Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-confirm" type="password" autocomplete="new-password" required><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div>
+          <div class="sn-auth-actions"><button id="sn-register-submit" class="btn btn-green" type="submit">Tạo tài khoản</button></div><div class="sn-divider">hoặc</div><div class="sn-auth-actions"><button class="btn btn-purple" type="button" onclick="snLoginFacebook()">Đăng ký với Facebook</button></div><div style="text-align:center;margin-top:12px">Đã có tài khoản? <button type="button" class="sn-link" onclick="snSwitchAuthTab('login')">Đăng nhập</button></div>
+        </form>
+        <form id="sn-recovery-pane" class="sn-auth-pane" onsubmit="snResetPassword(event)"><div class="sn-recovery-head"><h3>Khôi phục mật khẩu</h3><p>Nhập email tài khoản. StudyNova sẽ gửi cho bạn liên kết đặt lại mật khẩu.</p></div><div class="sn-field"><label for="sn-recovery-email">Email</label><input id="sn-recovery-email" type="email" autocomplete="email" required></div><div class="sn-auth-actions"><button id="sn-recovery-submit" class="btn btn-blue" type="submit">Gửi liên kết đặt lại</button></div><p class="sn-small">Hãy kiểm tra cả thư mục Spam/Thư rác.</p><button type="button" class="sn-link" onclick="snSwitchAuthTab('login')">← Quay lại đăng nhập</button></form>
+        <form id="sn-new-password-pane" class="sn-auth-pane" onsubmit="snUpdatePassword(event, true)"><div class="sn-recovery-head"><h3>Đặt mật khẩu mới</h3></div><div class="sn-field"><label>Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-recovery-new-pass" type="password" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length">✓ Đủ 8 ký tự</span><span data-rule="upper">✓ Có chữ viết hoa</span><span data-rule="number">✓ Có số</span></div></div><div class="sn-field"><label>Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-recovery-confirm" type="password" required><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div><button class="btn btn-green" type="submit">Đổi mật khẩu</button></form>
+      </section>
+      <section id="sn-signed-in-view" hidden>
+        <div class="sn-account-hero"><div class="sn-account-avatar">👤</div><div><h3>Xin chào, <span id="sn-display-name"></span></h3><p>Dữ liệu của bạn có thể được sao lưu và đồng bộ an toàn.</p></div></div>
       <div class="nova-cloud-panel" id="nova-cloud-panel">
         <div class="nova-cloud-grid">
           <div class="nova-cloud-stat"><b>Dữ liệu máy</b><span id="nova-local-summary">Đang đọc...</span></div>
@@ -3555,30 +3581,9 @@ renderBackupBanner();
         </div>
         <div class="nova-cloud-note">Trước khi tải hoặc gộp, web tự tạo một bản backup cục bộ để tránh mất dữ liệu.</div>
       </div>
-
-      <div class="sn-auth-grid">
-        <div>
-          <label>Email</label>
-          <input id="sn-auth-email" type="email" placeholder="you@example.com">
-        </div>
-        <div>
-          <label>Mật khẩu</label>
-          <input id="sn-auth-pass" type="password" placeholder="Tối thiểu 6 ký tự">
-        </div>
-      </div>
-      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:12px">
-        <button class="btn btn-green" onclick="snRegisterEmail()">Tạo tài khoản</button>
-        <button class="btn btn-blue" onclick="snLoginEmail()">Đăng nhập email</button>
-        <button class="btn btn-purple" onclick="snLoginFacebook()">Tiếp tục với Facebook</button>
-        <button class="btn btn-default" onclick="snLocalDemoLogin()">Dùng local</button>
-        <button class="btn btn-red" onclick="snLogout()">Đăng xuất</button>
-      </div>
-      <hr style="border:0;border-top:1px solid var(--bd);margin:16px 0">
-      <div style="display:flex;gap:9px;flex-wrap:wrap">
-        <button class="btn btn-green" onclick="snSaveCloud(false)">☁️ Đồng bộ lên cloud</button>
-        <button class="btn btn-blue" onclick="snLoadCloud()">⬇ Tải dữ liệu cloud</button>
-      </div>
-      <div class="sn-small" style="margin-top:10px">Đăng nhập để đồng bộ dữ liệu giữa các thiết bị.</div>
+      <button class="btn btn-green" style="width:100%;min-height:44px" onclick="snSaveCloud(false)">Sao lưu và đồng bộ</button>
+      <details class="sn-account-settings"><summary>Cài đặt tài khoản</summary><div class="sn-settings-body"><div class="sn-field"><label for="sn-profile-name">Tên hiển thị</label><input id="sn-profile-name" maxlength="30"></div><button class="btn btn-blue" onclick="snSaveDisplayName()">Lưu tên hiển thị</button><div id="sn-password-settings"><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><div class="sn-field"><label>Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-pass" type="password" oninput="snUpdatePasswordRules(this)"><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length">✓ Đủ 8 ký tự</span><span data-rule="upper">✓ Có chữ viết hoa</span><span data-rule="number">✓ Có số</span></div></div><div class="sn-field"><label>Nhập lại mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-confirm" type="password"><button type="button" class="sn-password-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div><button class="btn btn-blue" onclick="snUpdatePassword(event, false)">Đổi mật khẩu</button></div><p id="sn-facebook-password-note" class="sn-small" hidden>Bạn đang đăng nhập bằng Facebook. Hãy quản lý phương thức đăng nhập qua Facebook hoặc sử dụng khôi phục email nếu tài khoản có email.</p><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><button class="btn btn-red" onclick="snLogout()">Đăng xuất</button></div></details>
+      </section>
     </div>
   </div>
 </div>

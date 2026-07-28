@@ -22,6 +22,9 @@ check(js.includes("pass!==confirmPass"), 'Password confirmation validation is mi
 check(js.includes("out.hidden=showAccount") && js.includes("inside.hidden=!showAccount"), 'Authentication state must exclusively select one view.');
 check(js.includes("m.display_name||m.full_name||m.name"), 'Display name must be preferred over email.');
 check(js.includes("user.user_metadata") && js.includes("from('profiles')"), 'Profile metadata persistence is missing.');
+check(js.includes("options:{data:{display_name:name}}"), 'Signup does not send the display name in Auth metadata.');
+check(js.includes("querySelectorAll('#sn-auth-label,.sn-top-auth-label')"), 'Shared display-name rendering is missing for Home or Writing Vault.');
+check(js.includes("onConflict:'user_id'"), 'Profiles are not associated by the authenticated user id.');
 for (const handler of ['snInspectCloud','snSaveCloud','snLoadCloudSafe','snRestoreSafetyBackup']) check(modal.includes(handler) && js.includes(handler), `${handler} must remain wired.`);
 check(html.includes('@media(max-width:520px)') && html.includes('.sn-modal{padding:10px}'), '360px modal overflow protection is missing.');
 

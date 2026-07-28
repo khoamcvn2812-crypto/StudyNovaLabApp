@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const js = fs.readFileSync(new URL('../studynova-supabase.js', import.meta.url), 'utf8');
+const js = fs.readFileSync(new URL('../studynova-auth.js', import.meta.url), 'utf8');
 const modal = html.slice(html.indexOf('id="sn-auth-modal"'), html.indexOf('id="sn-ai-modal"'));
 const literal = js.match(/var SN_AUTH_I18N=(\{[\s\S]*?\})\nfunction getCurrentStudyNovaLanguage/);
 if (!literal) throw new Error('SN_AUTH_I18N dictionary is missing.');

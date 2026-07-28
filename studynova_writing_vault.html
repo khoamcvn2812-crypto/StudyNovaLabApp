@@ -147,8 +147,8 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 .wv-topbar .sn-logo-text{font-size:18px;font-weight:950;letter-spacing:-.45px;color:var(--t1);-webkit-text-fill-color:initial;background:none}
 .wv-topbar .sn-logo-text b{color:#60a5fa}
 .wv-topbar-actions{display:flex;align-items:center;gap:9px}
-.wv-writing-pill,.wv-menu-trigger{height:42px;border-radius:15px;border:1px solid var(--glass-bd);background:var(--glass);color:var(--t1);font:inherit;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:7px;padding:0 13px;transition:.2s}
-.wv-writing-pill:hover,.wv-menu-trigger:hover{background:var(--bg3);transform:translateY(-1px)}
+.wv-writing-pill,.wv-account-trigger,.wv-menu-trigger{height:42px;border-radius:15px;border:1px solid var(--glass-bd);background:var(--glass);color:var(--t1);font:inherit;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:7px;padding:0 13px;transition:.2s}
+.wv-writing-pill:hover,.wv-account-trigger:hover,.wv-menu-trigger:hover{background:var(--bg3);transform:translateY(-1px)}
 .wv-writing-pill b{color:#34d399;font-size:16px}.wv-pill-label{color:var(--t3);font-size:11px}
 .wv-top-menu-overlay{position:fixed;inset:0;z-index:3500;display:none;background:rgba(0,0,0,.42);backdrop-filter:blur(4px);padding:74px 18px 18px;align-items:flex-start;justify-content:flex-end}.wv-top-menu-overlay.open{display:flex}
 .wv-top-menu{width:min(410px,100%);background:var(--bg1);border:1px solid var(--glass-bd);border-radius:24px;padding:15px;box-shadow:0 26px 80px rgba(0,0,0,.45)}
@@ -166,7 +166,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 .section,.stat,.sn-hero,.sn-module-card,.card{border-color:transparent!important;background:linear-gradient(var(--glass),var(--glass)) padding-box,linear-gradient(135deg,rgba(16,212,160,.20),rgba(167,139,250,.12),rgba(96,165,250,.18)) border-box!important}
 .section:hover,.stat:hover,.sn-module-card:hover{border-color:transparent!important}.sn-module-card,.stat,.card{transition:transform .22s,box-shadow .22s}.sn-module-card:hover,.stat:hover{transform:translateY(-2px);box-shadow:0 17px 42px rgba(0,0,0,.22)}
 @media(min-width:1500px){#essayList.list,#recentList.list,#correctionList.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
-@media(max-width:760px){body{padding-bottom:82px}.wv-topbar-actions{width:auto!important}.wv-menu-trigger span,.wv-pill-label{display:none}.wv-menu-trigger{width:42px;padding:0;justify-content:center;font-size:18px;border-radius:50%}.wv-writing-pill{padding:0 10px}.wv-primary-nav{position:fixed!important;left:8px;right:8px;bottom:8px;top:auto!important;margin:0!important;padding:7px!important;border-radius:22px!important;z-index:3000;grid-template-columns:repeat(5,1fr)}.wv-primary-nav .tab{min-width:0!important;padding:9px 3px!important;font-size:10.5px!important;display:flex;flex-direction:column;gap:2px}.wv-nav-pop{position:fixed;left:10px!important;right:10px!important;top:auto!important;bottom:78px;min-width:0;border-radius:22px;padding:10px}.wv-top-menu-overlay{padding:64px 10px 90px;align-items:flex-start}.wv-top-menu{width:100%;max-height:calc(100vh - 160px);overflow:auto}.wv-density-strip{grid-template-columns:1fr 1fr}.wv-density-card{min-height:82px;padding:12px}.wv-density-icon{width:40px;height:40px;font-size:19px}.wv-density-card b{font-size:19px}}
+@media(max-width:760px){body{padding-bottom:82px}.wv-topbar-actions{width:auto!important}.wv-menu-trigger span,.wv-account-trigger span:last-child,.wv-pill-label{display:none}.wv-account-trigger,.wv-menu-trigger{width:42px;padding:0;justify-content:center;font-size:18px;border-radius:50%}.wv-writing-pill{padding:0 10px}.wv-primary-nav{position:fixed!important;left:8px;right:8px;bottom:8px;top:auto!important;margin:0!important;padding:7px!important;border-radius:22px!important;z-index:3000;grid-template-columns:repeat(5,1fr)}.wv-primary-nav .tab{min-width:0!important;padding:9px 3px!important;font-size:10.5px!important;display:flex;flex-direction:column;gap:2px}.wv-nav-pop{position:fixed;left:10px!important;right:10px!important;top:auto!important;bottom:78px;min-width:0;border-radius:22px;padding:10px}.wv-top-menu-overlay{padding:64px 10px 90px;align-items:flex-start}.wv-top-menu{width:100%;max-height:calc(100vh - 160px);overflow:auto}.wv-density-strip{grid-template-columns:1fr 1fr}.wv-density-card{min-height:82px;padding:12px}.wv-density-icon{width:40px;height:40px;font-size:19px}.wv-density-card b{font-size:19px}}
 @media(max-width:430px){.wv-density-strip,.wv-quick-grid{grid-template-columns:1fr}.wv-quick-item.wide{grid-column:auto}.sn-logo-text{font-size:16px!important}}
 /* ================= END SYNCED INTERFACE ================= */
 
@@ -893,6 +893,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 }
 /* ================= END NOVALAB PWA INSTALL ================= */
 </style>
+<link rel="stylesheet" href="./studynova-auth.css">
 <link rel="stylesheet" href="./studynova-motion.css">
 </head>
 <body>
@@ -926,19 +927,19 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     </div>
     <div class="wv-topbar-actions">
       <button class="wv-writing-pill" onclick="goTo('library')" title="Mở kho bài"><span>✍️</span><b id="wv-top-essay-count">0</b><span class="wv-pill-label">bài</span></button>
+      <button class="wv-account-trigger" type="button" onclick="snOpenAuth()" aria-label="Đăng nhập / Sign in"><span aria-hidden="true">👤</span><span id="sn-auth-label">Đăng nhập</span></button>
       <button class="wv-menu-trigger" onclick="wvToggleTopMenu()" aria-label="Mở menu">☰ <span>Menu</span></button>
     </div>
   </div>
 
   <div class="wv-top-menu-overlay" id="wv-top-menu-overlay" onclick="if(event.target===this)wvToggleTopMenu(false)">
     <div class="wv-top-menu">
-      <div class="wv-top-menu-head"><div><b>NovaLab Writing</b><div class="mini">Công cụ và tài khoản</div></div><button class="x" onclick="wvToggleTopMenu(false)">✕</button></div>
+      <div class="wv-top-menu-head"><div><b>NovaLab Writing</b><div class="mini">Công cụ Writing</div></div><button class="x" onclick="wvToggleTopMenu(false)">✕</button></div>
       <div class="wv-quick-grid">
         <a class="wv-quick-item" href="index.html"><span>📚</span><div><b>NovaLab học tập</b><small>Vocabulary · Reading · Speaking</small></div></a>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);snOpenAiPanel()"><span>✨</span><div><b>AI Coach</b><small>Chữa và cải thiện bài</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenSearch()"><span>⌕</span><div><b data-nv8-vi="Tìm dữ liệu" data-nv8-en="Search data">Tìm dữ liệu</b><small data-nv8-vi="Từ vựng, bài viết và lỗi" data-nv8-en="Vocabulary, essays, and mistakes">Từ vựng, bài viết và lỗi</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenShortcuts()"><span>⌨</span><div><b data-nv8-vi="Phím tắt" data-nv8-en="Shortcuts">Phím tắt</b><small>Ctrl + Shift + 1…8</small></div></button>
-        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);snOpenAuth()"><span>👤</span><div><b id="sn-auth-label">Đăng nhập</b><small>Tài khoản và đồng bộ</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup()"><span>💾</span><div><b>Sao lưu</b><small>Copy, chia sẻ hoặc tải file</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup(true)"><span>📥</span><div><b>Khôi phục</b><small>Nhập file hoặc dán mã</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleLang()"><span>🌐</span><div><b><span data-wv-lang-label>Ngôn ngữ</span>: <span id="wv-lang-label">EN</span></b><small>Đổi toàn bộ giao diện Việt / Anh</small></div></button>
@@ -1936,7 +1937,7 @@ window.addEventListener('load',snHideSplash);
 setTimeout(snHideSplash,1200);
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="./studynova-supabase.js"></script>
+<script defer src="./studynova-auth.js"></script>
 <script defer src="./writing-drafts.js"></script>
 <script>
 function snOpenAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.add('open');}

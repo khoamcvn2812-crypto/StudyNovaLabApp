@@ -18,4 +18,8 @@ check(js.includes("input[type=\"password\"]") && js.includes("input.value=''"), 
 check(home.includes('studynova-motion.css') && home.includes('studynova-motion.js'), 'Home does not load motion assets.');
 check(writing.includes('studynova-motion.css') && writing.includes('studynova-motion.js'), 'Writing Vault does not load motion assets.');
 check(worker.includes('studynova-motion.css') && worker.includes('studynova-motion.js'), 'Motion assets are not in the PWA shell.');
+check(home.includes('class="unlock-card sn-test-ready-banner"'), 'Test-ready banner structure is missing.');
+check(home.includes("test_ready_title:'Đã đủ từ để làm bài kiểm tra!'") && home.includes("test_ready_title:'You have enough words for a test!'"), 'Test-ready translations are missing.');
+check(home.includes("onclick=\"goTo('test')\""), 'Test-ready action no longer opens the test page.');
+check(css.includes('@media(max-width:600px)') && css.includes('.sn-test-ready-button{grid-column:1/-1;width:100%}'), 'Test-ready mobile layout is missing.');
 console.log('Motion system regression checks passed.');

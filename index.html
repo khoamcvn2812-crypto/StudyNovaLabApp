@@ -1841,11 +1841,17 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
       <div class="section"><div class="sec-title" data-i18n="chart_topic_title">📁 Theo chủ đề</div><div id="chart-topic"></div></div>
       <div class="section"><div class="sec-title" data-i18n="chart_type_title">🏷 Theo loại từ</div><div id="chart-type"></div></div>
     </div>
-    <div class="unlock-card" id="unlock-card">
-      <div style="font-size:15px;font-weight:800;color:#c084fc;margin-bottom:6px" data-i18n="unlock_title">⭐ Đã đủ từ để làm bài kiểm tra!</div>
-      <div style="font-size:13px;color:var(--t3);margin-bottom:14px" data-i18n="unlock_desc">Bạn đã tích lũy đủ từ vựng. Hãy thử sức ngay!</div>
-      <button class="btn btn-purple" onclick="goTo('test')"><span data-i18n="unlock_btn">Làm bài kiểm tra →</span></button>
-    </div>
+    <section class="unlock-card sn-test-ready-banner" id="unlock-card" aria-labelledby="sn-test-ready-title">
+      <span class="sn-test-ready-icon" aria-hidden="true">⭐</span>
+      <div class="sn-test-ready-content">
+        <strong id="sn-test-ready-title" data-i18n="test_ready_title">Đã đủ từ để làm bài kiểm tra!</strong>
+        <span class="sn-test-ready-description" data-i18n="test_ready_description">Bạn đã tích lũy đủ từ vựng. Hãy thử sức ngay!</span>
+      </div>
+      <button type="button" class="sn-test-ready-button" onclick="goTo('test')">
+        <span data-i18n="test_ready_button">Làm bài kiểm tra</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </section>
   </div>
 
   <div id="page-add" class="page">
@@ -2248,7 +2254,7 @@ vi: {
   today_progress:'Tiến độ hôm nay:', today_done:'✅ Hoàn thành!',
   streak_history:'Lịch sử streak', streak_legend:'🟡 đạt &nbsp; 🟢 vượt mục tiêu',
   chart_topic_title:'📁 Theo chủ đề', chart_type_title:'🏷 Theo loại từ', chart_no_data:'Chưa có dữ liệu',
-  unlock_title:'⭐ Đã đủ từ để làm bài kiểm tra!', unlock_desc:'Bạn đã tích lũy đủ từ vựng. Hãy thử sức ngay!', unlock_btn:'Làm bài kiểm tra →',
+  test_ready_title:'Đã đủ từ để làm bài kiểm tra!', test_ready_description:'Bạn đã tích lũy đủ từ vựng. Hãy thử sức ngay!', test_ready_button:'Làm bài kiểm tra',
   add_title:'➕ Thêm từ vựng mới',
   label_term:'Từ / cụm từ *', label_phon:'Phiên âm', label_def:'Nghĩa *', label_topic:'Chủ đề', label_topic_new:'Hoặc tạo chủ đề mới',
   label_type:'Loại từ', label_level:'Mức độ', label_example:'Câu ví dụ', label_note:'Ghi chú / Mẹo nhớ',
@@ -2363,7 +2369,7 @@ en: {
   today_progress:"Today's progress:", today_done:'✅ Done!',
   streak_history:'Streak history', streak_legend:'🟡 goal met &nbsp; 🟢 exceeded',
   chart_topic_title:'📁 By Topic', chart_type_title:'🏷 By Word Type', chart_no_data:'No data yet',
-  unlock_title:'⭐ Enough words to take a test!', unlock_desc:"You've collected enough vocabulary. Give it a try!", unlock_btn:'Take the test →',
+  test_ready_title:'You have enough words for a test!', test_ready_description:'You have built enough vocabulary. Put your knowledge to the test!', test_ready_button:'Start test',
   add_title:'➕ Add New Word',
   label_term:'Word / Phrase *', label_phon:'Phonetic', label_def:'Meaning *', label_topic:'Topic', label_topic_new:'Or create a new topic',
   label_type:'Word Type', label_level:'Level', label_example:'Example Sentence', label_note:'Note / Memory Tip',
@@ -2597,7 +2603,7 @@ function renderDash(){
   document.getElementById('today-status').textContent=tc>=goal?t('today_done'):'';
   document.getElementById('today-status').style.color=tc>=goal?'#10d4a0':'#fbbf24';
   renderStreak();renderCharts();
-  document.getElementById('unlock-card').style.display=(total>=S.cfg.thresh)?'flex':'none';
+  document.getElementById('unlock-card').style.display=(total>=S.cfg.thresh)?'grid':'none';
 }
 
 function renderStreak(){
@@ -3836,7 +3842,7 @@ function renderDash(){
   if(fill){fill.style.width=pct+'%';fill.className='prog-fill'+(tc>=goal?' prog-done':'')}
   if(status){status.textContent=tc>=goal?t('today_done'):'';status.style.color=tc>=goal?'#10d4a0':'#fbbf24'}
   renderStreak();renderCharts();
-  var unlock=document.getElementById('unlock-card');if(unlock)unlock.style.display=(total>=S.cfg.thresh)?'flex':'none';
+  var unlock=document.getElementById('unlock-card');if(unlock)unlock.style.display=(total>=S.cfg.thresh)?'grid':'none';
 }
 function startReview(){
   var mode=document.getElementById('rv-mode').value,topic=document.getElementById('rv-topic').value;

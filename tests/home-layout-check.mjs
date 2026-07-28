@@ -20,7 +20,7 @@ check(!menu.includes('snOpenAuth()'), 'Sign-in must not remain inside the top me
 for (const handler of ["goTo('add')", "goTo('reading')", "goTo('speaking')", "goTo('review')", "goTo('test')", "goTo('vocab')"]) {
   check(html.includes(handler), `Required navigation handler is missing: ${handler}`);
 }
-check(worker.includes('novalab-pwa-v12') && worker.includes('novalab-runtime-v12'), 'Service-worker caches must be v12.');
+check(worker.includes('novalab-pwa-v13') && worker.includes('novalab-runtime-v13'), 'Service-worker caches must be v13.');
 check(worker.includes('studynova-motion.css') && worker.includes('studynova-motion.js'), 'Motion assets must be available offline.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 

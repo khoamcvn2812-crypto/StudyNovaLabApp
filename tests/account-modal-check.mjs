@@ -1,14 +1,15 @@
 import fs from 'node:fs';
 
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const js = fs.readFileSync(new URL('../studynova-supabase.js', import.meta.url), 'utf8');
+const js = fs.readFileSync(new URL('../studynova-auth.js', import.meta.url), 'utf8');
+const css = fs.readFileSync(new URL('../studynova-auth.css', import.meta.url), 'utf8');
 const modal = html.slice(html.indexOf('id="sn-auth-modal"'), html.indexOf('id="sn-ai-modal"'));
 const check = (condition, message) => { if (!condition) throw new Error(message); };
 
 check(modal.includes('id="sn-signed-out-view"') && modal.includes('id="sn-signed-in-view" hidden'), 'Signed-out and signed-in states must be separate.');
 check(modal.includes('id="sn-login-tab"') && modal.includes('id="sn-register-tab"'), 'Both authentication tabs are required.');
 check((modal.match(/class="sn-auth-tab(?: is-active)?"/g) || []).length === 2, 'Both tabs must use the same sn-auth-tab class.');
-check(html.includes('font-family:inherit!important') && html.includes('letter-spacing:0!important') && html.includes('text-transform:none!important'), 'Auth tabs must override inherited typography consistently.');
+check(css.includes('font-family:inherit!important') && css.includes('letter-spacing:0!important') && css.includes('text-transform:none!important'), 'Auth tabs must override inherited typography consistently.');
 check(js.includes("classList.toggle('is-active',login)") && js.includes("classList.toggle('is-active',!login)"), 'Tab switching must update is-active without changing labels.');
 const login = modal.slice(modal.indexOf('id="sn-login-pane"'), modal.indexOf('id="sn-register-pane"'));
 const register = modal.slice(modal.indexOf('id="sn-register-pane"'), modal.indexOf('id="sn-recovery-pane"'));

@@ -4,8 +4,8 @@ The frontend uses the public Supabase browser client and keeps `localStorage` as
 
 ## Supabase dashboard
 
-1. Run [`supabase-schema.sql`](./supabase-schema.sql) in the SQL editor. It creates the per-user profile table, RLS policies, and signup trigger. `user_id` is the primary key; `display_name` is deliberately **not unique**, so different accounts can use the same name.
-2. Keep RLS enabled on `public.user_app_data` and policies restricted to `user_id = auth.uid()` for select, insert, update, and delete.
+1. Run [`supabase-schema.sql`](./supabase-schema.sql) in the SQL editor. It creates profiles plus the RLS-protected `user_sync_records` table and adds that table to the Realtime publication. Existing `user_app_data` backups are intentionally left untouched during migration.
+2. Keep RLS enabled. Sync-record policies must remain restricted to `user_id = auth.uid()`; never expose records through an anonymous policy.
 3. In **Authentication → URL Configuration**, set the production site URL to `https://studynovaielts.vercel.app` and add the Vercel preview URL as an allowed redirect before testing the preview.
 4. Enable email confirmation and configure the email templates/SMTP required by the project.
 

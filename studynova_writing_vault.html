@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NovaLab Writing Vault</title>
+<script>(function(){try{var k='novalab_theme_v1',v=localStorage.getItem(k),legacy=JSON.parse(localStorage.getItem('writingvault_data_v1')||'null');if(v!=='dark'&&v!=='light')v=legacy&&legacy.darkMode===false?'light':'dark';localStorage.setItem(k,v);document.documentElement.classList.toggle('light',v==='light')}catch(e){}})();</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -941,7 +942,9 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
       <span class="sn-logo-text">NovaLab <b>Writing</b></span>
     </div>
     <div class="wv-topbar-actions">
-      <button class="wv-writing-pill" onclick="goTo('library')" title="Mở kho bài"><span>✍️</span><b id="wv-top-essay-count">0</b><span class="wv-pill-label">bài</span></button>
+      <div class="wv-streak-pill streak-inactive" id="wv-top-streak"><span class="wv-streak-fire" aria-hidden="true">🔥</span><b id="wv-top-streak-num">0</b></div>
+      <button class="wv-header-control wv-lang-control" id="wv-header-lang" type="button" onclick="wvToggleLang()"><span aria-hidden="true">🌐</span><span class="wv-control-label">VI / EN</span></button>
+      <button class="wv-header-control" id="wv-header-theme" type="button" onclick="toggleTheme()"><span aria-hidden="true">☀️</span></button>
       <button class="wv-account-trigger" type="button" onclick="snOpenAuth()" aria-label="Đăng nhập / Sign in"><span aria-hidden="true">👤</span><span id="sn-auth-label">Đăng nhập</span></button>
       <button class="wv-menu-trigger" onclick="wvToggleTopMenu()" aria-label="Mở menu">☰ <span>Menu</span></button>
     </div>
@@ -951,14 +954,13 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     <div class="wv-top-menu">
       <div class="wv-top-menu-head"><div><b>NovaLab Writing</b><div class="mini">Công cụ Writing</div></div><button class="x" onclick="wvToggleTopMenu(false)">✕</button></div>
       <div class="wv-quick-grid">
+        <span id="wv-lang-label" hidden></span><span id="themeBtn" hidden></span>
         <a class="wv-quick-item" href="index.html"><span>📚</span><div><b>NovaLab học tập</b><small>Vocabulary · Reading · Speaking</small></div></a>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);snOpenAiPanel()"><span>✨</span><div><b>AI Coach</b><small>Chữa và cải thiện bài</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenSearch()"><span>⌕</span><div><b data-nv8-vi="Tìm dữ liệu" data-nv8-en="Search data">Tìm dữ liệu</b><small data-nv8-vi="Từ vựng, bài viết và lỗi" data-nv8-en="Vocabulary, essays, and mistakes">Từ vựng, bài viết và lỗi</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenShortcuts()"><span>⌨</span><div><b data-nv8-vi="Phím tắt" data-nv8-en="Shortcuts">Phím tắt</b><small>Ctrl + Shift + 1…8</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup()"><span>💾</span><div><b>Sao lưu</b><small>Copy, chia sẻ hoặc tải file</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup(true)"><span>📥</span><div><b>Khôi phục</b><small>Nhập file hoặc dán mã</small></div></button>
-        <button class="wv-quick-item" onclick="wvToggleLang()"><span>🌐</span><div><b><span data-wv-lang-label>Ngôn ngữ</span>: <span id="wv-lang-label">EN</span></b><small>Đổi toàn bộ giao diện Việt / Anh</small></div></button>
-        <button class="wv-quick-item" onclick="toggleTheme()"><span id="themeBtn">🌙</span><div><b>Giao diện</b><small>Sáng hoặc tối</small></div></button>
         <button class="wv-quick-item wide" onclick="wvToggleTopMenu(false);goTo('settings')"><span>⚙️</span><div><b>Cài đặt Writing</b></div></button>
       </div>
       <input type="file" id="import-data" accept=".json,application/json" style="display:none" onchange="importData(event)">
@@ -3444,6 +3446,30 @@ setTimeout(function(){
     };
   }
   setTimeout(function(){novaWV8ApplyLabels();handleHash()},140);
+})();
+</script>
+
+<style id="wv-header-controls-v17">
+.wv-header-control,.wv-streak-pill{height:44px;min-width:44px;padding:0 13px;border-radius:15px;border:1px solid var(--glass-bd);background:var(--glass);color:var(--t1);font:inherit;font-size:13px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:7px;flex:0 0 auto}.wv-header-control{cursor:pointer;transition:.2s}.wv-header-control:hover{background:var(--bg3);transform:translateY(-1px)}
+.wv-streak-pill{border-radius:99px}.wv-streak-fire{font-size:19px}.wv-streak-pill.streak-inactive{color:var(--t3);background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.18)}.streak-inactive .wv-streak-fire{filter:grayscale(1);opacity:.42}.wv-streak-pill.streak-active{color:#fbbf24;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.1)}.wv-streak-pill.streak-ignite .wv-streak-fire{animation:wvIgnite .8s ease-out one both}
+@keyframes wvIgnite{0%{transform:scale(.72);filter:grayscale(1);opacity:.4}55%{transform:scale(1.14);filter:drop-shadow(0 0 10px rgba(251,191,36,.65))}100%{transform:scale(1);filter:drop-shadow(0 0 3px rgba(251,191,36,.3))}}
+@media(max-width:760px){.topbar{flex-wrap:nowrap;padding:10px 11px}.wv-topbar-actions{display:flex!important;flex-wrap:nowrap;gap:5px!important;min-width:0}.wv-header-control,.wv-account-trigger,.wv-menu-trigger{width:44px!important;min-width:44px;height:44px!important;padding:0!important;border-radius:14px!important}.wv-control-label,.wv-writing-pill{display:none}.wv-streak-pill{padding:0 8px}}
+@media(max-width:430px){.sn-logo-text{display:none}}
+@media(prefers-reduced-motion:reduce){.wv-streak-pill.streak-ignite .wv-streak-fire{animation:none!important}.wv-header-control{transition:none}}
+</style>
+<script id="wv-shared-preferences-v17">
+(function(){
+ var THEME_KEY='novalab_theme_v1',LANG_KEY='novalab_language_v1',lastTodayMet=false,initialized=false;
+ function lang(){return S&&S.lang==='en'?'en':'vi'}
+ function controls(){var en=lang()==='en',l=document.getElementById('wv-header-lang'),t=document.getElementById('wv-header-theme');if(l){l.setAttribute('aria-label',en?'Switch language':'Đổi ngôn ngữ');l.title=l.getAttribute('aria-label')}if(t){var light=!!S.darkMode;t.firstElementChild.textContent=light?'☀️':'🌙';t.setAttribute('aria-label',light?(en?'Switch to light mode':'Chuyển sang giao diện sáng'):(en?'Switch to dark mode':'Chuyển sang giao diện tối'));t.title=t.getAttribute('aria-label')}}
+ window.applyTheme=function(){var v;try{v=localStorage.getItem(THEME_KEY)}catch(e){}if(v==='dark'||v==='light')S.darkMode=v==='dark';else try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}document.documentElement.classList.toggle('light',!S.darkMode);document.body.classList.toggle('light',!S.darkMode);controls()};
+ window.toggleTheme=function(){S.darkMode=!S.darkMode;try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}save();applyTheme()};
+ var baseLang=window.wvToggleLang;window.wvToggleLang=function(){var out=baseLang.apply(this,arguments);try{localStorage.setItem(LANG_KEY,S.lang)}catch(e){}controls();return out};
+ function vocab(){try{return JSON.parse(localStorage.getItem('vocabmaster_data_v1')||'{}')}catch(e){return {}}}
+ function facts(){var v=vocab(),key=new Date().toISOString().slice(0,10),goal=Math.max(1,Number(v.cfg&&v.cfg.daily)||1),a=v.activityDays&&v.activityDays[key]||{},score=(Number(a.reviews)||Number(a.tests))?Math.max(goal,Number(v.days&&v.days[key])||0):Number(v.days&&v.days[key])||0;return {v:v,key:key,goal:goal,met:score>=goal}}
+ function count(v){var n=0,d=new Date(),goal=Math.max(1,Number(v.cfg&&v.cfg.daily)||1);for(var i=0;i<365;i++){var k=d.toISOString().slice(0,10),a=v.activityDays&&v.activityDays[k]||{},score=(Number(a.reviews)||Number(a.tests))?Math.max(goal,Number(v.days&&v.days[k])||0):Number(v.days&&v.days[k])||0;if(score>=goal)n++;else if(i)break;d.setDate(d.getDate()-1)}return n}
+ function paint(ignite){var f=facts(),p=document.getElementById('wv-top-streak');if(!p)return;p.classList.toggle('streak-active',f.met);p.classList.toggle('streak-inactive',!f.met);document.getElementById('wv-top-streak-num').textContent=count(f.v);var en=lang()==='en';p.title=f.met?(en?'Today’s streak is lit':'Streak hôm nay đã được thắp sáng'):(en?'Complete an activity today to light the flame':'Hoàn thành hoạt động hôm nay để thắp lửa');if(initialized&&ignite&&f.met&&!lastTodayMet){p.classList.add('streak-ignite');setTimeout(function(){p.classList.remove('streak-ignite')},900)}lastTodayMet=f.met;initialized=true;controls()}
+ window.addEventListener('storage',function(e){if(e.key===THEME_KEY){S.darkMode=e.newValue==='dark';applyTheme()}if(e.key===LANG_KEY)controls();if(e.key==='vocabmaster_data_v1')paint(true)});window.addEventListener('studynova-realtime-update',function(e){if(!e.detail||e.detail.storageKey==='vocabmaster_data_v1')setTimeout(function(){paint(true)},0)});window.addEventListener('studynova-language-change',controls);applyTheme();paint(false);
 })();
 </script>
 

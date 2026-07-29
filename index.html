@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudyNova Lab</title>
+<script>(function(){try{var k='novalab_theme_v1',v=localStorage.getItem(k),legacy=JSON.parse(localStorage.getItem('vocabmaster_data_v1')||'null');if(v!=='dark'&&v!=='light')v=legacy&&legacy.darkMode===false?'light':'dark';localStorage.setItem(k,v);document.documentElement.classList.toggle('light',v==='light')}catch(e){}})();</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1527,6 +1528,8 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
         <div class="flame-wrap"><svg class="flame-svg" viewBox="0 0 36 44" fill="none"><path d="M18 40C9 40 3 33 3 25C3 16 10 10 14 5C14 5 13 15 20 17C20 17 16 9 22 3C22 3 26 13 30 17C34 21 34 27 32 32" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" fill="#f59e0b" fill-opacity="0.2"/><path d="M18 40C12 40 8 34 8 29C8 24 12 20 14 16C14 16 14 22 18 24C18 24 16 18 20 15C20 15 22 20 24 24C26 28 25 33 22 37" fill="#fbbf24" fill-opacity="0.85" stroke="#fef3c7" stroke-width="1" stroke-linecap="round"/><ellipse cx="18" cy="32" rx="5" ry="6" fill="#fff" fill-opacity="0.4"/></svg></div>
         <span class="streak-num" id="top-streak-num">0</span>
       </div>
+      <button class="sn-header-control sn-lang-control" id="sn-header-lang" type="button" onclick="toggleLang()"><span aria-hidden="true">🌐</span><span class="sn-control-label">VI / EN</span></button>
+      <button class="sn-header-control sn-theme-control" id="sn-header-theme" type="button" onclick="toggleTheme()"><span aria-hidden="true">☀️</span></button>
       <button class="sn-top-auth" type="button" onclick="snOpenAuth()" aria-label="Đăng nhập / Sign in"><span class="sn-top-auth-icon">👤</span><span class="sn-top-auth-label" data-nv8-vi="Đăng nhập" data-nv8-en="Sign in">Đăng nhập</span></button>
       <button class="sn-menu-trigger" onclick="snOpenTopMenu()" aria-label="Open menu">☰ <span>Menu</span></button>
     </div>
@@ -1539,13 +1542,12 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
         <button class="sn-close" onclick="snCloseTopMenu()">✕</button>
       </div>
       <div class="sn-quick-grid">
+        <span id="lang-label" hidden></span><span id="theme-btn" hidden></span>
         <a class="sn-quick-item" href="studynova_writing_vault.html"><span class="sn-quick-icon">✍️</span><span>Writing Vault</span></a>
         <button class="sn-quick-item" onclick="snCloseTopMenu();snOpenAiPanel()"><span class="sn-quick-icon">✨</span><span>AI Coach</span></button>
         <button class="sn-quick-item" onclick="snCloseTopMenu();novaV8OpenSearch()"><span class="sn-quick-icon">⌕</span><span data-nv8-vi="Tìm dữ liệu" data-nv8-en="Search data">Tìm dữ liệu</span></button>
         <button class="sn-quick-item" onclick="snCloseTopMenu();novaV8OpenShortcuts()"><span class="sn-quick-icon">⌨</span><span data-nv8-vi="Phím tắt" data-nv8-en="Shortcuts">Phím tắt</span></button>
         <button class="sn-quick-item backup-pill" id="backup-pill" onclick="snCloseTopMenu();toggleBackup()"><span class="sn-quick-icon">💾</span><span data-i18n="backup_btn">Sao lưu</span></button>
-        <button class="sn-quick-item" id="lang-btn" onclick="toggleLang()"><span class="sn-quick-icon">🌐</span><span>Ngôn ngữ: <b id="lang-label">EN</b></span></button>
-        <button class="sn-quick-item" id="theme-btn" onclick="toggleTheme()"><span class="sn-quick-icon">🌙</span><span>Giao diện</span></button>
         <button class="sn-quick-item wide" onclick="snCloseTopMenu();goTo('cfg')"><span class="sn-quick-icon">⚙️</span><span>Cài đặt</span></button>
       </div>
     </div>
@@ -1832,7 +1834,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     <div class="section">
       <div class="streak-header">
         <div class="streak-big">
-          <svg style="width:44px;height:52px;animation:flicker 1.5s ease-in-out infinite;flex-shrink:0" viewBox="0 0 36 44" fill="none"><path d="M18 40C9 40 3 33 3 25C3 16 10 10 14 5C14 5 13 15 20 17C20 17 16 9 22 3C22 3 26 13 30 17C34 21 34 27 32 32" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" fill="#f59e0b" fill-opacity="0.2"/><path d="M18 40C12 40 8 34 8 29C8 24 12 20 14 16C14 16 14 22 18 24C18 24 16 18 20 15C20 15 22 20 24 24C26 28 25 33 22 37" fill="#fbbf24" fill-opacity="0.9" stroke="#fef3c7" stroke-width="1" stroke-linecap="round"/><ellipse cx="18" cy="32" rx="5" ry="6" fill="#fff" fill-opacity="0.4"/></svg>
+          <svg class="streak-dashboard-fire" style="width:44px;height:52px;animation:flicker 1.5s ease-in-out infinite;flex-shrink:0" viewBox="0 0 36 44" fill="none"><path d="M18 40C9 40 3 33 3 25C3 16 10 10 14 5C14 5 13 15 20 17C20 17 16 9 22 3C22 3 26 13 30 17C34 21 34 27 32 32" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" fill="#f59e0b" fill-opacity="0.2"/><path d="M18 40C12 40 8 34 8 29C8 24 12 20 14 16C14 16 14 22 18 24C18 24 16 18 20 15C20 15 22 20 24 24C26 28 25 33 22 37" fill="#fbbf24" fill-opacity="0.9" stroke="#fef3c7" stroke-width="1" stroke-linecap="round"/><ellipse cx="18" cy="32" rx="5" ry="6" fill="#fff" fill-opacity="0.4"/></svg>
           <div class="streak-info">
             <div class="streak-lbl" data-i18n="streak_lbl">CHUỖI NGÀY HỌC</div>
             <div class="streak-fire-num" id="streak-disp">0</div>
@@ -6431,6 +6433,51 @@ setTimeout(function(){
     novaV8RenderToday();
     handleHash();
   },140);
+})();
+</script>
+
+<style id="sn-header-controls-v17">
+.sn-header-control{min-width:44px;height:44px;padding:0 13px;border-radius:15px;border:1px solid var(--glass-bd);background:var(--glass);color:var(--t1);font:inherit;font-size:13px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:transform .2s,background .2s,border-color .2s;flex:0 0 auto}
+.sn-header-control:hover{background:var(--bg3);transform:translateY(-1px)}
+#top-streak{min-height:44px}.streak-pill.streak-inactive{background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.18)}
+.streak-inactive .flame-svg{animation:none;filter:grayscale(1);opacity:.42}.streak-inactive .streak-num{color:var(--t3)}
+.streak-big.streak-inactive .streak-dashboard-fire{animation:none!important;filter:grayscale(1);opacity:.42}.streak-big.streak-inactive .streak-fire-num{color:var(--t3)}.stat-grid.streak-inactive .stat-card:nth-child(2) .stat-icon,.stat-grid.streak-inactive .stat-card:nth-child(2) .stat-val{filter:grayscale(1);color:var(--t3)!important;opacity:.65}
+.streak-active .flame-svg{filter:none}.streak-active.streak-ignite .flame-svg{animation:snIgnite .8s ease-out one both}
+@keyframes snIgnite{0%{transform:scale(.72);filter:grayscale(1);opacity:.4}55%{transform:scale(1.14);filter:drop-shadow(0 0 10px rgba(251,191,36,.65))}100%{transform:scale(1);filter:drop-shadow(0 0 3px rgba(251,191,36,.3))}}
+@media(max-width:760px){.topbar{flex-wrap:nowrap;padding:10px 11px}.sn-logo{min-width:0}.sn-logo-text{font-size:15px}.topbar-right.sn-topbar-compact{flex-wrap:nowrap!important;min-width:0}.sn-header-control,.sn-top-auth,.sn-menu-trigger{width:44px!important;height:44px!important;min-width:44px;padding:0!important;border-radius:14px!important}.sn-control-label{display:none}.streak-pill{min-width:44px;padding:7px!important}.flame-wrap{width:20px}.flame-svg{width:20px}.streak-num{font-size:13px}}
+@media(max-width:430px){.sn-logo-text{display:none}.topbar-right.sn-topbar-compact{gap:4px!important}}
+@media(prefers-reduced-motion:reduce){.streak-active.streak-ignite .flame-svg,.streak-active .flame-svg{animation:none!important}.sn-header-control{transition:none}}
+</style>
+<script id="sn-shared-preferences-v17">
+(function(){
+ var THEME_KEY='novalab_theme_v1',LANG_KEY='novalab_language_v1',firstStreakPaint=true,lastTodayMet=false;
+ function language(){return S&&S.lang==='en'?'en':'vi'}
+ function updateControls(){
+  var en=language()==='en',lang=document.getElementById('sn-header-lang'),theme=document.getElementById('sn-header-theme');
+  if(lang){lang.setAttribute('aria-label',en?'Switch language':'Đổi ngôn ngữ');lang.title=en?'Switch language':'Đổi ngôn ngữ'}
+  if(theme){var toLight=!!S.darkMode;theme.firstElementChild.textContent=toLight?'☀️':'🌙';theme.setAttribute('aria-label',toLight?(en?'Switch to light mode':'Chuyển sang giao diện sáng'):(en?'Switch to dark mode':'Chuyển sang giao diện tối'));theme.title=theme.getAttribute('aria-label')}
+ }
+ window.applyTheme=function(){
+  var saved;try{saved=localStorage.getItem(THEME_KEY)}catch(e){}
+  if(saved==='dark'||saved==='light')S.darkMode=saved==='dark';else try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}
+  document.documentElement.classList.toggle('light',!S.darkMode);document.body.classList.toggle('light',!S.darkMode);updateControls();
+ };
+ window.toggleTheme=function(){S.darkMode=!S.darkMode;try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}save();applyTheme()};
+ var baseToggleLang=window.toggleLang;
+ window.toggleLang=function(){var out=baseToggleLang.apply(this,arguments);try{localStorage.setItem(LANG_KEY,S.lang)}catch(e){}updateControls();return out};
+ function todayMet(){try{return dayLearningScore(today())>=Math.max(1,Number(S.cfg.daily)||1)}catch(e){return false}}
+ function paintStreak(allowIgnite){
+  var pill=document.getElementById('top-streak');if(!pill)return;var met=todayMet(),en=language()==='en';
+  pill.classList.toggle('streak-active',met);pill.classList.toggle('streak-inactive',!met);
+  var big=document.querySelector('.streak-big'),stats=document.getElementById('stat-grid');if(big){big.classList.toggle('streak-active',met);big.classList.toggle('streak-inactive',!met)}if(stats){stats.classList.toggle('streak-active',met);stats.classList.toggle('streak-inactive',!met)}
+  pill.title=met?(en?'Today’s streak is lit':'Streak hôm nay đã được thắp sáng'):(en?'Complete an activity today to light the flame':'Hoàn thành hoạt động hôm nay để thắp lửa');
+  if(allowIgnite&&met&&!lastTodayMet){pill.classList.remove('streak-ignite');void pill.offsetWidth;pill.classList.add('streak-ignite');setTimeout(function(){pill.classList.remove('streak-ignite')},900)}
+  lastTodayMet=met;firstStreakPaint=false;updateControls();
+ }
+ var baseRenderDash=window.renderDash;window.renderDash=function(){var before=todayMet(),out=baseRenderDash.apply(this,arguments);paintStreak(!firstStreakPaint||!before);return out};
+ window.addEventListener('studynova-realtime-update',function(e){if(!e.detail||e.detail.storageKey==='vocabmaster_data_v1')setTimeout(function(){paintStreak(true)},0)});
+ window.addEventListener('storage',function(e){if(e.key===THEME_KEY){S.darkMode=e.newValue==='dark';applyTheme()}if(e.key===LANG_KEY)updateControls();if(e.key==='vocabmaster_data_v1'){try{load();renderDash()}catch(x){}}});
+ window.addEventListener('studynova-language-change',updateControls);applyTheme();paintStreak(false);
 })();
 </script>
 

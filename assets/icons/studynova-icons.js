@@ -2,8 +2,14 @@
   'use strict';
   var sprite='assets/icons/studynova-icons.svg';
 
+  function sanitiseToken(value){
+    return String(value||'').toLowerCase().replace(/[^a-z0-9-]/g,'');
+  }
+
   function novaIcon(name,className){
-    return '<svg class="sn-icon '+(className||'')+'" aria-hidden="true" focusable="false"><use href="'+sprite+'#icon-'+name+'"></use></svg>';
+    var safeName=sanitiseToken(name)||'info';
+    var safeClass=String(className||'').split(/\s+/).map(sanitiseToken).filter(Boolean).join(' ');
+    return '<svg class="sn-icon '+safeClass+'" aria-hidden="true" focusable="false"><use href="'+sprite+'#icon-'+safeName+'"></use></svg>';
   }
 
   function renderIcon(element){

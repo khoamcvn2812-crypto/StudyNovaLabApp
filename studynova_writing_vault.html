@@ -912,6 +912,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <link rel="stylesheet" href="./studynova-auth.css">
 <link rel="stylesheet" href="./studynova-motion.css">
 <link rel="stylesheet" href="assets/icons/studynova-icons.css">
+<script src="assets/icons/studynova-icons.js"></script>
 </head>
 <body>
 
@@ -3256,12 +3257,12 @@ setTimeout(function(){
     var main=readMain();
     (main.words||[]).forEach(function(w){
       if(norm([w.term,w.def,w.topic,w.coll,w.ex,w.wex,w.sex,w.family].join(' ')).includes(q)){
-        out.push({type:'vocab',icon:'<sn-icon name="vocabulary"></sn-icon>',title:w.term||'',sub:(w.def||'')+(w.coll?' · '+w.coll:'')+(w.topic?' · '+w.topic:''),data:w});
+        out.push({type:'vocab',icon:'vocabulary',title:w.term||'',sub:(w.def||'')+(w.coll?' · '+w.coll:'')+(w.topic?' · '+w.topic:''),data:w});
       }
     });
     (main.mistakes||[]).forEach(function(m){
       if(norm([m.wrong,m.right,m.reason,m.topic,m.practice,m.newSentence].join(' ')).includes(q)){
-        out.push({type:'mistake',icon:'<sn-icon name="mistake-bank"></sn-icon>',title:m.wrong||wt('Lỗi đã lưu','Saved mistake'),sub:m.right||m.reason||'',data:m,source:'main'});
+        out.push({type:'mistake',icon:'mistake-bank',title:m.wrong||wt('Lỗi đã lưu','Saved mistake'),sub:m.right||m.reason||'',data:m,source:'main'});
       }
     });
     var reading=main.reading||{};
@@ -3269,7 +3270,7 @@ setTimeout(function(){
       (reading[group]||[]).forEach(function(item){
         if(norm(JSON.stringify(item)).includes(q)){
           out.push({
-            type:'reading',icon:'<sn-icon name="reading-hub"></sn-icon>',
+            type:'reading',icon:'reading-hub',
             title:item.title||item.question||item.original||item.wrong||wt('Dữ liệu Reading','Reading item'),
             sub:item.text||item.answer||item.paraphrase||item.right||item.reason||'',data:item
           });
@@ -3278,17 +3279,17 @@ setTimeout(function(){
     });
     (main.speakingLogs||[]).forEach(function(item){
       if(norm(JSON.stringify(item)).includes(q)){
-        out.push({type:'speaking',icon:'<sn-icon name="speaking-studio"></sn-icon>',title:item.question||item.topic||'Speaking log',sub:item.answer||item.notes||item.date||'',data:item});
+        out.push({type:'speaking',icon:'speaking-studio',title:item.question||item.topic||'Speaking log',sub:item.answer||item.notes||item.date||'',data:item});
       }
     });
     (S.essays||[]).forEach(function(e){
       if(norm([e.title,e.topic,e.prompt,e.essayText,e.improvedText,e.notes].join(' ')).includes(q)){
-        out.push({type:'writing',icon:'<sn-icon name="writing-vault"></sn-icon>',title:e.title||e.topic||wt('Bài Writing','Writing essay'),sub:(e.task||'')+' · '+(e.topic||'')+' · '+String(e.essayText||'').slice(0,110),data:e,writingKind:'essay'});
+        out.push({type:'writing',icon:'writing-vault',title:e.title||e.topic||wt('Bài Writing','Writing essay'),sub:(e.task||'')+' · '+(e.topic||'')+' · '+String(e.essayText||'').slice(0,110),data:e,writingKind:'essay'});
       }
     });
     (S.corrections||[]).forEach(function(c){
       if(norm([c.type,c.wrong,c.right,c.reason,c.practice].join(' ')).includes(q)){
-        out.push({type:'mistake',icon:'<sn-icon name="mistake-bank"></sn-icon>',title:c.wrong||wt('Lỗi Writing','Writing mistake'),sub:c.right||c.reason||'',data:c,source:'writing'});
+        out.push({type:'mistake',icon:'mistake-bank',title:c.wrong||wt('Lỗi Writing','Writing mistake'),sub:c.right||c.reason||'',data:c,source:'writing'});
       }
     });
     return out.slice(0,70);
@@ -3319,7 +3320,7 @@ setTimeout(function(){
     var labels={vocab:'Vocabulary',mistake:wt('Lỗi','Mistake'),writing:'Writing',reading:'Reading',speaking:'Speaking'};
     box.innerHTML=W_RESULTS.map(function(item,index){
       return '<button class="nv8-result '+(index===W_SELECTED?'selected':'')+'" onclick="novaWV8OpenResult('+index+')">'+
-        '<span class="nv8-result-icon">'+item.icon+'</span>'+
+        '<span class="nv8-result-icon">'+novaIcon(item.icon)+'</span>'+
         '<span><b>'+esc(item.title||'')+'</b><small>'+esc(String(item.sub||'').slice(0,170))+'</small></span>'+
         '<em>'+esc(labels[item.type]||item.type)+'</em>'+
       '</button>';
@@ -3474,6 +3475,5 @@ setTimeout(function(){
 })();
 </script>
 
-<script src="assets/icons/studynova-icons.js"></script>
 </body>
 </html>

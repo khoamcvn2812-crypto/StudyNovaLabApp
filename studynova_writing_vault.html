@@ -851,45 +851,60 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 /* ================= NOVALAB PWA INSTALL ================= */
-.pwa-install-btn{
+.pwa-install-group{
   position:fixed;
   right:18px;
   bottom:18px;
   z-index:3600;
+  max-width:calc(100vw - 36px);
+  display:none;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.pwa-install-group.show{display:flex}
+.pwa-install-btn,.pwa-install-more{
   min-height:46px;
-  padding:0 17px;
   border:1px solid rgba(96,165,250,.38);
   border-radius:16px;
   background:linear-gradient(135deg,#10d4a0,#0ea5e9);
   color:#fff;
   box-shadow:0 12px 32px rgba(14,165,233,.30);
   font:800 13px "Plus Jakarta Sans","Manrope",sans-serif;
-  display:none;
+  display:flex;
   align-items:center;
   justify-content:center;
   gap:8px;
   cursor:pointer;
   transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
 }
-.pwa-install-btn.show{display:flex}
-.pwa-install-btn:hover{
+.pwa-install-btn{min-width:0;padding:0 17px;white-space:nowrap}
+.pwa-install-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pwa-install-more{width:46px;min-width:44px;padding:0;font-size:22px;line-height:1}
+.pwa-install-btn:hover,.pwa-install-more:hover{
   transform:translateY(-2px);
   box-shadow:0 16px 38px rgba(14,165,233,.38);
   filter:brightness(1.04);
 }
-.pwa-install-btn:active{transform:scale(.97)}
+.pwa-install-btn:active,.pwa-install-more:active{transform:scale(.97)}
 @media(max-width:760px){
-  .pwa-install-btn{
+  .pwa-install-group{
     right:12px;
     bottom:94px;
-    min-height:43px;
+    max-width:calc(100vw - 24px);
+  }
+  .pwa-install-btn,.pwa-install-more{min-height:44px}
+  .pwa-install-btn{
+    max-width:calc(100vw - 76px);
     padding:0 14px;
     border-radius:14px;
     font-size:12px;
   }
+  .pwa-install-more{width:44px;border-radius:14px}
 }
 @media(display-mode:standalone){
-  .pwa-install-btn{display:none!important}
+  .pwa-install-group{display:none!important}
 }
 /* ================= END NOVALAB PWA INSTALL ================= */
 </style>
@@ -2049,14 +2064,19 @@ function wvRenderDensity(){
 window.addEventListener('load',function(){wvRenderDensity()});
 </script>
 
-<button id="pwa-install-btn" class="pwa-install-btn" type="button">
-  <span>📲</span><span id="pwa-install-label">Cài NovaLab</span>
-</button>
+<div id="pwa-install-group" class="pwa-install-group">
+  <button id="pwa-install-btn" class="pwa-install-btn" type="button">
+    <span>📲</span><span id="pwa-install-label" class="pwa-install-label">Cài NovaLab</span>
+  </button>
+  <button id="pwa-install-more" class="pwa-install-more" type="button" aria-label="Cài đặt NovaLab">+</button>
+</div>
 <script>
 /* ================= NOVALAB PWA ================= */
 (function(){
   var deferredInstallPrompt = null;
+  var installGroup = document.getElementById("pwa-install-group");
   var installButton = document.getElementById("pwa-install-btn");
+  var installMore = document.getElementById("pwa-install-more");
   var installLabel = document.getElementById("pwa-install-label");
 
   function isStandalone(){
@@ -2077,14 +2097,16 @@ window.addEventListener('load',function(){wvRenderDensity()});
   function updateInstallLanguage(){
     if(!installLabel) return;
     var lang = (document.documentElement.lang || "vi").toLowerCase();
-    installLabel.textContent = lang.indexOf("en") === 0
+    var english = lang.indexOf("en") === 0;
+    installLabel.textContent = english
       ? "Install NovaLab"
       : "Cài NovaLab";
+    if(installMore) installMore.setAttribute("aria-label", english ? "Install NovaLab" : "Cài đặt NovaLab");
   }
 
   function showInstallButton(){
     if(installButton && !isStandalone()){
-      installButton.classList.add("show");
+      if(installGroup) installGroup.classList.add("show");
       updateInstallLanguage();
     }
   }
@@ -2106,7 +2128,7 @@ window.addEventListener('load',function(){wvRenderDensity()});
 
   window.addEventListener("appinstalled", function(){
     deferredInstallPrompt = null;
-    if(installButton) installButton.classList.remove("show");
+    if(installGroup) installGroup.classList.remove("show");
   });
 
   if(isIOS() && isSafari() && !isStandalone()){
@@ -2116,7 +2138,7 @@ window.addEventListener('load',function(){wvRenderDensity()});
   if(installButton){
     installButton.addEventListener("click", async function(){
       if(isStandalone()){
-        installButton.classList.remove("show");
+        if(installGroup) installGroup.classList.remove("show");
         return;
       }
 
@@ -2126,7 +2148,7 @@ window.addEventListener('load',function(){wvRenderDensity()});
           await deferredInstallPrompt.userChoice;
         }catch(error){}
         deferredInstallPrompt = null;
-        installButton.classList.remove("show");
+        if(installGroup) installGroup.classList.remove("show");
         return;
       }
 
@@ -2147,6 +2169,9 @@ window.addEventListener('load',function(){wvRenderDensity()});
         );
       }
     });
+  }
+  if(installMore && installButton){
+    installMore.addEventListener("click", function(){ installButton.click(); });
   }
 
   var langObserver = new MutationObserver(updateInstallLanguage);

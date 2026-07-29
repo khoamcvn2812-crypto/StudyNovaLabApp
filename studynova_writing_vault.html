@@ -916,7 +916,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <body>
 
 <div class="nova-update-banner" id="nova-update-banner">
-  <div style="font-size:23px">🚀</div>
+  <div style="font-size:23px"><sn-icon name="continue"></sn-icon></div>
   <div class="copy">
     <b>NovaLab có phiên bản mới</b>
     <small>Cập nhật để dùng tính năng mới mà không phải gỡ ứng dụng.</small>
@@ -943,78 +943,78 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
       <span class="sn-logo-text">NovaLab <b>Writing</b></span>
     </div>
     <div class="wv-topbar-actions">
-      <div class="wv-streak-pill streak-inactive" id="wv-top-streak"><span class="wv-streak-fire" aria-hidden="true">🔥</span><b id="wv-top-streak-num">0</b></div>
-      <button class="wv-header-control wv-lang-control" id="wv-header-lang" type="button" onclick="wvToggleLang()"><span aria-hidden="true">🌐</span><span class="wv-control-label">VI / EN</span></button>
-      <button class="wv-header-control" id="wv-header-theme" type="button" onclick="toggleTheme()"><span aria-hidden="true">☀️</span></button>
-      <button class="wv-account-trigger" type="button" onclick="snOpenAuth()" aria-label="Đăng nhập / Sign in"><span aria-hidden="true">👤</span><span id="sn-auth-label">Đăng nhập</span></button>
-      <button class="wv-menu-trigger" onclick="wvToggleTopMenu()" aria-label="Mở menu">☰ <span>Menu</span></button>
+      <div class="wv-streak-pill streak-inactive" id="wv-top-streak"><span class="wv-streak-fire" aria-hidden="true"><sn-icon name="streak"></sn-icon></span><b id="wv-top-streak-num">0</b></div>
+      <button class="wv-header-control wv-lang-control" id="wv-header-lang" type="button" onclick="wvToggleLang()"><span aria-hidden="true"><sn-icon name="language"></sn-icon></span><span class="wv-control-label">VI / EN</span></button>
+      <button class="wv-header-control" id="wv-header-theme" type="button" onclick="toggleTheme()"><span aria-hidden="true"><sn-icon name="theme-light"></sn-icon></span></button>
+      <button class="wv-account-trigger" type="button" onclick="snOpenAuth()" aria-label="Đăng nhập / Sign in"><span aria-hidden="true"><sn-icon name="account"></sn-icon></span><span id="sn-auth-label">Đăng nhập</span></button>
+      <button class="wv-menu-trigger" onclick="wvToggleTopMenu()" aria-label="Mở menu"><sn-icon name="menu"></sn-icon> <span>Menu</span></button>
     </div>
   </div>
 
   <div class="wv-top-menu-overlay" id="wv-top-menu-overlay" onclick="if(event.target===this)wvToggleTopMenu(false)">
     <div class="wv-top-menu">
-      <div class="wv-top-menu-head"><div><b>NovaLab Writing</b><div class="mini">Công cụ Writing</div></div><button class="x" onclick="wvToggleTopMenu(false)">✕</button></div>
+      <div class="wv-top-menu-head"><div><b>NovaLab Writing</b><div class="mini">Công cụ Writing</div></div><button class="x" onclick="wvToggleTopMenu(false)"><sn-icon name="close"></sn-icon></button></div>
       <div class="wv-quick-grid">
         <span id="wv-lang-label" hidden></span><span id="themeBtn" hidden></span>
-        <a class="wv-quick-item" href="index.html"><span>📚</span><div><b>NovaLab học tập</b><small>Vocabulary · Reading · Speaking</small></div></a>
-        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);snOpenAiPanel()"><span>✨</span><div><b>AI Coach</b><small>Chữa và cải thiện bài</small></div></button>
+        <a class="wv-quick-item" href="index.html"><span><sn-icon name="vocabulary"></sn-icon></span><div><b>NovaLab học tập</b><small>Vocabulary · Reading · Speaking</small></div></a>
+        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);snOpenAiPanel()"><span><sn-icon name="ai-coach"></sn-icon></span><div><b>AI Coach</b><small>Chữa và cải thiện bài</small></div></button>
         <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenSearch()"><span>⌕</span><div><b data-nv8-vi="Tìm dữ liệu" data-nv8-en="Search data">Tìm dữ liệu</b><small data-nv8-vi="Từ vựng, bài viết và lỗi" data-nv8-en="Vocabulary, essays, and mistakes">Từ vựng, bài viết và lỗi</small></div></button>
-        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenShortcuts()"><span>⌨</span><div><b data-nv8-vi="Phím tắt" data-nv8-en="Shortcuts">Phím tắt</b><small>Ctrl + Shift + 1…8</small></div></button>
-        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup()"><span>💾</span><div><b>Sao lưu</b><small>Copy, chia sẻ hoặc tải file</small></div></button>
-        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup(true)"><span>📥</span><div><b>Khôi phục</b><small>Nhập file hoặc dán mã</small></div></button>
-        <button class="wv-quick-item wide" onclick="wvToggleTopMenu(false);goTo('settings')"><span>⚙️</span><div><b>Cài đặt Writing</b></div></button>
+        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);novaWV8OpenShortcuts()"><span><sn-icon name="info"></sn-icon></span><div><b data-nv8-vi="Phím tắt" data-nv8-en="Shortcuts">Phím tắt</b><small>Ctrl + Shift + 1…8</small></div></button>
+        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup()"><span><sn-icon name="saved"></sn-icon></span><div><b>Sao lưu</b><small>Copy, chia sẻ hoặc tải file</small></div></button>
+        <button class="wv-quick-item" onclick="wvToggleTopMenu(false);wvOpenBackup(true)"><span><sn-icon name="quick-import"></sn-icon></span><div><b>Khôi phục</b><small>Nhập file hoặc dán mã</small></div></button>
+        <button class="wv-quick-item wide" onclick="wvToggleTopMenu(false);goTo('settings')"><span><sn-icon name="filter"></sn-icon></span><div><b>Cài đặt Writing</b></div></button>
       </div>
       <input type="file" id="import-data" accept=".json,application/json" style="display:none" onchange="importData(event)">
     </div>
   </div>
 
   <nav class="wv-primary-nav" id="wv-primary-nav">
-    <button class="tab active" data-nav-group="home" onclick="goTo('home')">🏠 <span>Home</span></button>
-    <button class="tab" data-nav-group="write" onclick="goTo('write')">✍️ <span>Viết bài</span></button>
-    <button class="tab" data-nav-group="library" onclick="goTo('library')">🗂️ <span>Kho bài</span></button>
+    <button class="tab active" data-nav-group="home" onclick="goTo('home')"><sn-icon name="home"></sn-icon> <span>Home</span></button>
+    <button class="tab" data-nav-group="write" onclick="goTo('write')"><sn-icon name="writing-vault"></sn-icon> <span>Viết bài</span></button>
+    <button class="tab" data-nav-group="library" onclick="goTo('library')"><sn-icon name="saved"></sn-icon> <span>Kho bài</span></button>
     <div class="wv-nav-group" data-nav-group="progress">
-      <button class="tab" onclick="wvToggleNavPop('wv-progress-pop',event)">📊 <span>Tiến độ</span></button>
+      <button class="tab" onclick="wvToggleNavPop('wv-progress-pop',event)"><sn-icon name="progress"></sn-icon> <span>Tiến độ</span></button>
       <div class="wv-nav-pop" id="wv-progress-pop">
-        <button onclick="goTo('dash')">📈 Tổng quan</button>
-        <button onclick="goTo('corrections')">🧯 Sổ lỗi Writing</button>
+        <button onclick="goTo('dash')"><sn-icon name="progress"></sn-icon> Tổng quan</button>
+        <button onclick="goTo('corrections')"><sn-icon name="mistake-bank"></sn-icon> Sổ lỗi Writing</button>
       </div>
     </div>
     <div class="wv-nav-group" data-nav-group="more">
-      <button class="tab" onclick="wvToggleNavPop('wv-more-pop',event)">☰ <span>Thêm</span></button>
+      <button class="tab" onclick="wvToggleNavPop('wv-more-pop',event)"><sn-icon name="menu"></sn-icon> <span>Thêm</span></button>
       <div class="wv-nav-pop right" id="wv-more-pop">
-        <button onclick="goTo('vocab')">🔗 Vocab link</button>
-        <button onclick="goTo('settings')">⚙️ Cài đặt</button>
-        <a href="index.html">📚 NovaLab học tập</a>
+        <button onclick="goTo('vocab')"><sn-icon name="phrase-bank"></sn-icon> Vocab link</button>
+        <button onclick="goTo('settings')"><sn-icon name="filter"></sn-icon> Cài đặt</button>
+        <a href="index.html"><sn-icon name="vocabulary"></sn-icon> NovaLab học tập</a>
       </div>
     </div>
   </nav>
 
   <div class="wv-density-strip" id="wv-density-strip">
-    <button class="wv-density-card" onclick="goTo('library')"><span class="wv-density-icon">🗂️</span><span><small>Tổng bài</small><b id="wv-density-total">0</b><em>Đã lưu trong Writing Vault</em></span></button>
-    <button class="wv-density-card" onclick="goTo('library')"><span class="wv-density-icon">📝</span><span><small>Bản nháp</small><b id="wv-density-drafts">0</b><em>Bài đang hoàn thiện</em></span></button>
-    <button class="wv-density-card" onclick="goTo('corrections')"><span class="wv-density-icon">✅</span><span><small>Đã cải thiện</small><b id="wv-density-improved">0</b><em>Checked hoặc improved</em></span></button>
-    <button class="wv-density-card" onclick="goTo('vocab')"><span class="wv-density-icon">📚</span><span><small>Từ vựng</small><b id="wv-density-vocab">0</b><em>Đang liên kết với NovaLab</em></span></button>
+    <button class="wv-density-card" onclick="goTo('library')"><span class="wv-density-icon"><sn-icon name="saved"></sn-icon></span><span><small>Tổng bài</small><b id="wv-density-total">0</b><em>Đã lưu trong Writing Vault</em></span></button>
+    <button class="wv-density-card" onclick="goTo('library')"><span class="wv-density-icon"><sn-icon name="test"></sn-icon></span><span><small>Bản nháp</small><b id="wv-density-drafts">0</b><em>Bài đang hoàn thiện</em></span></button>
+    <button class="wv-density-card" onclick="goTo('corrections')"><span class="wv-density-icon"><sn-icon name="success"></sn-icon></span><span><small>Đã cải thiện</small><b id="wv-density-improved">0</b><em>Checked hoặc improved</em></span></button>
+    <button class="wv-density-card" onclick="goTo('vocab')"><span class="wv-density-icon"><sn-icon name="vocabulary"></sn-icon></span><span><small>Từ vựng</small><b id="wv-density-vocab">0</b><em>Đang liên kết với NovaLab</em></span></button>
   </div>
 
   
   <div id="page-home" class="page active">
     <div class="sn-landing">
       <div class="sn-hero">
-        <div class="sn-hero-kicker">✍️ NovaLab Writing Vault</div>
+        <div class="sn-hero-kicker"><sn-icon name="writing-vault"></sn-icon> NovaLab Writing Vault</div>
         <h1>Lưu bài, chữa lỗi, nâng band Writing bằng <span>một kho riêng</span>.</h1>
         <p>Lưu Task 1/Task 2, theo dõi band, ghi lỗi sai và dùng lại từ vựng đã học trong một nơi.</p>
         <div class="sn-hero-actions">
-          <button class="btn btn-green" onclick="goTo('write')">✍️ Lưu bài mới</button>
-          <button class="btn btn-blue" onclick="goTo('corrections')">🧯 Mở sổ lỗi</button>
-          <a class="btn btn-purple" href="index.html">📚 NovaLab học tập</a>
-          <button class="btn btn-default" onclick="snOpenAuth()">👤 Đăng nhập</button>
+          <button class="btn btn-green" onclick="goTo('write')"><sn-icon name="writing-vault"></sn-icon> Lưu bài mới</button>
+          <button class="btn btn-blue" onclick="goTo('corrections')"><sn-icon name="mistake-bank"></sn-icon> Mở sổ lỗi</button>
+          <a class="btn btn-purple" href="index.html"><sn-icon name="vocabulary"></sn-icon> NovaLab học tập</a>
+          <button class="btn btn-default" onclick="snOpenAuth()"><sn-icon name="account"></sn-icon> Đăng nhập</button>
         </div>
       </div>
       <div class="sn-module-grid">
-        <div class="sn-module-card"><div class="sn-module-icon">🗂️</div><div class="sn-module-title">Essay Library</div><div class="sn-module-desc">Lưu bài theo topic, task, trạng thái và band.</div></div>
-        <div class="sn-module-card"><div class="sn-module-icon">🧯</div><div class="sn-module-title">Mistake Bank</div><div class="sn-module-desc">Ghi câu sai → câu đúng → lý do để không lặp lỗi.</div></div>
-        <div class="sn-module-card"><div class="sn-module-icon">🔗</div><div class="sn-module-title">Vocab Link</div><div class="sn-module-desc">Đọc dữ liệu từ NovaLab Vocabulary qua localStorage/backup.</div></div>
-        <div class="sn-module-card"><div class="sn-module-icon">🤖</div><div class="sn-module-title">AI Writing Coach</div><div class="sn-module-desc">Chấm band ước lượng, sửa lỗi và viết improved version.</div></div>
+        <div class="sn-module-card"><div class="sn-module-icon"><sn-icon name="saved"></sn-icon></div><div class="sn-module-title">Essay Library</div><div class="sn-module-desc">Lưu bài theo topic, task, trạng thái và band.</div></div>
+        <div class="sn-module-card"><div class="sn-module-icon"><sn-icon name="mistake-bank"></sn-icon></div><div class="sn-module-title">Mistake Bank</div><div class="sn-module-desc">Ghi câu sai → câu đúng → lý do để không lặp lỗi.</div></div>
+        <div class="sn-module-card"><div class="sn-module-icon"><sn-icon name="phrase-bank"></sn-icon></div><div class="sn-module-title">Vocab Link</div><div class="sn-module-desc">Đọc dữ liệu từ NovaLab Vocabulary qua localStorage/backup.</div></div>
+        <div class="sn-module-card"><div class="sn-module-icon"><sn-icon name="ai-coach"></sn-icon></div><div class="sn-module-title">AI Writing Coach</div><div class="sn-module-desc">Chấm band ước lượng, sửa lỗi và viết improved version.</div></div>
       </div>
     </div>
   </div>
@@ -1023,11 +1023,11 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div id="page-dash" class="page">
     <div class="grid4" id="stats"></div>
     <div class="two">
-      <div class="section"><div class="sec-title">📁 Bài theo chủ đề</div><div id="topicChart"></div></div>
-      <div class="section"><div class="sec-title">🎯 Task 1 / Task 2</div><div id="taskChart"></div></div>
+      <div class="section"><div class="sec-title"><sn-icon name="vocabulary"></sn-icon> Bài theo chủ đề</div><div id="topicChart"></div></div>
+      <div class="section"><div class="sec-title"><sn-icon name="quiz"></sn-icon> Task 1 / Task 2</div><div id="taskChart"></div></div>
     </div>
     <div class="section">
-      <div class="sec-title">🕘 Bài mới nhất <button class="btn btn-green btn-sm" onclick="newEssay();goTo('write')">+ Viết bài mới</button></div>
+      <div class="sec-title"><sn-icon name="saving"></sn-icon> Bài mới nhất <button class="btn btn-green btn-sm" onclick="newEssay();goTo('write')">+ Viết bài mới</button></div>
       <div id="recentList" class="list"></div>
     </div>
   </div>
@@ -1035,7 +1035,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div id="page-write" class="page">
     <div class="split">
       <div class="section">
-        <div class="sec-title"><span>✍️ Lưu / chỉnh sửa bài Writing</span><span id="editMode" class="tag">New</span></div>
+        <div class="sec-title"><span><sn-icon name="writing-vault"></sn-icon> Lưu / chỉnh sửa bài Writing</span><span id="editMode" class="tag">New</span></div>
         <input id="essay-id" type="hidden">
         <div class="form-row">
           <div><label>Tiêu đề bài</label><input id="e-title" placeholder="VD: Line chart about Australian trade"></div>
@@ -1061,35 +1061,35 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
         <div class="form-1" style="margin-top:12px"><label>Bản sửa hoàn chỉnh / improved version</label><textarea id="e-improved" placeholder="Sau khi được chữa, dán bản sửa tốt hơn vào đây..."></textarea></div>
         <div class="form-1"><label>Ghi chú</label><input id="e-notes" placeholder="VD: Cần sửa overview, chia đoạn rõ hơn..."></div>
         <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn btn-green" onclick="saveEssay()">✓ Lưu bài</button>
+          <button class="btn btn-green" onclick="saveEssay()"><sn-icon name="success"></sn-icon> Lưu bài</button>
           <button class="btn btn-default" onclick="newEssay()">+ Bài mới</button>
-          <button class="btn btn-blue" onclick="quickCheck()">🔎 Check nhanh</button>
-          <button class="btn btn-amber" onclick="wvScanCurrentEssay(true)">🧠 Đối chiếu lỗi cũ</button>
-          <button class="btn btn-purple" onclick="copyEssayPack()">📋 Copy gửi ChatGPT</button>
+          <button class="btn btn-blue" onclick="quickCheck()"><sn-icon name="search"></sn-icon> Check nhanh</button>
+          <button class="btn btn-amber" onclick="wvScanCurrentEssay(true)"><sn-icon name="ai-coach"></sn-icon> Đối chiếu lỗi cũ</button>
+          <button class="btn btn-purple" onclick="copyEssayPack()"><sn-icon name="copy"></sn-icon> Copy gửi ChatGPT</button>
         </div>
         <div id="write-msg" class="msg"></div>
       </div>
       <div>
         <div class="section">
-          <div class="sec-title">🔎 Check nhanh</div>
+          <div class="sec-title"><sn-icon name="search"></sn-icon> Check nhanh</div>
           <div id="quickCheckBox" class="muted">Kiểm tra nhanh số từ, lỗi phổ biến và từ bị lặp.</div>
         </div>
         <div class="section wv-scan-panel">
           <div class="sec-title">
-            <span>🧠 Đối chiếu lỗi cũ</span>
+            <span><sn-icon name="ai-coach"></sn-icon> Đối chiếu lỗi cũ</span>
             <span class="tag red" id="wv-scan-count">0</span>
           </div>
           <div class="muted" style="margin-bottom:9px">Tự động so sánh bài đang viết với toàn bộ Mistake Bank.</div>
           <div class="wv-scan-toolbar">
             <label><input type="checkbox" id="wv-scan-auto" checked onchange="wvSaveScanSettings()"> Quét khi đang gõ</label>
             <label><input type="checkbox" id="wv-scan-mastered" onchange="wvSaveScanSettings();wvScanCurrentEssay(false)"> Bao gồm lỗi đã thành thạo</label>
-            <button class="btn btn-blue btn-sm" onclick="wvScanCurrentEssay(true)">↻ Quét lại</button>
+            <button class="btn btn-blue btn-sm" onclick="wvScanCurrentEssay(true)"><sn-icon name="review"></sn-icon> Quét lại</button>
           </div>
           <div id="wv-scan-results"><div class="wv-scan-empty">Chưa quét bài viết.</div></div>
           <div class="wv-translation-audit" id="wv-translation-audit" style="display:none"></div>
         </div>
         <div class="section">
-          <div class="sec-title">🔗 Từ vựng liên quan <button class="btn btn-blue btn-sm" onclick="refreshVocab()">↻</button></div>
+          <div class="sec-title"><sn-icon name="phrase-bank"></sn-icon> Từ vựng liên quan <button class="btn btn-blue btn-sm" onclick="refreshVocab()"><sn-icon name="review"></sn-icon></button></div>
           <div class="muted" style="margin-bottom:10px">Tự tìm những từ trong bài đã có ở kho Vocabulary.</div>
           <div id="vocabHits" class="vocab-box"></div>
         </div>
@@ -1100,7 +1100,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div id="page-library" class="page">
     <div class="section" style="padding:14px">
       <div class="filter-row">
-        <input id="f-search" placeholder="🔍 Tìm bài..." oninput="renderLibrary()">
+        <input id="f-search" placeholder="Tìm bài..." oninput="renderLibrary()">
         <select id="f-task" onchange="renderLibrary()"><option value="">Tất cả task</option><option value="task1">Task 1</option><option value="task2">Task 2</option></select>
         <select id="f-topic" onchange="renderLibrary()"><option value="">Tất cả chủ đề</option></select>
         <select id="f-status" onchange="renderLibrary()"><option value="">Tất cả trạng thái</option><option value="draft">Draft</option><option value="submitted">Submitted</option><option value="checked">Checked</option><option value="improved">Improved</option></select>
@@ -1113,7 +1113,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div id="page-corrections" class="page">
     <div class="split">
       <div class="section">
-        <div class="sec-title">🧯 Thêm lỗi sai vào bài</div>
+        <div class="sec-title"><sn-icon name="mistake-bank"></sn-icon> Thêm lỗi sai vào bài</div>
         <div class="form-row">
           <div><label>Chọn bài</label><select id="c-essay"></select></div>
           <div><label>Loại lỗi</label><select id="c-type"><option value="Grammar">Grammar</option><option value="Vocabulary">Vocabulary</option><option value="Task Achievement">Task Achievement</option><option value="Coherence">Coherence & Cohesion</option><option value="Spelling">Spelling</option><option value="Punctuation">Punctuation</option><option value="Idea">Idea / Logic</option></select></div>
@@ -1126,21 +1126,21 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
           <div><label>Lý do sai</label><input id="c-reason" placeholder="VD: Không dùng was + V1 cho động từ chính"></div>
           <div><label>Câu mới để luyện lại</label><input id="c-new" placeholder="VD: Exports increased sharply in 2009."></div>
         </div>
-        <button class="btn btn-green" onclick="addCorrection()">✓ Lưu lỗi</button>
+        <button class="btn btn-green" onclick="addCorrection()"><sn-icon name="success"></sn-icon> Lưu lỗi</button>
         <div id="corr-msg" class="msg"></div>
       </div>
       <div class="section">
-        <div class="sec-title">📌 Bộ lọc lỗi</div>
+        <div class="sec-title"><sn-icon name="note"></sn-icon> Bộ lọc lỗi</div>
         <div class="form-row">
           <div><label>Lọc theo bài</label><select id="cf-essay" onchange="renderCorrections()"><option value="">Tất cả bài</option></select></div>
           <div><label>Lọc theo loại</label><select id="cf-type" onchange="renderCorrections()"><option value="">Tất cả lỗi</option><option>Grammar</option><option>Vocabulary</option><option>Task Achievement</option><option>Coherence</option><option>Spelling</option><option>Punctuation</option><option>Idea</option></select></div>
         </div>
-        <button class="btn btn-purple btn-sm" onclick="exportMistakeText()">📋 Copy sổ lỗi</button>
+        <button class="btn btn-purple btn-sm" onclick="exportMistakeText()"><sn-icon name="copy"></sn-icon> Copy sổ lỗi</button>
       </div>
     </div>
     <div class="section quick-error-box">
       <div class="sec-title">
-        <span>⚡ Nhập nhanh nhiều lỗi sai</span>
+        <span><sn-icon name="quick-import"></sn-icon> Nhập nhanh nhiều lỗi sai</span>
         <span class="tag t2">AI → Mistake Bank</span>
       </div>
 
@@ -1160,9 +1160,9 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 Vocabulary | all the life | throughout their working lives | Cụm mới tự nhiên và học thuật hơn | Some employees remain loyal throughout their working lives."></textarea>
 
       <div class="quick-error-toolbar">
-        <button class="btn btn-blue" onclick="previewBulkCorrections()">👁 Xem trước</button>
-        <button class="btn btn-green" onclick="importBulkCorrections()">✓ Nhập danh sách</button>
-        <button class="btn btn-purple" onclick="copyCorrectionImportPrompt()">📋 Copy prompt cho AI</button>
+        <button class="btn btn-blue" onclick="previewBulkCorrections()"><sn-icon name="show-password"></sn-icon> Xem trước</button>
+        <button class="btn btn-green" onclick="importBulkCorrections()"><sn-icon name="success"></sn-icon> Nhập danh sách</button>
+        <button class="btn btn-purple" onclick="copyCorrectionImportPrompt()"><sn-icon name="copy"></sn-icon> Copy prompt cho AI</button>
         <button class="btn btn-default" onclick="clearBulkCorrections()">Xoá ô nhập</button>
       </div>
 
@@ -1173,14 +1173,14 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 
     <div class="section wv-review-panel">
       <div class="sec-title">
-        <span>🧠 Ôn lỗi Writing theo lịch</span>
+        <span><sn-icon name="ai-coach"></sn-icon> Ôn lỗi Writing theo lịch</span>
         <span class="tag t1" id="wv-review-due-count">0 lỗi đến hạn</span>
       </div>
       <div class="wv-review-controls">
         <select id="wv-review-pool">
-          <option value="due">⏰ Đến hạn hôm nay</option>
-          <option value="unmastered">🧯 Chưa thành thạo</option>
-          <option value="all">📚 Tất cả lỗi</option>
+          <option value="due">Đến hạn hôm nay</option>
+          <option value="unmastered">Chưa thành thạo</option>
+          <option value="all">Tất cả lỗi</option>
         </select>
         <select id="wv-review-type">
           <option value="">Tất cả loại lỗi</option>
@@ -1193,33 +1193,33 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
           <option>Idea</option>
         </select>
         <select id="wv-review-mode">
-          <option value="fill">✍️ Viết lại câu đúng</option>
-          <option value="mc">🎯 Chọn câu đúng</option>
+          <option value="fill">Viết lại câu đúng</option>
+          <option value="mc">Chọn câu đúng</option>
         </select>
-        <button class="btn btn-green" onclick="startCorrectionReview()">▶ Bắt đầu ôn</button>
+        <button class="btn btn-green" onclick="startCorrectionReview()"><sn-icon name="play-audio"></sn-icon> Bắt đầu ôn</button>
       </div>
       <div class="mini" style="margin-top:9px">Đúng sẽ tự chuyển câu; sai giữ nguyên để làm lại. Lịch ôn: 1 → 3 → 7 → 14 → 30 ngày.</div>
       <div class="wv-review-stage" id="wv-review-stage"></div>
     </div>
 
-    <div class="section"><div class="sec-title">🗒 Danh sách lỗi đã lưu</div><div id="correctionList" class="list"></div></div>
+    <div class="section"><div class="sec-title"><sn-icon name="note"></sn-icon> Danh sách lỗi đã lưu</div><div id="correctionList" class="list"></div></div>
   </div>
 
   <div id="page-vocab" class="page">
     <div class="two">
       <div class="section">
-        <div class="sec-title">🔗 Liên kết với NovaLab</div>
+        <div class="sec-title"><sn-icon name="phrase-bank"></sn-icon> Liên kết với NovaLab</div>
         <div class="muted" style="margin-bottom:12px">Tự đọc kho Vocabulary trên cùng thiết bị. Có thể nhập file sao lưu khi cần.</div>
         <div style="display:flex;gap:9px;flex-wrap:wrap">
-          <a class="btn btn-green" href="index.html">📚 NovaLab học tập</a>
-          <button class="btn btn-blue" onclick="refreshVocab()">↻ Đọc lại vocab</button>
-          <button class="btn btn-purple" onclick="document.getElementById('import-vocab').click()">⬆ Nhập backup vocab</button>
+          <a class="btn btn-green" href="index.html"><sn-icon name="vocabulary"></sn-icon> NovaLab học tập</a>
+          <button class="btn btn-blue" onclick="refreshVocab()"><sn-icon name="review"></sn-icon> Đọc lại vocab</button>
+          <button class="btn btn-purple" onclick="document.getElementById('import-vocab').click()"><sn-icon name="quick-import"></sn-icon> Nhập backup vocab</button>
           <input id="import-vocab" type="file" accept=".json,application/json" style="display:none" onchange="importVocabBackup(event)">
         </div>
         <div id="vocab-msg" class="msg"></div>
       </div>
       <div class="section">
-        <div class="sec-title">📊 Dữ liệu đang nối</div>
+        <div class="sec-title"><sn-icon name="progress"></sn-icon> Dữ liệu đang nối</div>
         <div class="grid4" style="grid-template-columns:repeat(2,1fr);margin:0">
           <div class="stat"><div class="label">Từ đọc được</div><div class="val" id="linkedWords">0</div><div class="sub">từ NovaLab / backup</div></div>
           <div class="stat"><div class="label">Chủ đề vocab</div><div class="val" id="linkedTopics">0</div><div class="sub">topic khác nhau</div></div>
@@ -1227,7 +1227,7 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
       </div>
     </div>
     <div class="section">
-      <div class="sec-title">📚 Từ vựng từ NovaLab</div>
+      <div class="sec-title"><sn-icon name="vocabulary"></sn-icon> Từ vựng từ NovaLab</div>
       <div class="filter-row" style="margin-bottom:12px"><input id="vf-search" placeholder="Tìm từ trong vocab..." oninput="renderVocabPage()"><select id="vf-topic" onchange="renderVocabPage()"><option value="">Tất cả topic</option></select></div>
       <div id="vocabList" class="vocab-box"></div>
     </div>
@@ -1235,7 +1235,7 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 
   <div id="page-settings" class="page">
     <div class="section">
-      <div class="sec-title">⚙️ Cài đặt & dữ liệu</div>
+      <div class="sec-title"><sn-icon name="filter"></sn-icon> Cài đặt & dữ liệu</div>
       <div class="form-row">
         <div><label>Thêm chủ đề Writing</label><input id="new-topic" placeholder="VD: Urbanisation"></div>
         <div style="display:flex;align-items:end"><button class="btn btn-green" onclick="addTopic()">+ Thêm chủ đề</button></div>
@@ -1243,11 +1243,11 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
       <div class="muted" id="topicTags"></div>
       <hr style="border:0;border-top:1px solid var(--bd);margin:18px 0">
       <div style="display:flex;gap:9px;flex-wrap:wrap">
-        <button class="btn btn-blue" onclick="exportData()">⬇ Xuất file JSON</button>
-        <button class="btn btn-purple" onclick="wvCopyBackup()">📋 Copy mã</button>
-        <button class="btn btn-amber" onclick="wvShareBackup()">📤 Chia sẻ</button>
-        <button class="btn btn-default" onclick="wvOpenBackup(true)">📥 Dán để khôi phục</button>
-        <button class="btn btn-red" onclick="resetAll()">🗑 Xoá toàn bộ Writing Vault</button>
+        <button class="btn btn-blue" onclick="exportData()"><sn-icon name="export"></sn-icon> Xuất file JSON</button>
+        <button class="btn btn-purple" onclick="wvCopyBackup()"><sn-icon name="copy"></sn-icon> Copy mã</button>
+        <button class="btn btn-amber" onclick="wvShareBackup()"><sn-icon name="export"></sn-icon> Chia sẻ</button>
+        <button class="btn btn-default" onclick="wvOpenBackup(true)"><sn-icon name="quick-import"></sn-icon> Dán để khôi phục</button>
+        <button class="btn btn-red" onclick="resetAll()"><sn-icon name="delete"></sn-icon> Xoá toàn bộ Writing Vault</button>
       </div>
       <div class="muted" style="margin-top:12px">Nên sao lưu định kỳ để bảo vệ bài viết và sổ lỗi.</div>
     </div>
@@ -1258,32 +1258,32 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 <div class="sn-modal" id="wv-backup-modal" onclick="if(event.target===this)wvCloseBackup()">
   <div class="sn-modal-box" style="width:min(650px,100%)">
     <div class="sn-modal-head">
-      <div class="sn-modal-title">💾 Sao lưu & khôi phục Writing Vault</div>
-      <button class="sn-close" onclick="wvCloseBackup()">✕</button>
+      <div class="sn-modal-title"><sn-icon name="saved"></sn-icon> Sao lưu & khôi phục Writing Vault</div>
+      <button class="sn-close" onclick="wvCloseBackup()"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="sn-modal-body">
       <div class="wv-backup-grid">
         <button class="wv-backup-option" onclick="exportData()">
-          <span>⬇️</span><div><b>Tải file JSON</b><small>Dùng khi trình duyệt cho phép tải file</small></div>
+          <span><sn-icon name="export"></sn-icon></span><div><b>Tải file JSON</b><small>Dùng khi trình duyệt cho phép tải file</small></div>
         </button>
         <button class="wv-backup-option" onclick="document.getElementById('import-data').click()">
-          <span>⬆️</span><div><b>Nhập file JSON</b><small>Khôi phục từ file đã lưu trước đó</small></div>
+          <span><sn-icon name="quick-import"></sn-icon></span><div><b>Nhập file JSON</b><small>Khôi phục từ file đã lưu trước đó</small></div>
         </button>
         <button class="wv-backup-option" onclick="wvCopyBackup()">
-          <span>📋</span><div><b>Copy mã sao lưu</b><small>Dán vào Ghi chú, Drive, email hoặc tin nhắn riêng</small></div>
+          <span><sn-icon name="copy"></sn-icon></span><div><b>Copy mã sao lưu</b><small>Dán vào Ghi chú, Drive, email hoặc tin nhắn riêng</small></div>
         </button>
         <button class="wv-backup-option" onclick="wvShareBackup()">
-          <span>📤</span><div><b>Chia sẻ sao lưu</b><small>Gửi qua AirDrop, Drive, Gmail hoặc ứng dụng khác</small></div>
+          <span><sn-icon name="export"></sn-icon></span><div><b>Chia sẻ sao lưu</b><small>Gửi qua AirDrop, Drive, Gmail hoặc ứng dụng khác</small></div>
         </button>
         <button class="wv-backup-option" style="grid-column:1/-1" onclick="wvTogglePastePanel()">
-          <span>📥</span><div><b>Khôi phục bằng cách dán mã</b><small>Dùng khi điện thoại không chọn hoặc tải được file JSON</small></div>
+          <span><sn-icon name="quick-import"></sn-icon></span><div><b>Khôi phục bằng cách dán mã</b><small>Dùng khi điện thoại không chọn hoặc tải được file JSON</small></div>
         </button>
       </div>
       <div class="wv-paste-panel" id="wv-paste-panel">
         <label>Mã sao lưu JSON</label>
         <textarea id="wv-paste-input" placeholder="Dán toàn bộ mã sao lưu Writing Vault vào đây..."></textarea>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:9px">
-          <button class="btn btn-green" onclick="wvRestorePastedBackup()">✓ Khôi phục dữ liệu</button>
+          <button class="btn btn-green" onclick="wvRestorePastedBackup()"><sn-icon name="success"></sn-icon> Khôi phục dữ liệu</button>
           <button class="btn btn-default" onclick="document.getElementById('wv-paste-input').value=''">Xoá ô</button>
         </div>
       </div>
@@ -1297,8 +1297,8 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 <div class="sn-modal" id="wv-vocab-link-modal" onclick="if(event.target===this)wvCloseVocabLink()">
   <div class="sn-modal-box wv-vocab-link-box">
     <div class="sn-modal-head">
-      <div class="sn-modal-title">🔗 Đưa lỗi đúng vào Vocabulary</div>
-      <button class="sn-close" onclick="wvCloseVocabLink()">✕</button>
+      <div class="sn-modal-title"><sn-icon name="phrase-bank"></sn-icon> Đưa lỗi đúng vào Vocabulary</div>
+      <button class="sn-close" onclick="wvCloseVocabLink()"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="sn-modal-body">
       <input type="hidden" id="wv-link-correction-id">
@@ -1326,7 +1326,7 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
       <label style="margin-top:10px">Câu ví dụ</label>
       <textarea id="wv-link-example"></textarea>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
-        <button class="btn btn-green" onclick="wvSaveCorrectionToVocab()">✓ Lưu vào Vocabulary</button>
+        <button class="btn btn-green" onclick="wvSaveCorrectionToVocab()"><sn-icon name="success"></sn-icon> Lưu vào Vocabulary</button>
         <button class="btn btn-default" onclick="wvCloseVocabLink()">Huỷ</button>
       </div>
       <div id="wv-link-msg" class="msg"></div>
@@ -1336,7 +1336,7 @@ Vocabulary | all the life | throughout their working lives | Cụm mới tự nh
 
 <div class="modal" id="viewModal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
-    <div class="modal-head"><b id="modalTitle">Chi tiết bài</b><button class="x" onclick="closeModal()">✕</button></div>
+    <div class="modal-head"><b id="modalTitle">Chi tiết bài</b><button class="x" onclick="closeModal()"><sn-icon name="close"></sn-icon></button></div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
@@ -1365,7 +1365,7 @@ window.WritingVaultState={
 function load(){try{let raw=localStorage.getItem(KEY);if(raw){let p=JSON.parse(raw);S=Object.assign(S,p);S.topics=[...new Set([...(S.topics||[]),...defaultTopics])];S.essays=S.essays||[];S.corrections=S.corrections||[];S.importedVocab=S.importedVocab||[];S.drafts=Array.isArray(S.drafts)?S.drafts:[]}}catch(e){console.warn(e)}}
 function msg(id,text,ok=true){let el=$(id);el.className='msg '+(ok?'ok':'no');el.textContent=text;setTimeout(()=>{el.className='msg'},3200)}
 function goTo(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));let page=$('page-'+p);if(page)page.classList.add('active');wvCloseAllMenus();document.querySelectorAll('.wv-primary-nav .tab').forEach(x=>x.classList.remove('active'));let group=({home:'home',write:'write',library:'library',dash:'progress',corrections:'progress',vocab:'more',settings:'more'}[p]||'home');let host=document.querySelector('[data-nav-group="'+group+'"]');let tab=host?(host.matches('.tab')?host:host.querySelector('.tab')):null;if(tab)tab.classList.add('active');renderAll()}
-function toggleTheme(){S.darkMode=!S.darkMode;applyTheme();save()}function applyTheme(){document.body.classList.toggle('light',!S.darkMode);$('themeBtn').textContent=S.darkMode?'🌙':'☀️'}
+function toggleTheme(){S.darkMode=!S.darkMode;applyTheme();save()}function applyTheme(){document.body.classList.toggle('light',!S.darkMode);$('themeBtn').innerHTML=S.darkMode?'<sn-icon name="theme-dark"></sn-icon>':'<sn-icon name="theme-light"></sn-icon>'}
 function words(text){return (String(text||'').trim().match(/[A-Za-z]+(?:[-'][A-Za-z]+)?/g)||[])}
 function wordCount(text){return words(text).length}function sentenceCount(text){let n=(String(text||'').match(/[.!?]+/g)||[]).length;return Math.max(n, text.trim()?1:0)}
 function updateWordGoal(){let t=$('e-task').value;$('goalw').textContent=t==='task1'?'150+':'250+';liveStats()}
@@ -1374,14 +1374,14 @@ function syncTopicSelects(){let opts=S.topics.map(t=>`<option value="${esc(t)}">
 function essayTitle(e){return e.title||((e.task==='task1'?'Task 1':'Task 2')+' — '+(e.topic||'No topic'))}
 function getEssay(id){return S.essays.find(e=>e.id===id)}
 function newEssay(){['essay-id','e-title','e-topic-new','e-target','e-band','e-prompt','e-text','e-improved','e-notes'].forEach(id=>$(id).value='');$('e-task').value='task1';$('e-status').value='draft';$('editMode').textContent='New';syncTopicSelects();updateWordGoal();renderVocabHits();$('quickCheckBox').innerHTML='Kiểm tra nhanh số từ, lỗi phổ biến và từ bị lặp.'}
-function saveEssay(){let topic=$('e-topic-new').value.trim()||$('e-topic').value;let id=$('essay-id').value||uid();let old=getEssay(id);let e={id,createdAt:old?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),title:$('e-title').value.trim(),task:$('e-task').value,topic,status:$('e-status').value,targetBand:$('e-target').value,band:$('e-band').value,prompt:$('e-prompt').value,essayText:$('e-text').value,improvedText:$('e-improved').value,notes:$('e-notes').value};if(!e.essayText.trim()){msg('write-msg','⚠ Nhập bài viết trước đã bro.',false);return false}let before=JSON.stringify(S);try{if(topic&&!S.topics.includes(topic))S.topics.unshift(topic);if(old){Object.assign(old,e)}else{S.essays.unshift(e)}save();let verified=getEssay(id);if(!verified||verified.essayText!==e.essayText)throw new Error('Essay verification failed');$('essay-id').value=id;$('editMode').textContent='Editing';msg('write-msg','✓ Đã lưu bài Writing!');renderAll();return true}catch(error){console.error('Writing save failed',error);S=JSON.parse(before);msg('write-msg','⚠ Không thể lưu bài. Bản nháp được giữ nguyên.',false);return false}}
+function saveEssay(){let topic=$('e-topic-new').value.trim()||$('e-topic').value;let id=$('essay-id').value||uid();let old=getEssay(id);let e={id,createdAt:old?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),title:$('e-title').value.trim(),task:$('e-task').value,topic,status:$('e-status').value,targetBand:$('e-target').value,band:$('e-band').value,prompt:$('e-prompt').value,essayText:$('e-text').value,improvedText:$('e-improved').value,notes:$('e-notes').value};if(!e.essayText.trim()){msg('write-msg','<sn-icon name="warning"></sn-icon> Nhập bài viết trước đã bro.',false);return false}let before=JSON.stringify(S);try{if(topic&&!S.topics.includes(topic))S.topics.unshift(topic);if(old){Object.assign(old,e)}else{S.essays.unshift(e)}save();let verified=getEssay(id);if(!verified||verified.essayText!==e.essayText)throw new Error('Essay verification failed');$('essay-id').value=id;$('editMode').textContent='Editing';msg('write-msg','<sn-icon name="success"></sn-icon> Đã lưu bài Writing!');renderAll();return true}catch(error){console.error('Writing save failed',error);S=JSON.parse(before);msg('write-msg','<sn-icon name="warning"></sn-icon> Không thể lưu bài. Bản nháp được giữ nguyên.',false);return false}}
 function loadEssay(id){let e=getEssay(id);if(!e)return;goTo('write');$('essay-id').value=e.id;$('e-title').value=e.title||'';$('e-task').value=e.task||'task1';syncTopicSelects();$('e-topic').value=e.topic||S.topics[0];$('e-topic-new').value='';$('e-status').value=e.status||'draft';$('e-target').value=e.targetBand||'';$('e-band').value=e.band||'';$('e-prompt').value=e.prompt||'';$('e-text').value=e.essayText||'';$('e-improved').value=e.improvedText||'';$('e-notes').value=e.notes||'';$('editMode').textContent='Editing';liveStats();renderVocabHits();quickCheck()}
 function deleteEssay(id){if(!confirm('Xoá bài này? Lỗi sai liên quan vẫn sẽ giữ trong sổ lỗi.'))return;S.essays=S.essays.filter(e=>e.id!==id);save();renderAll()}
 function duplicateEssay(id){let e=getEssay(id);if(!e)return;let copy=JSON.parse(JSON.stringify(e));copy.id=uid();copy.createdAt=copy.updatedAt=new Date().toISOString();copy.title=(copy.title||essayTitle(copy))+' (copy)';S.essays.unshift(copy);save();renderAll()}
 function cardEssay(e){let cc=S.corrections.filter(c=>c.essayId===e.id).length;let w=wordCount(e.essayText);return `<div class="card"><div class="card-head"><div><div class="title">${esc(essayTitle(e))}</div><div class="tags"><span class="tag ${e.task==='task1'?'t1':'t2'}">${e.task==='task1'?'Task 1':'Task 2'}</span><span class="tag">${esc(e.topic||'No topic')}</span><span class="tag warn">${esc(e.status||'draft')}</span>${e.band?`<span class="tag t1">Band ${esc(e.band)}</span>`:''}<span class="tag red">${cc} lỗi</span><span class="tag">${w} words</span></div></div><div class="actions"><button class="btn btn-blue btn-sm" onclick="viewEssay('${e.id}')">Xem</button><button class="btn btn-green btn-sm" onclick="loadEssay('${e.id}')">Sửa</button><button class="btn btn-default btn-sm" onclick="duplicateEssay('${e.id}')">Copy</button><button class="btn btn-red btn-sm" onclick="deleteEssay('${e.id}')">Xoá</button></div></div><div class="snippet">${esc((e.essayText||'').slice(0,520))}</div><div class="mini" style="margin-top:7px">Cập nhật: ${fmt(e.updatedAt)}</div></div>`}
 function renderLibrary(){let q=($('f-search')?.value||'').toLowerCase(),task=$('f-task')?.value||'',topic=$('f-topic')?.value||'',status=$('f-status')?.value||'';let arr=S.essays.filter(e=>(!task||e.task===task)&&(!topic||e.topic===topic)&&(!status||e.status===status)&&(!q||JSON.stringify(e).toLowerCase().includes(q)));$('essayList').innerHTML=arr.length?arr.map(cardEssay).join(''):'<div class="empty">Chưa có bài nào khớp bộ lọc.</div>'}
 function renderRecent(){let arr=S.essays.slice(0,4);$('recentList').innerHTML=arr.length?arr.map(cardEssay).join(''):'<div class="empty">Chưa có bài nào. Bấm “Viết bài mới” để lưu bài đầu tiên.</div>'}
-function renderStats(){let total=S.essays.length,t1=S.essays.filter(e=>e.task==='task1').length,t2=total-t1,corr=S.corrections.length,checked=S.essays.filter(e=>['checked','improved'].includes(e.status)).length;let avg=(()=>{let bands=S.essays.map(e=>parseFloat(e.band)).filter(x=>!isNaN(x));return bands.length?(bands.reduce((a,b)=>a+b,0)/bands.length).toFixed(1):'—'})();$('stats').innerHTML=`<div class="stat"><div class="icon">🗂</div><div class="label">Tổng bài</div><div class="val">${total}</div><div class="sub">đã lưu</div></div><div class="stat"><div class="icon">📊</div><div class="label">Task 1</div><div class="val">${t1}</div><div class="sub">bài biểu đồ/map/process</div></div><div class="stat"><div class="icon">🧠</div><div class="label">Task 2</div><div class="val">${t2}</div><div class="sub">essay opinion/discussion</div></div><div class="stat"><div class="icon">🧯</div><div class="label">Lỗi đã chữa</div><div class="val">${corr}</div><div class="sub">Avg band: ${avg} · Checked: ${checked}</div></div>`}
+function renderStats(){let total=S.essays.length,t1=S.essays.filter(e=>e.task==='task1').length,t2=total-t1,corr=S.corrections.length,checked=S.essays.filter(e=>['checked','improved'].includes(e.status)).length;let avg=(()=>{let bands=S.essays.map(e=>parseFloat(e.band)).filter(x=>!isNaN(x));return bands.length?(bands.reduce((a,b)=>a+b,0)/bands.length).toFixed(1):'—'})();$('stats').innerHTML=`<div class="stat"><div class="icon"><sn-icon name="saved"></sn-icon></div><div class="label">Tổng bài</div><div class="val">${total}</div><div class="sub">đã lưu</div></div><div class="stat"><div class="icon"><sn-icon name="progress"></sn-icon></div><div class="label">Task 1</div><div class="val">${t1}</div><div class="sub">bài biểu đồ/map/process</div></div><div class="stat"><div class="icon"><sn-icon name="ai-coach"></sn-icon></div><div class="label">Task 2</div><div class="val">${t2}</div><div class="sub">essay opinion/discussion</div></div><div class="stat"><div class="icon"><sn-icon name="mistake-bank"></sn-icon></div><div class="label">Lỗi đã chữa</div><div class="val">${corr}</div><div class="sub">Avg band: ${avg} · Checked: ${checked}</div></div>`}
 function chartHTML(counts){let entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8),max=Math.max(1,...entries.map(x=>x[1]));if(!entries.length)return '<div class="empty">Chưa có dữ liệu</div>';return entries.map(([k,v])=>`<div class="barrow"><div class="barlabel">${esc(k)}</div><div class="barbox"><div class="barfill" style="width:${Math.max(8,v/max*100)}%">${v}</div></div></div>`).join('')}
 function renderCharts(){let topics={},tasks={Task1:0,Task2:0};S.essays.forEach(e=>{topics[e.topic||'No topic']=(topics[e.topic||'No topic']||0)+1;if(e.task==='task1')tasks.Task1++;else tasks.Task2++});$('topicChart').innerHTML=chartHTML(topics);$('taskChart').innerHTML=chartHTML(tasks)}
 function renderEssaySelects(){
@@ -1395,7 +1395,7 @@ function renderEssaySelects(){
     if(old&&S.essays.some(e=>e.id===old))bulk.value=old;
   }
 }
-function addCorrection(){let essayId=$('c-essay').value,wrong=$('c-wrong').value.trim(),right=$('c-right').value.trim();if(!essayId){msg('corr-msg','⚠ Hãy lưu ít nhất một bài trước.',false);return}if(!wrong||!right){msg('corr-msg','⚠ Nhập cả câu sai và câu đúng.',false);return}S.corrections.unshift({id:uid(),essayId,type:$('c-type').value,wrong,right,reason:$('c-reason').value.trim(),practice:$('c-new').value.trim(),createdAt:new Date().toISOString(),mastered:false});['c-wrong','c-right','c-reason','c-new'].forEach(id=>$(id).value='');save();msg('corr-msg','✓ Đã lưu lỗi sai!');renderAll()}
+function addCorrection(){let essayId=$('c-essay').value,wrong=$('c-wrong').value.trim(),right=$('c-right').value.trim();if(!essayId){msg('corr-msg','<sn-icon name="warning"></sn-icon> Hãy lưu ít nhất một bài trước.',false);return}if(!wrong||!right){msg('corr-msg','<sn-icon name="warning"></sn-icon> Nhập cả câu sai và câu đúng.',false);return}S.corrections.unshift({id:uid(),essayId,type:$('c-type').value,wrong,right,reason:$('c-reason').value.trim(),practice:$('c-new').value.trim(),createdAt:new Date().toISOString(),mastered:false});['c-wrong','c-right','c-reason','c-new'].forEach(id=>$(id).value='');save();msg('corr-msg','<sn-icon name="success"></sn-icon> Đã lưu lỗi sai!');renderAll()}
 
 const CORRECTION_TYPES=['Grammar','Vocabulary','Task Achievement','Coherence','Spelling','Punctuation','Idea'];
 
@@ -1511,14 +1511,14 @@ function previewBulkCorrections(){
   if(!result.valid.length&&!result.invalid.length){
     box.className='quick-error-preview';
     box.innerHTML='';
-    msg('bulk-c-msg','⚠ Chưa có dữ liệu để xem trước.',false);
+    msg('bulk-c-msg','<sn-icon name="warning"></sn-icon> Chưa có dữ liệu để xem trước.',false);
     return result;
   }
 
   let summary=
     '<div class="quick-error-summary">'+
-      '<span class="tag t1">✓ '+result.valid.length+' dòng hợp lệ</span>'+
-      (result.invalid.length?'<span class="tag red">⚠ '+result.invalid.length+' dòng cần sửa</span>':'')+
+      '<span class="tag t1"><sn-icon name="success"></sn-icon> '+result.valid.length+' dòng hợp lệ</span>'+
+      (result.invalid.length?'<span class="tag red"><sn-icon name="warning"></sn-icon> '+result.invalid.length+' dòng cần sửa</span>':'')+
     '</div>';
 
   let validHtml=result.valid.map(item=>
@@ -1553,8 +1553,8 @@ function previewBulkCorrections(){
   msg(
     'bulk-c-msg',
     result.valid.length
-      ? '✓ Đã đọc '+result.valid.length+' lỗi hợp lệ.'
-      : '⚠ Chưa có dòng hợp lệ.',
+      ? '<sn-icon name="success"></sn-icon> Đã đọc '+result.valid.length+' lỗi hợp lệ.'
+      : '<sn-icon name="warning"></sn-icon> Chưa có dòng hợp lệ.',
     !!result.valid.length
   );
 
@@ -1575,13 +1575,13 @@ function bulkCorrectionDuplicate(essayId,item){
 function importBulkCorrections(){
   let essayId=$('bulk-c-essay')?.value||'';
   if(!essayId){
-    msg('bulk-c-msg','⚠ Hãy chọn bài Writing trước.',false);
+    msg('bulk-c-msg','<sn-icon name="warning"></sn-icon> Hãy chọn bài Writing trước.',false);
     return;
   }
 
   let result=previewBulkCorrections();
   if(!result.valid.length){
-    msg('bulk-c-msg','⚠ Không có lỗi hợp lệ để nhập.',false);
+    msg('bulk-c-msg','<sn-icon name="warning"></sn-icon> Không có lỗi hợp lệ để nhập.',false);
     return;
   }
 
@@ -1620,7 +1620,7 @@ function importBulkCorrections(){
   $('cf-essay').value=essayId;
   renderCorrections();
 
-  let notice='✓ Đã nhập '+newItems.length+' lỗi';
+  let notice='<sn-icon name="success"></sn-icon> Đã nhập '+newItems.length+' lỗi';
   if(duplicateCount)notice+=' · bỏ qua '+duplicateCount+' lỗi trùng';
   if(result.invalid.length)notice+=' · '+result.invalid.length+' dòng cần sửa';
 
@@ -1669,16 +1669,16 @@ Không đánh số, không tạo bảng, không dùng dấu | bên trong nội d
   msg(
     'bulk-c-msg',
     copied
-      ? '✓ Đã copy prompt. Dán vào ChatGPT cùng bài Writing của bạn.'
+      ? '<sn-icon name="success"></sn-icon> Đã copy prompt. Dán vào ChatGPT cùng bài Writing của bạn.'
       : 'Không copy tự động được.',
     copied
   );
 }
 
-function renderCorrections(){let essay=$('cf-essay')?.value||'',type=$('cf-type')?.value||'';let arr=S.corrections.filter(c=>(!essay||c.essayId===essay)&&(!type||c.type===type));$('correctionList').innerHTML=arr.length?arr.map(c=>{let e=getEssay(c.essayId);return `<div class="card"><div class="card-head"><div><div class="title">${esc(c.type)} · ${esc(e?essayTitle(e):'Không rõ bài')}</div><div class="mini">${fmt(c.createdAt)}</div></div><div class="actions"><button class="btn btn-default btn-sm" onclick="toggleMastered('${c.id}')">${c.mastered?'↩ Chưa thuộc':'✓ Đã thuộc'}</button><button class="btn btn-red btn-sm" onclick="deleteCorrection('${c.id}')">Xoá</button></div></div><div style="margin-top:10px" class="check-item"><div class="check-title wrong">Sai</div><div class="check-text">${esc(c.wrong)}</div></div><div class="check-item"><div class="check-title right">Đúng</div><div class="check-text">${esc(c.right)}</div></div>${c.reason?`<div class="check-item"><div class="check-title">Lý do</div><div class="check-text">${esc(c.reason)}</div></div>`:''}${c.practice?`<div class="check-item"><div class="check-title">Luyện lại</div><div class="check-text">${esc(c.practice)}</div></div>`:''}<div class="tags"><span class="tag ${c.mastered?'t1':'red'}">${c.mastered?'Mastered':'Need review'}</span></div></div>`}).join(''):'<div class="empty">Chưa có lỗi nào được lưu.</div>'}
+function renderCorrections(){let essay=$('cf-essay')?.value||'',type=$('cf-type')?.value||'';let arr=S.corrections.filter(c=>(!essay||c.essayId===essay)&&(!type||c.type===type));$('correctionList').innerHTML=arr.length?arr.map(c=>{let e=getEssay(c.essayId);return `<div class="card"><div class="card-head"><div><div class="title">${esc(c.type)} · ${esc(e?essayTitle(e):'Không rõ bài')}</div><div class="mini">${fmt(c.createdAt)}</div></div><div class="actions"><button class="btn btn-default btn-sm" onclick="toggleMastered('${c.id}')">${c.mastered?'<sn-icon name="back"></sn-icon> Chưa thuộc':'<sn-icon name="success"></sn-icon> Đã thuộc'}</button><button class="btn btn-red btn-sm" onclick="deleteCorrection('${c.id}')">Xoá</button></div></div><div style="margin-top:10px" class="check-item"><div class="check-title wrong">Sai</div><div class="check-text">${esc(c.wrong)}</div></div><div class="check-item"><div class="check-title right">Đúng</div><div class="check-text">${esc(c.right)}</div></div>${c.reason?`<div class="check-item"><div class="check-title">Lý do</div><div class="check-text">${esc(c.reason)}</div></div>`:''}${c.practice?`<div class="check-item"><div class="check-title">Luyện lại</div><div class="check-text">${esc(c.practice)}</div></div>`:''}<div class="tags"><span class="tag ${c.mastered?'t1':'red'}">${c.mastered?'Mastered':'Need review'}</span></div></div>`}).join(''):'<div class="empty">Chưa có lỗi nào được lưu.</div>'}
 function toggleMastered(id){let c=S.corrections.find(x=>x.id===id);if(c){c.mastered=!c.mastered;save();renderCorrections()}}function deleteCorrection(id){if(confirm('Xoá lỗi này?')){S.corrections=S.corrections.filter(c=>c.id!==id);save();renderAll()}}
 function quickCheck(){let txt=$('e-text').value,task=$('e-task').value,w=wordCount(txt);let items=[];let goal=task==='task1'?150:250;if(w<goal)items.push(['Word count thấp',`Bài hiện có ${w} words. ${task==='task1'?'Task 1 nên từ 150+ words.':'Task 2 nên từ 250+ words.'}`]);if(task==='task1' && /\b(I|we|my|our|me|us)\b/i.test(txt))items.push(['Task 1 hơi cá nhân', 'Task 1 Academic thường tránh “I/we/my”; tập trung mô tả số liệu/quy trình/bản đồ.']);let patterns=[[/\bwas increase\b/ig,'“was increase” → dùng “increased” hoặc “was increasing” tuỳ ý.'],[/\bwere increase\b/ig,'“were increase” → dùng “increased” hoặc “were increasing”.'],[/\bincrease stable\b/ig,'“increase stable” chưa tự nhiên → “increased steadily” hoặc “remained stable”.'],[/\bmore better\b/ig,'“more better” → chỉ dùng “better”.'],[/\balot\b/ig,'“alot” → viết đúng là “a lot”.'],[/\bthen\b(?=\s+(that|the|those|than))/ig,'Kiểm tra lại “then/than”: so sánh thường dùng “than”.']];patterns.forEach(([re,tip])=>{if(re.test(txt))items.push(['Cụm dễ sai',tip])});let freq={};words(txt).map(x=>x.toLowerCase()).filter(x=>x.length>4&&!['there','their','which','about','because','between','however','while','whereas','people'].includes(x)).forEach(x=>freq[x]=(freq[x]||0)+1);let repeat=Object.entries(freq).filter(([k,v])=>v>=5).sort((a,b)=>b[1]-a[1]).slice(0,5);if(repeat.length)items.push(['Từ bị lặp nhiều',repeat.map(([k,v])=>`${k} (${v})`).join(', ')+' — thử paraphrase nếu cần.']);$('quickCheckBox').innerHTML=items.length?items.map(x=>`<div class="check-item"><div class="check-title">${esc(x[0])}</div><div class="check-text">${esc(x[1])}</div></div>`).join(''):'<div class="check-item"><div class="check-title right">Ổn áp!</div><div class="check-text">Không phát hiện lỗi cơ bản. Vẫn nên nhờ người/AI chữa kỹ theo 4 tiêu chí IELTS.</div></div>'}
-async function copyEssayPack(){let pack=`Hãy chữa bài IELTS Writing này thật chi tiết.\n\nTask: ${$('e-task').value}\nTopic: ${$('e-topic-new').value||$('e-topic').value}\nTarget band: ${$('e-target').value||'chưa rõ'}\n\nĐề bài:\n${$('e-prompt').value}\n\nBài của bạn:\n${$('e-text').value}\n\nYêu cầu:\n1. Chỉ ra lỗi sai theo Grammar, Vocabulary, Coherence, Task Achievement.\n2. Ghi câu sai → câu đúng → lý do.\n3. Cho bản sửa band cao hơn.\n4. Cho 5 câu luyện lại từ lỗi của tôi.`;try{await navigator.clipboard.writeText(pack);msg('write-msg','✓ Đã copy format gửi ChatGPT/Claude.')}catch(e){msg('write-msg','Không copy tự động được, hãy copy thủ công.',false)}}
+async function copyEssayPack(){let pack=`Hãy chữa bài IELTS Writing này thật chi tiết.\n\nTask: ${$('e-task').value}\nTopic: ${$('e-topic-new').value||$('e-topic').value}\nTarget band: ${$('e-target').value||'chưa rõ'}\n\nĐề bài:\n${$('e-prompt').value}\n\nBài của bạn:\n${$('e-text').value}\n\nYêu cầu:\n1. Chỉ ra lỗi sai theo Grammar, Vocabulary, Coherence, Task Achievement.\n2. Ghi câu sai → câu đúng → lý do.\n3. Cho bản sửa band cao hơn.\n4. Cho 5 câu luyện lại từ lỗi của tôi.`;try{await navigator.clipboard.writeText(pack);msg('write-msg','<sn-icon name="success"></sn-icon> Đã copy format gửi ChatGPT/Claude.')}catch(e){msg('write-msg','Không copy tự động được, hãy copy thủ công.',false)}}
 function viewEssay(id){let e=getEssay(id);if(!e)return;let cor=S.corrections.filter(c=>c.essayId===id);$('modalTitle').textContent=essayTitle(e);$('modalBody').innerHTML=`<div class="tags"><span class="tag ${e.task==='task1'?'t1':'t2'}">${e.task==='task1'?'Task 1':'Task 2'}</span><span class="tag">${esc(e.topic||'No topic')}</span><span class="tag warn">${esc(e.status||'draft')}</span>${e.band?`<span class="tag t1">Band ${esc(e.band)}</span>`:''}<span class="tag red">${cor.length} lỗi</span></div>${e.prompt?`<h3 style="margin:16px 0 7px">Đề bài</h3><div class="check-item"><div class="check-text" style="white-space:pre-wrap">${esc(e.prompt)}</div></div>`:''}<h3 style="margin:16px 0 7px">Bài của bạn</h3><div class="check-item"><div class="check-text" style="white-space:pre-wrap">${esc(e.essayText)}</div></div>${e.improvedText?`<h3 style="margin:16px 0 7px">Bản sửa</h3><div class="check-item"><div class="check-text" style="white-space:pre-wrap">${esc(e.improvedText)}</div></div>`:''}${e.notes?`<h3 style="margin:16px 0 7px">Ghi chú</h3><div class="check-item"><div class="check-text">${esc(e.notes)}</div></div>`:''}<h3 style="margin:16px 0 7px">Lỗi liên quan</h3>${cor.length?cor.map(c=>`<div class="check-item"><b>${esc(c.type)}</b><div class="wrong">Sai: ${esc(c.wrong)}</div><div class="right">Đúng: ${esc(c.right)}</div>${c.reason?`<div class="check-text">Lý do: ${esc(c.reason)}</div>`:''}</div>`).join(''):'<div class="empty">Bài này chưa có lỗi được lưu.</div>'}<div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-green" onclick="closeModal();loadEssay('${e.id}')">Sửa bài</button><button class="btn btn-purple" onclick="closeModal();goTo('corrections');$('c-essay').value='${e.id}'">Thêm lỗi</button></div>`;$('viewModal').classList.add('open')}
 function closeModal(){$('viewModal').classList.remove('open')}
 function refreshVocab(){Vocab=[];try{let raw=localStorage.getItem(VOCAB_KEY);if(raw){let v=JSON.parse(raw);if(Array.isArray(v.words))Vocab=Vocab.concat(v.words)}}catch(e){}if(Array.isArray(S.importedVocab))Vocab=Vocab.concat(S.importedVocab);let seen=new Set();Vocab=Vocab.filter(w=>{let k=(w.term||'').toLowerCase();if(!k||seen.has(k))return false;seen.add(k);return true});renderVocabPage();renderVocabHits();let topics=vocabTopics();$('linkedWords').textContent=Vocab.length;$('linkedTopics').textContent=topics.length;syncTopicSelects();return Vocab.length}
@@ -1686,7 +1686,7 @@ function vocabTopics(){return [...new Set(Vocab.map(w=>w.topic).filter(Boolean))
 function renderVocabPage(){let q=($('vf-search')?.value||'').toLowerCase(),topic=$('vf-topic')?.value||'';let arr=Vocab.filter(w=>(!topic||w.topic===topic)&&(!q||JSON.stringify(w).toLowerCase().includes(q))).slice(0,250);$('vocabList').innerHTML=arr.length?arr.map(w=>vocabItem(w)).join(''):'<div class="empty">Chưa đọc được vocab. Hãy mở cùng trình duyệt hoặc nhập backup JSON từ StudyNova Lab.</div>';if($('linkedWords')){$('linkedWords').textContent=Vocab.length;$('linkedTopics').textContent=vocabTopics().length}}
 function vocabItem(w,hit=false){return `<div class="vocab-item ${hit?'hit':''}"><div class="vocab-term">${esc(w.term||'')}</div><div class="vocab-def">${esc(w.def||w.meaning||'')}</div>${w.topic?`<div class="tags"><span class="tag">${esc(w.topic)}</span>${w.type?`<span class="tag t1">${esc(w.type)}</span>`:''}</div>`:''}${w.wex?`<div class="vocab-ex">Writing: ${esc(w.wex)}</div>`:''}${w.sex?`<div class="vocab-ex">Speaking: ${esc(w.sex)}</div>`:''}</div>`}
 function renderVocabHits(){let box=$('vocabHits');if(!box)return;let txt=' '+($('e-text')?.value||'').toLowerCase()+' ';if(!Vocab.length){box.innerHTML='<div class="empty">Chưa có dữ liệu vocab để quét.</div>';return}let hits=Vocab.filter(w=>{let term=(w.term||'').toLowerCase().trim();if(!term||term.length<3)return false;let re=new RegExp('(^|[^a-z])'+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'([^a-z]|$)','i');return re.test(txt)}).slice(0,40);box.innerHTML=hits.length?hits.map(w=>vocabItem(w,true)).join(''):'<div class="empty">Chưa thấy từ nào trong bài trùng với StudyNova Lab.</div>'}
-function importVocabBackup(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);let words=Array.isArray(data.words)?data.words:(Array.isArray(data)?data:[]);if(!words.length)throw Error('no words');S.importedVocab=words;save();refreshVocab();msg('vocab-msg','✓ Đã nhập '+words.length+' từ từ backup NovaLab.')}catch(e){msg('vocab-msg','⚠ File không đúng định dạng backup vocab.',false)}};r.readAsText(f);ev.target.value=''}
+function importVocabBackup(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);let words=Array.isArray(data.words)?data.words:(Array.isArray(data)?data:[]);if(!words.length)throw Error('no words');S.importedVocab=words;save();refreshVocab();msg('vocab-msg','<sn-icon name="success"></sn-icon> Đã nhập '+words.length+' từ từ backup NovaLab.')}catch(e){msg('vocab-msg','<sn-icon name="warning"></sn-icon> File không đúng định dạng backup vocab.',false)}};r.readAsText(f);ev.target.value=''}
 function wvBackupJson(){return JSON.stringify(S,null,2)}
 function wvSetBackupMsg(text,ok=true){
   let el=$('wv-backup-msg');
@@ -1739,7 +1739,7 @@ async function wvCopyBackup(){
   if(ok){
     S.lastBackup=new Date().toISOString();
     save();
-    wvSetBackupMsg('✓ Đã copy mã sao lưu. Hãy dán vào Ghi chú, Drive, Gmail hoặc tin nhắn riêng.');
+    wvSetBackupMsg('<sn-icon name="success"></sn-icon> Đã copy mã sao lưu. Hãy dán vào Ghi chú, Drive, Gmail hoặc tin nhắn riêng.');
   }else{
     wvOpenBackup(true);
     wvSetBackupMsg('Không copy tự động được. Hãy copy thủ công từ ô mã sao lưu.',false);
@@ -1759,7 +1759,7 @@ async function wvShareBackup(){
       }
       S.lastBackup=new Date().toISOString();
       save();
-      wvSetBackupMsg('✓ Đã mở bảng chia sẻ.');
+      wvSetBackupMsg('<sn-icon name="success"></sn-icon> Đã mở bảng chia sẻ.');
       return;
     }
   }catch(e){
@@ -1780,7 +1780,7 @@ function exportData(){
   a.click();
   a.remove();
   setTimeout(()=>URL.revokeObjectURL(url),500);
-  wvSetBackupMsg('✓ Đã tạo file sao lưu.');
+  wvSetBackupMsg('<sn-icon name="success"></sn-icon> Đã tạo file sao lưu.');
 }
 function wvApplyBackup(data){
   if(!data||!Array.isArray(data.essays))throw Error('bad');
@@ -1807,7 +1807,7 @@ function wvRestorePastedBackup(){
     let data=JSON.parse(raw);
     if(!wvApplyBackup(data))return;
     $('wv-paste-input').value='';
-    wvSetBackupMsg('✓ Đã khôi phục Writing Vault.');
+    wvSetBackupMsg('<sn-icon name="success"></sn-icon> Đã khôi phục Writing Vault.');
     alert('Đã khôi phục dữ liệu Writing Vault!');
   }catch(e){
     wvSetBackupMsg('Mã sao lưu không hợp lệ.',false);
@@ -1821,7 +1821,7 @@ function importData(ev){
     try{
       let data=JSON.parse(r.result);
       if(!wvApplyBackup(data))return;
-      wvSetBackupMsg('✓ Đã khôi phục Writing Vault.');
+      wvSetBackupMsg('<sn-icon name="success"></sn-icon> Đã khôi phục Writing Vault.');
       alert('Đã nhập dữ liệu Writing Vault!');
     }catch(e){
       wvSetBackupMsg('File không hợp lệ.',false);
@@ -1845,7 +1845,7 @@ init();
   <div class="sn-modal-box">
     <div class="sn-modal-head">
       <div class="sn-modal-title" id="sn-auth-title" data-sn-auth="account_title">Tài khoản StudyNova</div>
-      <button class="sn-close" onclick="snCloseAuth()" aria-label="Đóng" data-sn-auth-aria="close">✕</button>
+      <button class="sn-close" onclick="snCloseAuth()" aria-label="Đóng" data-sn-auth-aria="close"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="sn-modal-body" id="sn-auth-body">
       <div class="sn-cloud-warning" id="sn-cloud-warning" data-sn-auth="cloud_unavailable">Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị này.</div>
@@ -1858,7 +1858,7 @@ init();
         <div id="sn-auth-message" class="sn-message" role="status" aria-live="polite"></div>
         <form id="sn-login-pane" class="sn-auth-pane active" onsubmit="snLoginEmail(event)">
           <div class="sn-field"><label for="sn-login-email" data-sn-auth="email">Email</label><input id="sn-login-email" type="email" autocomplete="email" data-sn-auth-placeholder="email_placeholder" required></div>
-          <div class="sn-field"><label for="sn-login-pass" data-sn-auth="password">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-login-pass" type="password" autocomplete="current-password" data-sn-auth-placeholder="password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div>
+          <div class="sn-field"><label for="sn-login-pass" data-sn-auth="password">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-login-pass" type="password" autocomplete="current-password" data-sn-auth-placeholder="password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div></div>
           <div class="sn-forgot-row"><button type="button" class="sn-link" onclick="snShowRecovery()" data-sn-auth="forgot_password">Quên mật khẩu?</button></div>
           <div class="sn-auth-actions"><button id="sn-login-submit" class="btn btn-blue" type="submit" data-sn-auth="sign_in">Đăng nhập</button></div>
           <div class="sn-divider" data-sn-auth="or">hoặc</div><div class="sn-auth-actions"><button class="btn btn-purple" type="button" onclick="snLoginFacebook()" data-sn-auth="continue_facebook">Tiếp tục với Facebook</button><button class="btn btn-default" type="button" onclick="snLocalDemoLogin()" data-sn-auth="continue_local">Tiếp tục dùng local</button></div>
@@ -1866,15 +1866,15 @@ init();
         <form id="sn-register-pane" class="sn-auth-pane" onsubmit="snRegisterEmail(event)">
           <div class="sn-field"><label for="sn-register-name" data-sn-auth="display_name">Tên hiển thị</label><input id="sn-register-name" maxlength="30" autocomplete="name" data-sn-auth-placeholder="display_name_placeholder" required></div>
           <div class="sn-field"><label for="sn-register-email" data-sn-auth="email">Email</label><input id="sn-register-email" type="email" autocomplete="email" data-sn-auth-placeholder="email_placeholder" required></div>
-          <div class="sn-field"><label for="sn-register-pass" data-sn-auth="password">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-pass" type="password" autocomplete="new-password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length">✓ Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase">✓ Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number">✓ Có số</span></div></div>
-          <div class="sn-field"><label for="sn-register-confirm" data-sn-auth="confirm_password">Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-confirm" type="password" autocomplete="new-password" data-sn-auth-placeholder="confirm_password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div>
+          <div class="sn-field"><label for="sn-register-pass" data-sn-auth="password">Mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-pass" type="password" autocomplete="new-password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length"><sn-icon name="success"></sn-icon> Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase"><sn-icon name="success"></sn-icon> Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number"><sn-icon name="success"></sn-icon> Có số</span></div></div>
+          <div class="sn-field"><label for="sn-register-confirm" data-sn-auth="confirm_password">Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-register-confirm" type="password" autocomplete="new-password" data-sn-auth-placeholder="confirm_password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div></div>
           <div class="sn-auth-actions"><button id="sn-register-submit" class="btn btn-green" type="submit" data-sn-auth="create_account">Tạo tài khoản</button></div><div class="sn-divider" data-sn-auth="or">hoặc</div><div class="sn-auth-actions"><button class="btn btn-purple" type="button" onclick="snLoginFacebook()" data-sn-auth="continue_facebook">Đăng ký với Facebook</button></div><div style="text-align:center;margin-top:12px"><span data-sn-auth="have_account">Đã có tài khoản?</span> <button type="button" class="sn-link" onclick="snSwitchAuthTab('login')" data-sn-auth="sign_in">Đăng nhập</button></div>
         </form>
         <form id="sn-recovery-pane" class="sn-auth-pane" onsubmit="snResetPassword(event)"><div class="sn-recovery-head"><h3 data-sn-auth="recovery_title">Khôi phục mật khẩu</h3><p data-sn-auth="recovery_description">Nhập email tài khoản. StudyNova sẽ gửi cho bạn liên kết đặt lại mật khẩu.</p></div><div class="sn-field"><label for="sn-recovery-email" data-sn-auth="email">Email</label><input id="sn-recovery-email" type="email" autocomplete="email" data-sn-auth-placeholder="email_placeholder" required></div><div class="sn-auth-actions"><button id="sn-recovery-submit" class="btn btn-blue" type="submit" data-sn-auth="send_recovery">Gửi liên kết đặt lại</button></div><p class="sn-small" data-sn-auth="check_spam">Hãy kiểm tra cả thư mục Spam/Thư rác.</p><button type="button" class="sn-link" onclick="snSwitchAuthTab('login')" data-sn-auth="back_to_sign_in">← Quay lại đăng nhập</button></form>
-        <form id="sn-new-password-pane" class="sn-auth-pane" onsubmit="snUpdatePassword(event, true)"><div class="sn-recovery-head"><h3 data-sn-auth="new_password_title">Đặt mật khẩu mới</h3></div><div class="sn-field"><label data-sn-auth="new_password">Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-recovery-new-pass" type="password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length">✓ Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase">✓ Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number">✓ Có số</span></div></div><div class="sn-field"><label data-sn-auth="confirm_password">Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-recovery-confirm" type="password" data-sn-auth-placeholder="confirm_password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div><button class="btn btn-green" type="submit" data-sn-auth="update_password">Đổi mật khẩu</button></form>
+        <form id="sn-new-password-pane" class="sn-auth-pane" onsubmit="snUpdatePassword(event, true)"><div class="sn-recovery-head"><h3 data-sn-auth="new_password_title">Đặt mật khẩu mới</h3></div><div class="sn-field"><label data-sn-auth="new_password">Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-recovery-new-pass" type="password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length"><sn-icon name="success"></sn-icon> Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase"><sn-icon name="success"></sn-icon> Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number"><sn-icon name="success"></sn-icon> Có số</span></div></div><div class="sn-field"><label data-sn-auth="confirm_password">Nhập lại mật khẩu</label><div class="sn-password-wrap"><input id="sn-recovery-confirm" type="password" data-sn-auth-placeholder="confirm_password_placeholder" required><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div></div><button class="btn btn-green" type="submit" data-sn-auth="update_password">Đổi mật khẩu</button></form>
       </section>
       <section id="sn-signed-in-view" hidden>
-        <div class="sn-account-hero"><div class="sn-account-avatar">👤</div><div><h3 id="sn-welcome"></h3><p data-sn-auth="cloud_description">Dữ liệu của bạn có thể được sao lưu và đồng bộ an toàn.</p></div></div>
+        <div class="sn-account-hero"><div class="sn-account-avatar"><sn-icon name="account"></sn-icon></div><div><h3 id="sn-welcome"></h3><p data-sn-auth="cloud_description">Dữ liệu của bạn có thể được sao lưu và đồng bộ an toàn.</p></div></div>
       <div class="nova-cloud-panel" id="nova-cloud-panel">
         <div class="nova-cloud-grid">
           <div class="nova-cloud-stat"><b data-sn-auth="local_data">Dữ liệu máy</b><span id="nova-local-summary">Đang đọc...</span></div>
@@ -1892,7 +1892,7 @@ init();
         <div class="nova-cloud-note" data-sn-auth="cloud_note">Trước khi tải hoặc gộp, web tự tạo một bản backup cục bộ để tránh mất dữ liệu.</div>
       </div>
       <button class="btn btn-green" style="width:100%;min-height:44px" onclick="snSaveCloud(false)" data-sn-auth="backup_sync">Sao lưu và đồng bộ</button>
-      <details class="sn-account-settings"><summary data-sn-auth="account_settings">Cài đặt tài khoản</summary><div class="sn-settings-body"><div class="sn-field"><label for="sn-profile-name" data-sn-auth="display_name">Tên hiển thị</label><input id="sn-profile-name" maxlength="30" data-sn-auth-placeholder="display_name_placeholder"></div><button class="btn btn-blue" onclick="snSaveDisplayName()" data-sn-auth="save_display_name">Lưu tên hiển thị</button><div id="sn-password-settings"><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><div class="sn-field"><label data-sn-auth="new_password">Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-pass" type="password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)"><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length">✓ Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase">✓ Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number">✓ Có số</span></div></div><div class="sn-field"><label data-sn-auth="confirm_new_password">Nhập lại mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-confirm" type="password" data-sn-auth-placeholder="confirm_password_placeholder"><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)">👁</button></div></div><button class="btn btn-blue" onclick="snUpdatePassword(event, false)" data-sn-auth="update_password">Đổi mật khẩu</button></div><p id="sn-facebook-password-note" class="sn-small" data-sn-auth="facebook_password_note" hidden>Bạn đang đăng nhập bằng Facebook. Hãy quản lý phương thức đăng nhập qua Facebook hoặc sử dụng khôi phục email nếu tài khoản có email.</p><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><button class="btn btn-red" onclick="snLogout()" data-sn-auth="sign_out">Đăng xuất</button></div></details>
+      <details class="sn-account-settings"><summary data-sn-auth="account_settings">Cài đặt tài khoản</summary><div class="sn-settings-body"><div class="sn-field"><label for="sn-profile-name" data-sn-auth="display_name">Tên hiển thị</label><input id="sn-profile-name" maxlength="30" data-sn-auth-placeholder="display_name_placeholder"></div><button class="btn btn-blue" onclick="snSaveDisplayName()" data-sn-auth="save_display_name">Lưu tên hiển thị</button><div id="sn-password-settings"><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><div class="sn-field"><label data-sn-auth="new_password">Mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-pass" type="password" data-sn-auth-placeholder="password_placeholder" oninput="snUpdatePasswordRules(this)"><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div><div class="sn-password-rules"><span data-rule="length" data-sn-auth="password_length"><sn-icon name="success"></sn-icon> Đủ 8 ký tự</span><span data-rule="upper" data-sn-auth="password_uppercase"><sn-icon name="success"></sn-icon> Có chữ viết hoa</span><span data-rule="number" data-sn-auth="password_number"><sn-icon name="success"></sn-icon> Có số</span></div></div><div class="sn-field"><label data-sn-auth="confirm_new_password">Nhập lại mật khẩu mới</label><div class="sn-password-wrap"><input id="sn-settings-confirm" type="password" data-sn-auth-placeholder="confirm_password_placeholder"><button type="button" class="sn-password-toggle" data-sn-password-toggle aria-label="Hiện mật khẩu" aria-pressed="false" onmousedown="event.preventDefault()" onclick="snTogglePassword(this)"><sn-icon name="show-password"></sn-icon></button></div></div><button class="btn btn-blue" onclick="snUpdatePassword(event, false)" data-sn-auth="update_password">Đổi mật khẩu</button></div><p id="sn-facebook-password-note" class="sn-small" data-sn-auth="facebook_password_note" hidden>Bạn đang đăng nhập bằng Facebook. Hãy quản lý phương thức đăng nhập qua Facebook hoặc sử dụng khôi phục email nếu tài khoản có email.</p><hr style="border:0;border-top:1px solid var(--bd);margin:16px 0"><button class="btn btn-red" onclick="snLogout()" data-sn-auth="sign_out">Đăng xuất</button></div></details>
       </section>
     </div>
   </div>
@@ -1901,15 +1901,15 @@ init();
 <div class="sn-modal" id="sn-ai-modal" onclick="if(event.target===this)snCloseAiPanel()">
   <div class="sn-modal-box">
     <div class="sn-modal-head">
-      <div class="sn-modal-title">🤖 NovaLab AI Coach</div>
-      <button class="sn-close" onclick="snCloseAiPanel()">✕</button>
+      <div class="sn-modal-title"><sn-icon name="ai-coach"></sn-icon> NovaLab AI Coach</div>
+      <button class="sn-close" onclick="snCloseAiPanel()"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="sn-modal-body">
       <div class="sn-small" style="margin-bottom:12px">Dùng AI để chữa Writing, giải thích lỗi và cải thiện bài. Khi AI tự động chưa khả dụng, web sẽ tạo prompt để dùng với ChatGPT/Claude.</div>
       <div class="sn-ai-tabs">
-        <button class="btn btn-green btn-sm" onclick="snAiTab('vocab')">📸 Nhập từ ảnh</button>
-        <button class="btn btn-blue btn-sm" onclick="snAiTab('writing')">✍️ Chữa Writing</button>
-        <button class="btn btn-purple btn-sm" onclick="snAiTab('speaking')">🗣️ Chữa Speaking</button>
+        <button class="btn btn-green btn-sm" onclick="snAiTab('vocab')"><sn-icon name="image-import"></sn-icon> Nhập từ ảnh</button>
+        <button class="btn btn-blue btn-sm" onclick="snAiTab('writing')"><sn-icon name="writing-vault"></sn-icon> Chữa Writing</button>
+        <button class="btn btn-purple btn-sm" onclick="snAiTab('speaking')"><sn-icon name="speaking-studio"></sn-icon> Chữa Speaking</button>
       </div>
       <div id="sn-ai-vocab" class="sn-ai-pane active">
         <label>Ảnh trang từ vựng / sách</label>
@@ -1917,8 +1917,8 @@ init();
         <label style="margin-top:10px">Ghi chú cho AI</label>
         <textarea id="sn-ai-vocab-note" placeholder="VD: Chuyển toàn bộ từ trong ảnh thành format NovaLab: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example"></textarea>
         <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn btn-green" onclick="snRunVocabImage()">🤖 Chuyển ảnh thành dữ liệu</button>
-          <button class="btn btn-blue" onclick="snPutAiOutputToBulk()">⬇ Đưa vào ô Nhập nhanh</button>
+          <button class="btn btn-green" onclick="snRunVocabImage()"><sn-icon name="ai-coach"></sn-icon> Chuyển ảnh thành dữ liệu</button>
+          <button class="btn btn-blue" onclick="snPutAiOutputToBulk()"><sn-icon name="export"></sn-icon> Đưa vào ô Nhập nhanh</button>
         </div>
       </div>
       <div id="sn-ai-writing" class="sn-ai-pane">
@@ -1926,7 +1926,7 @@ init();
         <textarea id="sn-ai-writing-text" placeholder="Dán bài Writing hoặc bấm nút, web sẽ tự lấy từ ô bài viết nếu đang ở Writing Vault."></textarea>
         <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
           <button class="btn btn-blue" onclick="snFillWritingFromPage()">Lấy bài hiện tại</button>
-          <button class="btn btn-green" onclick="snRunWritingCoach()">🤖 Chữa bài</button>
+          <button class="btn btn-green" onclick="snRunWritingCoach()"><sn-icon name="ai-coach"></sn-icon> Chữa bài</button>
         </div>
       </div>
       <div id="sn-ai-speaking" class="sn-ai-pane">
@@ -1934,13 +1934,13 @@ init();
         <textarea id="sn-ai-speaking-text" placeholder="Dán transcript Speaking hoặc bấm nút lấy từ Speaking Studio nếu có."></textarea>
         <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
           <button class="btn btn-purple" onclick="snFillSpeakingFromPage()">Lấy speaking hiện tại</button>
-          <button class="btn btn-green" onclick="snRunSpeakingCoach()">🤖 Chữa Speaking</button>
+          <button class="btn btn-green" onclick="snRunSpeakingCoach()"><sn-icon name="ai-coach"></sn-icon> Chữa Speaking</button>
         </div>
       </div>
       <label style="margin-top:12px">Kết quả AI / dữ liệu nhập nhanh</label>
       <textarea id="sn-ai-output" class="sn-ai-output" placeholder="Kết quả sẽ hiện ở đây..."></textarea>
       <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-        <button class="btn btn-default" onclick="snCopyAiOutput()">📋 Copy kết quả</button>
+        <button class="btn btn-default" onclick="snCopyAiOutput()"><sn-icon name="copy"></sn-icon> Copy kết quả</button>
       </div>
       <div id="sn-ai-msg" class="msg"></div>
     </div>
@@ -2069,7 +2069,7 @@ window.addEventListener('load',function(){wvRenderDensity()});
 
 <div id="pwa-install-group" class="pwa-install-group">
   <button id="pwa-install-btn" class="pwa-install-btn" type="button">
-    <span>📲</span><span id="pwa-install-label" class="pwa-install-label">Cài NovaLab</span>
+    <span><sn-icon name="add"></sn-icon></span><span id="pwa-install-label" class="pwa-install-label">Cài NovaLab</span>
   </button>
   <button id="pwa-install-more" class="pwa-install-more" type="button" aria-label="Cài đặt NovaLab">+</button>
 </div>
@@ -2339,7 +2339,7 @@ function startCorrectionReview(){
   WV_REVIEW_INDEX=0;
   WV_REVIEW_STATE=null;
   if(!WV_REVIEW_ITEMS.length){
-    $('wv-review-stage').innerHTML='<div class="empty">🎉 Không có lỗi phù hợp để ôn.</div>';
+    $('wv-review-stage').innerHTML='<div class="empty"><sn-icon name="complete"></sn-icon> Không có lỗi phù hợp để ôn.</div>';
     wvRenderDueCount();
     return;
   }
@@ -2350,7 +2350,7 @@ function renderCorrectionReviewQuestion(){
   let stage=$('wv-review-stage');
   if(WV_REVIEW_INDEX>=WV_REVIEW_ITEMS.length){
     stage.innerHTML='<div class="wv-review-card" style="text-align:center">'+
-      '<h2 style="margin:0 0 8px">✓ Hoàn thành '+WV_REVIEW_ITEMS.length+' lỗi</h2>'+
+      '<h2 style="margin:0 0 8px"><sn-icon name="success"></sn-icon> Hoàn thành '+WV_REVIEW_ITEMS.length+' lỗi</h2>'+
       '<div class="mini">Lịch ôn từng lỗi đã được cập nhật.</div>'+
       '<button class="btn btn-green" style="margin-top:15px" onclick="startCorrectionReview()">Ôn tiếp</button>'+
     '</div>';
@@ -2392,7 +2392,7 @@ function renderCorrectionReviewQuestion(){
     stage.innerHTML=header+
       '<textarea id="wv-review-input" class="wv-review-input" placeholder="Viết lại câu đúng..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();wvAnswerCorrectionFill()}"></textarea>'+
       '<div style="display:flex;gap:8px;justify-content:center;margin-top:10px">'+
-        '<button class="btn btn-green" onclick="wvAnswerCorrectionFill()">✓ Kiểm tra</button>'+
+        '<button class="btn btn-green" onclick="wvAnswerCorrectionFill()"><sn-icon name="success"></sn-icon> Kiểm tra</button>'+
         '<button class="btn btn-default" onclick="wvShowCorrectionHint()">Gợi ý</button>'+
       '</div>'+
       '<div id="wv-review-feedback" class="wv-review-feedback"></div>'+
@@ -2403,7 +2403,7 @@ function renderCorrectionReviewQuestion(){
 function wvCompleteCorrection(c){
   wvApplyCorrectionReview(c,WV_REVIEW_STATE.hadWrong?'again':'good');
   wvReviewFeedback(
-    '✓ Chính xác.'+
+    '<sn-icon name="success"></sn-icon> Chính xác.'+
     (c.reason?'<br><b>Lý do:</b> '+esc(c.reason):'')+
     '<br>Đang chuyển câu tiếp theo...',
     true
@@ -2421,7 +2421,7 @@ function wvAnswerCorrectionMC(button,c){
     WV_REVIEW_STATE.attempts++;
     button.disabled=true;
     button.classList.add('wrong');
-    wvReviewFeedback('✗ Chưa đúng. Hãy chọn lại.',false);
+    wvReviewFeedback('<sn-icon name="error"></sn-icon> Chưa đúng. Hãy chọn lại.',false);
     return;
   }
   document.querySelectorAll('#wv-review-options .wv-review-option').forEach(x=>x.disabled=true);
@@ -2438,7 +2438,7 @@ function wvAnswerCorrectionFill(){
     WV_REVIEW_STATE.hadWrong=true;
     WV_REVIEW_STATE.attempts++;
     input.classList.add('chunk-bad');
-    wvReviewFeedback('✗ Chưa đúng. Sửa lại ngay trên ô này.',false);
+    wvReviewFeedback('<sn-icon name="error"></sn-icon> Chưa đúng. Sửa lại ngay trên ô này.',false);
     setTimeout(()=>{
       input.classList.remove('chunk-bad');
       input.focus();
@@ -2539,7 +2539,7 @@ function wvSaveCorrectionToVocab(){
     target.coll=chunks.join('; ');
     target.updatedAt=wvDateKey();
     localStorage.setItem(VOCAB_KEY,JSON.stringify(data));
-    msg('wv-link-msg','✓ Đã thêm chunk vào “'+target.term+'”.');
+    msg('wv-link-msg','<sn-icon name="success"></sn-icon> Đã thêm chunk vào “'+target.term+'”.');
     refreshVocab();
     setTimeout(wvCloseVocabLink,650);
     return;
@@ -2569,7 +2569,7 @@ function wvSaveCorrectionToVocab(){
   });
   data.days[wvDateKey()]=(Number(data.days[wvDateKey()])||0)+1;
   localStorage.setItem(VOCAB_KEY,JSON.stringify(data));
-  msg('wv-link-msg','✓ Đã thêm vào NovaLab Vocabulary.');
+  msg('wv-link-msg','<sn-icon name="success"></sn-icon> Đã thêm vào NovaLab Vocabulary.');
   refreshVocab();
   setTimeout(wvCloseVocabLink,650);
 }
@@ -2591,7 +2591,7 @@ function renderCorrections(){
           <div class="mini">${fmt(c.createdAt)}</div>
         </div>
         <div class="actions">
-          <button class="btn btn-default btn-sm" onclick="toggleMastered('${c.id}')">${c.mastered?'↩ Chưa thuộc':'✓ Đã thuộc'}</button>
+          <button class="btn btn-default btn-sm" onclick="toggleMastered('${c.id}')">${c.mastered?'<sn-icon name="back"></sn-icon> Chưa thuộc':'<sn-icon name="success"></sn-icon> Đã thuộc'}</button>
           <button class="btn btn-red btn-sm" onclick="deleteCorrection('${c.id}')">Xoá</button>
         </div>
       </div>
@@ -2604,9 +2604,9 @@ function renderCorrections(){
         <span class="wv-due-chip ${due?'due':'good'}">${due?'Đến hạn':'Ôn '+review.due.slice(5).replace('-','/')}</span>
       </div>
       <div class="wv-correction-tools">
-        <button class="btn btn-green btn-sm" onclick="wvReviewSingleCorrection('${c.id}')">🧠 Ôn lỗi này</button>
-        <button class="btn btn-blue btn-sm" onclick="wvOpenCorrectionVocab('${c.id}','new')">➕ Thêm Vocabulary</button>
-        <button class="btn btn-purple btn-sm" onclick="wvOpenCorrectionVocab('${c.id}','chunk')">🧩 Thêm thành chunk</button>
+        <button class="btn btn-green btn-sm" onclick="wvReviewSingleCorrection('${c.id}')"><sn-icon name="ai-coach"></sn-icon> Ôn lỗi này</button>
+        <button class="btn btn-blue btn-sm" onclick="wvOpenCorrectionVocab('${c.id}','new')"><sn-icon name="add"></sn-icon> Thêm Vocabulary</button>
+        <button class="btn btn-purple btn-sm" onclick="wvOpenCorrectionVocab('${c.id}','chunk')"><sn-icon name="phrase-bank"></sn-icon> Thêm thành chunk</button>
       </div>
     </div>`;
   }).join(''):'<div class="empty">Chưa có lỗi nào được lưu.</div>';
@@ -2682,7 +2682,7 @@ setTimeout(function(){
 <script id="novalab-writing-scanner-i18n-v6">
 (function(){
   var GLOBAL_LANG_KEY='novalab_language_v1';
-  var WV_T={"NovaLab có phiên bản mới": "A new NovaLab version is available", "Cập nhật để dùng tính năng mới mà không phải gỡ ứng dụng.": "Update to use the latest features without reinstalling the app.", "Cập nhật": "Update", "Để sau": "Later", "bài": "essays", "Công cụ và tài khoản": "Tools and account", "NovaLab học tập": "NovaLab Learning", "Chữa và cải thiện bài": "Review and improve essays", "Đăng nhập": "Sign in", "Tài khoản và đồng bộ": "Account and sync", "Sao lưu": "Backup", "Copy, chia sẻ hoặc tải file": "Copy, share, or download a file", "Khôi phục": "Restore", "Nhập file hoặc dán mã": "Import a file or paste a code", "Giao diện": "Appearance", "Sáng hoặc tối": "Light or dark mode", "Cài đặt Writing": "Writing settings", "Ngôn ngữ": "Language", "Đổi toàn bộ giao diện Việt / Anh": "Switch the full interface between Vietnamese and English", "Viết bài": "Write", "Kho bài": "Essay Library", "Tiến độ": "Progress", "📈 Tổng quan": "📈 Overview", "🧯 Sổ lỗi Writing": "🧯 Writing Mistake Bank", "Thêm": "More", "⚙️ Cài đặt": "⚙️ Settings", "📚 NovaLab học tập": "📚 NovaLab Learning", "Tổng bài": "Total essays", "Đã lưu trong Writing Vault": "Saved in Writing Vault", "Bản nháp": "Drafts", "Bài đang hoàn thiện": "Essays in progress", "Đã cải thiện": "Improved", "Checked hoặc improved": "Checked or improved", "Từ vựng": "Vocabulary", "Đang liên kết với NovaLab": "Linked with NovaLab", "Lưu bài, chữa lỗi, nâng band Writing bằng": "Save essays, review mistakes, and raise your Writing band in", "một kho riêng": "one dedicated vault", "Lưu Task 1/Task 2, theo dõi band, ghi lỗi sai và dùng lại từ vựng đã học trong một nơi.": "Save Task 1/Task 2 essays, track bands, record mistakes, and reuse learned vocabulary in one place.", "✍️ Lưu bài mới": "✍️ Save a new essay", "🧯 Mở sổ lỗi": "🧯 Open Mistake Bank", "👤 Đăng nhập": "👤 Sign in", "Lưu bài theo topic, task, trạng thái và band.": "Organise essays by topic, task, status, and band.", "Ghi câu sai → câu đúng → lý do để không lặp lỗi.": "Save incorrect sentence → correction → explanation to prevent repeated mistakes.", "Đọc dữ liệu từ NovaLab Vocabulary qua localStorage/backup.": "Read NovaLab Vocabulary data through local storage or backup.", "Chấm band ước lượng, sửa lỗi và viết improved version.": "Estimate the band, correct mistakes, and create an improved version.", "📁 Bài theo chủ đề": "📁 Essays by topic", "🕘 Bài mới nhất": "🕘 Latest essays", "+ Viết bài mới": "+ New essay", "✍️ Lưu / chỉnh sửa bài Writing": "✍️ Save / edit a Writing essay", "Tiêu đề bài": "Essay title", "Chủ đề": "Topic", "Hoặc chủ đề mới": "Or create a new topic", "Trạng thái": "Status", "Band mục tiêu": "Target band", "Band sau khi chữa": "Band after feedback", "Đề bài / prompt": "Question / prompt", "Bài viết của bạn": "My essay", "Bản sửa hoàn chỉnh / improved version": "Complete correction / improved version", "Ghi chú": "Notes", "✓ Lưu bài": "✓ Save essay", "+ Bài mới": "+ New essay", "🔎 Check nhanh": "🔎 Quick check", "📋 Copy gửi ChatGPT": "📋 Copy for ChatGPT", "Kiểm tra nhanh số từ, lỗi phổ biến và từ bị lặp.": "Quickly check word count, common issues, and repeated words.", "🔗 Từ vựng liên quan": "🔗 Related vocabulary", "Tự tìm những từ trong bài đã có ở kho Vocabulary.": "Automatically find words in the essay that already exist in Vocabulary.", "🧠 Đối chiếu lỗi cũ": "🧠 Scan past mistakes", "Tự động so sánh bài đang viết với toàn bộ Mistake Bank.": "Automatically compare the current essay with the entire Mistake Bank.", "Quét khi đang gõ": "Scan while typing", "Bao gồm lỗi đã thành thạo": "Include mastered mistakes", "Quét lại": "Scan again", "Chưa quét bài viết.": "The essay has not been scanned yet.", "Tất cả task": "All tasks", "Tất cả chủ đề": "All topics", "Tất cả trạng thái": "All statuses", "🧯 Thêm lỗi sai vào bài": "🧯 Add a mistake to an essay", "Chọn bài": "Choose an essay", "Loại lỗi": "Error type", "Câu sai": "Incorrect sentence", "Câu đúng": "Correct sentence", "Lý do sai": "Why it is incorrect", "Câu mới để luyện lại": "New sentence for practice", "✓ Lưu lỗi": "✓ Save mistake", "📌 Bộ lọc lỗi": "📌 Mistake filters", "Lọc theo bài": "Filter by essay", "Tất cả bài": "All essays", "Lọc theo loại": "Filter by type", "Tất cả lỗi": "All mistakes", "📋 Copy sổ lỗi": "📋 Copy Mistake Bank", "⚡ Nhập nhanh nhiều lỗi sai": "⚡ Quick-import multiple mistakes", "Liên kết toàn bộ lỗi với bài": "Link all mistakes to an essay", "Định dạng mỗi dòng": "Format for each line", "Loại lỗi | Câu sai | Câu đúng | Lý do | Câu mới để luyện": "Error type | Incorrect sentence | Correct sentence | Explanation | New practice sentence", "Danh sách lỗi sai": "Mistake list", "👁 Xem trước": "👁 Preview", "✓ Nhập danh sách": "✓ Import list", "📋 Copy prompt cho AI": "📋 Copy AI prompt", "Xoá ô nhập": "Clear input", "🧠 Ôn lỗi Writing theo lịch": "🧠 Review Writing mistakes on schedule", "0 lỗi đến hạn": "0 mistakes due", "⏰ Đến hạn hôm nay": "⏰ Due today", "🧯 Chưa thành thạo": "🧯 Not mastered", "📚 Tất cả lỗi": "📚 All mistakes", "Tất cả loại lỗi": "All error types", "✍️ Viết lại câu đúng": "✍️ Rewrite the correct sentence", "🎯 Chọn câu đúng": "🎯 Choose the correct sentence", "▶ Bắt đầu ôn": "▶ Start review", "Đúng sẽ tự chuyển câu; sai giữ nguyên để làm lại. Lịch ôn: 1 → 3 → 7 → 14 → 30 ngày.": "A correct answer advances automatically; an incorrect answer stays for another attempt. Review schedule: 1 → 3 → 7 → 14 → 30 days.", "🗒 Danh sách lỗi đã lưu": "🗒 Saved mistakes", "🔗 Liên kết với NovaLab": "🔗 Link with NovaLab", "Tự đọc kho Vocabulary trên cùng thiết bị. Có thể nhập file sao lưu khi cần.": "Read the Vocabulary store on the same device, or import a backup when needed.", "↻ Đọc lại vocab": "↻ Reload vocabulary", "⬆ Nhập backup vocab": "⬆ Import vocabulary backup", "📊 Dữ liệu đang nối": "📊 Linked data", "Từ đọc được": "Words found", "từ NovaLab / backup": "from NovaLab / backup", "Chủ đề vocab": "Vocabulary topics", "topic khác nhau": "different topics", "📚 Từ vựng từ NovaLab": "📚 Vocabulary from NovaLab", "Tất cả topic": "All topics", "⚙️ Cài đặt & dữ liệu": "⚙️ Settings & data", "Thêm chủ đề Writing": "Add a Writing topic", "+ Thêm chủ đề": "+ Add topic", "⬇ Xuất file JSON": "⬇ Export JSON file", "📋 Copy mã": "📋 Copy code", "📤 Chia sẻ": "📤 Share", "📥 Dán để khôi phục": "📥 Paste to restore", "🗑 Xoá toàn bộ Writing Vault": "🗑 Delete all Writing Vault data", "Nên sao lưu định kỳ để bảo vệ bài viết và sổ lỗi.": "Back up regularly to protect your essays and Mistake Bank.", "💾 Sao lưu & khôi phục Writing Vault": "💾 Back up & restore Writing Vault", "Tải file JSON": "Download JSON file", "Dùng khi trình duyệt cho phép tải file": "Use when the browser allows file downloads", "Nhập file JSON": "Import JSON file", "Khôi phục từ file đã lưu trước đó": "Restore from a previously saved file", "Copy mã sao lưu": "Copy backup code", "Dán vào Ghi chú, Drive, email hoặc tin nhắn riêng": "Paste into Notes, Drive, email, or a private message", "Chia sẻ sao lưu": "Share backup", "Gửi qua AirDrop, Drive, Gmail hoặc ứng dụng khác": "Send through AirDrop, Drive, Gmail, or another app", "Khôi phục bằng cách dán mã": "Restore by pasting a code", "Dùng khi điện thoại không chọn hoặc tải được file JSON": "Use when the phone cannot select or download a JSON file", "Mã sao lưu JSON": "JSON backup code", "✓ Khôi phục dữ liệu": "✓ Restore data", "Xoá ô": "Clear", "Không chia sẻ mã backup công khai vì nó chứa toàn bộ bài viết và ghi chú của bạn.": "Do not share the backup code publicly because it contains all essays and notes.", "🔗 Đưa lỗi đúng vào Vocabulary": "🔗 Send the correction to Vocabulary", "Cách lưu": "Save as", "Tạo từ/cụm từ mới": "Create a new word/phrase", "Thêm làm chunk cho từ đã có": "Add as a chunk to an existing word", "Thêm chunk vào từ": "Add the chunk to", "Từ/cụm đúng": "Correct word/phrase", "Nghĩa tiếng Việt": "Vietnamese meaning", "Loại": "Type", "Câu ví dụ": "Example sentence", "✓ Lưu vào Vocabulary": "✓ Save to Vocabulary", "Huỷ": "Cancel", "Chi tiết bài": "Essay details", "👤 Tài khoản StudyNova": "👤 StudyNova account", "Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị.": "Account sync is not available in this version. Data is still stored on the device.", "Chưa đăng nhập.": "Not signed in.", "Dữ liệu máy": "Device data", "Đang đọc...": "Reading...", "Dữ liệu cloud": "Cloud data", "Chưa kiểm tra": "Not checked", "Đồng bộ gần nhất": "Last sync", "Chưa có": "None yet", "Backup an toàn": "Safety backup", "Chưa tạo": "Not created", "🔍 So sánh": "🔍 Compare", "☁️ Giữ bản máy → Cloud": "☁️ Keep device copy → Cloud", "⬇ Giữ bản Cloud": "⬇ Keep Cloud copy", "🔀 Gộp hai bản": "🔀 Merge both copies", "Trước khi tải hoặc gộp, web tự tạo một bản backup cục bộ để tránh mất dữ liệu.": "Before loading or merging, the app creates a local safety backup to prevent data loss.", "Mật khẩu": "Password", "Tạo tài khoản": "Create account", "Đăng nhập email": "Sign in with email", "Đăng nhập Google": "Sign in with Google", "Dùng local": "Use locally", "Đăng xuất": "Sign out", "☁️ Đồng bộ lên cloud": "☁️ Sync to cloud", "⬇ Tải dữ liệu cloud": "⬇ Load cloud data", "Đăng nhập để đồng bộ dữ liệu giữa các thiết bị khi tính năng cloud khả dụng.": "Sign in to sync data across devices when cloud sync is available.", "Dùng AI để chữa Writing, giải thích lỗi và cải thiện bài. Khi AI tự động chưa khả dụng, web sẽ tạo prompt để dùng với ChatGPT/Claude.": "Use AI for Writing feedback, mistake explanations, and essay improvement. When direct AI is unavailable, the app creates a prompt for ChatGPT/Claude.", "📸 Nhập từ ảnh": "📸 Import from image", "✍️ Chữa Writing": "✍️ Writing feedback", "🗣️ Chữa Speaking": "🗣️ Speaking feedback", "Ảnh trang từ vựng / sách": "Vocabulary page / book image", "Ghi chú cho AI": "Instructions for AI", "🤖 Chuyển ảnh thành dữ liệu": "🤖 Convert image to data", "⬇ Đưa vào ô Nhập nhanh": "⬇ Send to Quick Import", "Bài Writing / đoạn cần chữa": "Writing essay / text for feedback", "Lấy bài hiện tại": "Use current essay", "🤖 Chữa bài": "🤖 Review essay", "Transcript / ý chính câu trả lời Speaking": "Speaking transcript / key ideas", "Lấy speaking hiện tại": "Use current speaking", "🤖 Chữa Speaking": "🤖 Review Speaking", "Kết quả AI / dữ liệu nhập nhanh": "AI result / quick-import data", "📋 Copy kết quả": "📋 Copy result", "Cài NovaLab": "Install NovaLab", "Mở kho bài": "Open Essay Library", "Mở menu": "Open menu", "Dán đề bài Writing vào đây...": "Paste the Writing question here...", "Viết hoặc dán bài của bạn vào đây...": "Write or paste your essay here...", "Sau khi được chữa, dán bản sửa tốt hơn vào đây...": "After receiving feedback, paste the improved version here...", "VD: Cần sửa overview, chia đoạn rõ hơn...": "e.g. Improve the overview and paragraphing", "🔍 Tìm bài...": "🔍 Search essays...", "VD: Không dùng was + V1 cho động từ chính": "e.g. Do not use was + base verb as the main verb", "Tìm từ trong vocab...": "Search vocabulary...", "Dán toàn bộ mã sao lưu Writing Vault vào đây...": "Paste the complete Writing Vault backup code here...", "VD: sự ổn định nghề nghiệp": "e.g. career stability", "Tối thiểu 8 ký tự, có chữ hoa và chữ số": "At least 8 characters with an uppercase letter and a number", "VD: Chuyển toàn bộ từ trong ảnh thành format NovaLab: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example": "e.g. Convert all vocabulary in the image into NovaLab format: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example", "Dán bài Writing hoặc bấm nút, web sẽ tự lấy từ ô bài viết nếu đang ở Writing Vault.": "Paste a Writing essay, or use the button to take text from the current essay box.", "Dán transcript Speaking hoặc bấm nút lấy từ Speaking Studio nếu có.": "Paste a Speaking transcript, or use the button to take it from Speaking Studio.", "Kết quả sẽ hiện ở đây...": "Results will appear here...", "Viết lại câu đúng...": "Rewrite the correct sentence...", "Không tìm thấy lỗi cũ nào trong bài hiện tại.": "No past mistake was found in the current essay.", "Phát hiện lỗi từng mắc": "Repeated past mistake detected", "Khớp toàn bộ câu sai": "Matched the full incorrect sentence", "Khớp cụm sai": "Matched an incorrect phrase", "Trong bài hiện tại": "In the current essay", "Gợi ý sửa": "Suggested correction", "Lý do": "Explanation", "Nguồn trong Mistake Bank": "Source in Mistake Bank", "Thay trong bài": "Replace in essay", "Mở lỗi gốc": "Open original mistake", "Copy gợi ý": "Copy suggestion", "lỗi cũ được phát hiện": "past mistakes detected", "lần xuất hiện": "occurrences", "Web chỉ đối chiếu với lỗi đã lưu; đây không phải công cụ chấm toàn bộ ngữ pháp.": "The scanner only compares the essay with saved mistakes; it is not a complete grammar checker.", "Bài viết còn quá ngắn để quét.": "The essay is too short to scan.", "Mistake Bank chưa có lỗi để đối chiếu.": "The Mistake Bank has no saved mistakes to compare.", "Đã thay lỗi trong bài.": "The mistake was replaced in the essay.", "Không còn thấy cụm lỗi trong bài.": "The incorrect phrase is no longer present in the essay.", "Đã copy gợi ý sửa.": "Correction copied.", "Kiểm tra bản dịch": "Translation audit", "Không phát hiện chữ tiếng Việt còn sót trong phần đang hiển thị.": "No untranslated Vietnamese text was found in the visible interface.", "Còn chữ chưa dịch": "Untranslated text remains", "New": "New", "Editing": "Editing", "Chưa có bài": "No essays yet", "Chưa có từ": "No words yet", "Đến hạn": "Due", "Ôn": "Review", "Sai": "Incorrect", "Đúng": "Correct", "Lý do:": "Explanation:", "Luyện lại:": "Practice again:", "Dòng lỗi": "Invalid line", "Ổn áp!": "Looks good!", "Không rõ bài": "Unknown essay", "↩ Chưa thuộc": "↩ Not mastered", "✓ Đã thuộc": "✓ Mastered", "Xoá": "Delete", "Sửa bài": "Edit essay", "Thêm lỗi": "Add mistake", "Bài của bạn": "My essay", "Lỗi liên quan": "Related mistakes", "Đề bài": "Question", "Bản cải thiện": "Improved version", "Không có dữ liệu": "No data", "Ôn tiếp": "Review more", "Sửa câu sai:": "Correct the sentence:", "✓ Kiểm tra": "✓ Check", "Gợi ý": "Hint", "✓ Chính xác.": "✓ Correct.", "Đang chuyển câu tiếp theo...": "Moving to the next question...", "✗ Chưa đúng. Hãy chọn lại.": "✗ Not correct. Choose again.", "✗ Chưa đúng. Sửa lại ngay trên ô này.": "✗ Not correct. Edit the answer in this box.", "↻ Quét lại": "↻ Scan again", "VD: Line chart about Australian trade": "e.g. Line chart about Australian trade", "VD: Housing": "e.g. Housing", "VD: The value was increase steadily.": "e.g. The value was increase steadily.", "VD: The value increased steadily.": "e.g. The value increased steadily.", "VD: Exports increased sharply in 2009.": "e.g. Exports increased sharply in 2009.", "VD: Urbanisation": "e.g. Urbanisation", "Grammar | i think that depends | I think this depends | I luôn viết hoa và cần chủ ngữ rõ ràng | I think this depends on each person's goals.\nVocabulary | all the life | throughout their working lives | Cụm mới tự nhiên và học thuật hơn | Some employees remain loyal throughout their working lives.": "Grammar | i think that depends | I think this depends | Capitalise I and use a clear subject | I think this depends on each person's goals.\nVocabulary | all the life | throughout their working lives | The corrected phrase is more natural and academic | Some employees remain loyal throughout their working lives."};
+  var WV_T={"NovaLab có phiên bản mới": "A new NovaLab version is available", "Cập nhật để dùng tính năng mới mà không phải gỡ ứng dụng.": "Update to use the latest features without reinstalling the app.", "Cập nhật": "Update", "Để sau": "Later", "bài": "essays", "Công cụ và tài khoản": "Tools and account", "NovaLab học tập": "NovaLab Learning", "Chữa và cải thiện bài": "Review and improve essays", "Đăng nhập": "Sign in", "Tài khoản và đồng bộ": "Account and sync", "Sao lưu": "Backup", "Copy, chia sẻ hoặc tải file": "Copy, share, or download a file", "Khôi phục": "Restore", "Nhập file hoặc dán mã": "Import a file or paste a code", "Giao diện": "Appearance", "Sáng hoặc tối": "Light or dark mode", "Cài đặt Writing": "Writing settings", "Ngôn ngữ": "Language", "Đổi toàn bộ giao diện Việt / Anh": "Switch the full interface between Vietnamese and English", "Viết bài": "Write", "Kho bài": "Essay Library", "Tiến độ": "Progress", "Tổng quan": "Overview", "Sổ lỗi Writing": "Writing Mistake Bank", "Thêm": "More", "Cài đặt": "Settings", "NovaLab học tập": "NovaLab Learning", "Tổng bài": "Total essays", "Đã lưu trong Writing Vault": "Saved in Writing Vault", "Bản nháp": "Drafts", "Bài đang hoàn thiện": "Essays in progress", "Đã cải thiện": "Improved", "Checked hoặc improved": "Checked or improved", "Từ vựng": "Vocabulary", "Đang liên kết với NovaLab": "Linked with NovaLab", "Lưu bài, chữa lỗi, nâng band Writing bằng": "Save essays, review mistakes, and raise your Writing band in", "một kho riêng": "one dedicated vault", "Lưu Task 1/Task 2, theo dõi band, ghi lỗi sai và dùng lại từ vựng đã học trong một nơi.": "Save Task 1/Task 2 essays, track bands, record mistakes, and reuse learned vocabulary in one place.", "Lưu bài mới": "Save a new essay", "Mở sổ lỗi": "Open Mistake Bank", "Đăng nhập": "Sign in", "Lưu bài theo topic, task, trạng thái và band.": "Organise essays by topic, task, status, and band.", "Ghi câu sai → câu đúng → lý do để không lặp lỗi.": "Save incorrect sentence → correction → explanation to prevent repeated mistakes.", "Đọc dữ liệu từ NovaLab Vocabulary qua localStorage/backup.": "Read NovaLab Vocabulary data through local storage or backup.", "Chấm band ước lượng, sửa lỗi và viết improved version.": "Estimate the band, correct mistakes, and create an improved version.", "Bài theo chủ đề": "Essays by topic", "Bài mới nhất": "Latest essays", "+ Viết bài mới": "+ New essay", "Lưu / chỉnh sửa bài Writing": "Save / edit a Writing essay", "Tiêu đề bài": "Essay title", "Chủ đề": "Topic", "Hoặc chủ đề mới": "Or create a new topic", "Trạng thái": "Status", "Band mục tiêu": "Target band", "Band sau khi chữa": "Band after feedback", "Đề bài / prompt": "Question / prompt", "Bài viết của bạn": "My essay", "Bản sửa hoàn chỉnh / improved version": "Complete correction / improved version", "Ghi chú": "Notes", "Lưu bài": "Save essay", "+ Bài mới": "+ New essay", "Check nhanh": "Quick check", "Copy gửi ChatGPT": "Copy for ChatGPT", "Kiểm tra nhanh số từ, lỗi phổ biến và từ bị lặp.": "Quickly check word count, common issues, and repeated words.", "Từ vựng liên quan": "Related vocabulary", "Tự tìm những từ trong bài đã có ở kho Vocabulary.": "Automatically find words in the essay that already exist in Vocabulary.", "Đối chiếu lỗi cũ": "Scan past mistakes", "Tự động so sánh bài đang viết với toàn bộ Mistake Bank.": "Automatically compare the current essay with the entire Mistake Bank.", "Quét khi đang gõ": "Scan while typing", "Bao gồm lỗi đã thành thạo": "Include mastered mistakes", "Quét lại": "Scan again", "Chưa quét bài viết.": "The essay has not been scanned yet.", "Tất cả task": "All tasks", "Tất cả chủ đề": "All topics", "Tất cả trạng thái": "All statuses", "Thêm lỗi sai vào bài": "Add a mistake to an essay", "Chọn bài": "Choose an essay", "Loại lỗi": "Error type", "Câu sai": "Incorrect sentence", "Câu đúng": "Correct sentence", "Lý do sai": "Why it is incorrect", "Câu mới để luyện lại": "New sentence for practice", "Lưu lỗi": "Save mistake", "Bộ lọc lỗi": "Mistake filters", "Lọc theo bài": "Filter by essay", "Tất cả bài": "All essays", "Lọc theo loại": "Filter by type", "Tất cả lỗi": "All mistakes", "Copy sổ lỗi": "Copy Mistake Bank", "Nhập nhanh nhiều lỗi sai": "Quick-import multiple mistakes", "Liên kết toàn bộ lỗi với bài": "Link all mistakes to an essay", "Định dạng mỗi dòng": "Format for each line", "Loại lỗi | Câu sai | Câu đúng | Lý do | Câu mới để luyện": "Error type | Incorrect sentence | Correct sentence | Explanation | New practice sentence", "Danh sách lỗi sai": "Mistake list", "Xem trước": "Preview", "Nhập danh sách": "Import list", "Copy prompt cho AI": "Copy AI prompt", "Xoá ô nhập": "Clear input", "Ôn lỗi Writing theo lịch": "Review Writing mistakes on schedule", "0 lỗi đến hạn": "0 mistakes due", "Đến hạn hôm nay": "Due today", "Chưa thành thạo": "Not mastered", "Tất cả lỗi": "All mistakes", "Tất cả loại lỗi": "All error types", "Viết lại câu đúng": "Rewrite the correct sentence", "Chọn câu đúng": "Choose the correct sentence", "Bắt đầu ôn": "Start review", "Đúng sẽ tự chuyển câu; sai giữ nguyên để làm lại. Lịch ôn: 1 → 3 → 7 → 14 → 30 ngày.": "A correct answer advances automatically; an incorrect answer stays for another attempt. Review schedule: 1 → 3 → 7 → 14 → 30 days.", "Danh sách lỗi đã lưu": "Saved mistakes", "Liên kết với NovaLab": "Link with NovaLab", "Tự đọc kho Vocabulary trên cùng thiết bị. Có thể nhập file sao lưu khi cần.": "Read the Vocabulary store on the same device, or import a backup when needed.", "Đọc lại vocab": "Reload vocabulary", "Nhập backup vocab": "Import vocabulary backup", "Dữ liệu đang nối": "Linked data", "Từ đọc được": "Words found", "từ NovaLab / backup": "from NovaLab / backup", "Chủ đề vocab": "Vocabulary topics", "topic khác nhau": "different topics", "Từ vựng từ NovaLab": "Vocabulary from NovaLab", "Tất cả topic": "All topics", "Cài đặt & dữ liệu": "Settings & data", "Thêm chủ đề Writing": "Add a Writing topic", "+ Thêm chủ đề": "+ Add topic", "Xuất file JSON": "Export JSON file", "Copy mã": "Copy code", "Chia sẻ": "Share", "Dán để khôi phục": "Paste to restore", "Xoá toàn bộ Writing Vault": "Delete all Writing Vault data", "Nên sao lưu định kỳ để bảo vệ bài viết và sổ lỗi.": "Back up regularly to protect your essays and Mistake Bank.", "Sao lưu & khôi phục Writing Vault": "Back up & restore Writing Vault", "Tải file JSON": "Download JSON file", "Dùng khi trình duyệt cho phép tải file": "Use when the browser allows file downloads", "Nhập file JSON": "Import JSON file", "Khôi phục từ file đã lưu trước đó": "Restore from a previously saved file", "Copy mã sao lưu": "Copy backup code", "Dán vào Ghi chú, Drive, email hoặc tin nhắn riêng": "Paste into Notes, Drive, email, or a private message", "Chia sẻ sao lưu": "Share backup", "Gửi qua AirDrop, Drive, Gmail hoặc ứng dụng khác": "Send through AirDrop, Drive, Gmail, or another app", "Khôi phục bằng cách dán mã": "Restore by pasting a code", "Dùng khi điện thoại không chọn hoặc tải được file JSON": "Use when the phone cannot select or download a JSON file", "Mã sao lưu JSON": "JSON backup code", "Khôi phục dữ liệu": "Restore data", "Xoá ô": "Clear", "Không chia sẻ mã backup công khai vì nó chứa toàn bộ bài viết và ghi chú của bạn.": "Do not share the backup code publicly because it contains all essays and notes.", "Đưa lỗi đúng vào Vocabulary": "Send the correction to Vocabulary", "Cách lưu": "Save as", "Tạo từ/cụm từ mới": "Create a new word/phrase", "Thêm làm chunk cho từ đã có": "Add as a chunk to an existing word", "Thêm chunk vào từ": "Add the chunk to", "Từ/cụm đúng": "Correct word/phrase", "Nghĩa tiếng Việt": "Vietnamese meaning", "Loại": "Type", "Câu ví dụ": "Example sentence", "Lưu vào Vocabulary": "Save to Vocabulary", "Huỷ": "Cancel", "Chi tiết bài": "Essay details", "Tài khoản StudyNova": "StudyNova account", "Cloud tạm thời không khả dụng. Dữ liệu vẫn được lưu trên thiết bị.": "Account sync is not available in this version. Data is still stored on the device.", "Chưa đăng nhập.": "Not signed in.", "Dữ liệu máy": "Device data", "Đang đọc...": "Reading...", "Dữ liệu cloud": "Cloud data", "Chưa kiểm tra": "Not checked", "Đồng bộ gần nhất": "Last sync", "Chưa có": "None yet", "Backup an toàn": "Safety backup", "Chưa tạo": "Not created", "So sánh": "Compare", "Giữ bản máy → Cloud": "Keep device copy → Cloud", "Giữ bản Cloud": "Keep Cloud copy", "Gộp hai bản": "Merge both copies", "Trước khi tải hoặc gộp, web tự tạo một bản backup cục bộ để tránh mất dữ liệu.": "Before loading or merging, the app creates a local safety backup to prevent data loss.", "Mật khẩu": "Password", "Tạo tài khoản": "Create account", "Đăng nhập email": "Sign in with email", "Đăng nhập Google": "Sign in with Google", "Dùng local": "Use locally", "Đăng xuất": "Sign out", "Đồng bộ lên cloud": "Sync to cloud", "Tải dữ liệu cloud": "Load cloud data", "Đăng nhập để đồng bộ dữ liệu giữa các thiết bị khi tính năng cloud khả dụng.": "Sign in to sync data across devices when cloud sync is available.", "Dùng AI để chữa Writing, giải thích lỗi và cải thiện bài. Khi AI tự động chưa khả dụng, web sẽ tạo prompt để dùng với ChatGPT/Claude.": "Use AI for Writing feedback, mistake explanations, and essay improvement. When direct AI is unavailable, the app creates a prompt for ChatGPT/Claude.", "Nhập từ ảnh": "Import from image", "Chữa Writing": "Writing feedback", "Chữa Speaking": "Speaking feedback", "Ảnh trang từ vựng / sách": "Vocabulary page / book image", "Ghi chú cho AI": "Instructions for AI", "Chuyển ảnh thành dữ liệu": "Convert image to data", "Đưa vào ô Nhập nhanh": "Send to Quick Import", "Bài Writing / đoạn cần chữa": "Writing essay / text for feedback", "Lấy bài hiện tại": "Use current essay", "Chữa bài": "Review essay", "Transcript / ý chính câu trả lời Speaking": "Speaking transcript / key ideas", "Lấy speaking hiện tại": "Use current speaking", "Chữa Speaking": "Review Speaking", "Kết quả AI / dữ liệu nhập nhanh": "AI result / quick-import data", "Copy kết quả": "Copy result", "Cài NovaLab": "Install NovaLab", "Mở kho bài": "Open Essay Library", "Mở menu": "Open menu", "Dán đề bài Writing vào đây...": "Paste the Writing question here...", "Viết hoặc dán bài của bạn vào đây...": "Write or paste your essay here...", "Sau khi được chữa, dán bản sửa tốt hơn vào đây...": "After receiving feedback, paste the improved version here...", "VD: Cần sửa overview, chia đoạn rõ hơn...": "e.g. Improve the overview and paragraphing", "Tìm bài...": "Search essays...", "VD: Không dùng was + V1 cho động từ chính": "e.g. Do not use was + base verb as the main verb", "Tìm từ trong vocab...": "Search vocabulary...", "Dán toàn bộ mã sao lưu Writing Vault vào đây...": "Paste the complete Writing Vault backup code here...", "VD: sự ổn định nghề nghiệp": "e.g. career stability", "Tối thiểu 8 ký tự, có chữ hoa và chữ số": "At least 8 characters with an uppercase letter and a number", "VD: Chuyển toàn bộ từ trong ảnh thành format NovaLab: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example": "e.g. Convert all vocabulary in the image into NovaLab format: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example", "Dán bài Writing hoặc bấm nút, web sẽ tự lấy từ ô bài viết nếu đang ở Writing Vault.": "Paste a Writing essay, or use the button to take text from the current essay box.", "Dán transcript Speaking hoặc bấm nút lấy từ Speaking Studio nếu có.": "Paste a Speaking transcript, or use the button to take it from Speaking Studio.", "Kết quả sẽ hiện ở đây...": "Results will appear here...", "Viết lại câu đúng...": "Rewrite the correct sentence...", "Không tìm thấy lỗi cũ nào trong bài hiện tại.": "No past mistake was found in the current essay.", "Phát hiện lỗi từng mắc": "Repeated past mistake detected", "Khớp toàn bộ câu sai": "Matched the full incorrect sentence", "Khớp cụm sai": "Matched an incorrect phrase", "Trong bài hiện tại": "In the current essay", "Gợi ý sửa": "Suggested correction", "Lý do": "Explanation", "Nguồn trong Mistake Bank": "Source in Mistake Bank", "Thay trong bài": "Replace in essay", "Mở lỗi gốc": "Open original mistake", "Copy gợi ý": "Copy suggestion", "lỗi cũ được phát hiện": "past mistakes detected", "lần xuất hiện": "occurrences", "Web chỉ đối chiếu với lỗi đã lưu; đây không phải công cụ chấm toàn bộ ngữ pháp.": "The scanner only compares the essay with saved mistakes; it is not a complete grammar checker.", "Bài viết còn quá ngắn để quét.": "The essay is too short to scan.", "Mistake Bank chưa có lỗi để đối chiếu.": "The Mistake Bank has no saved mistakes to compare.", "Đã thay lỗi trong bài.": "The mistake was replaced in the essay.", "Không còn thấy cụm lỗi trong bài.": "The incorrect phrase is no longer present in the essay.", "Đã copy gợi ý sửa.": "Correction copied.", "Kiểm tra bản dịch": "Translation audit", "Không phát hiện chữ tiếng Việt còn sót trong phần đang hiển thị.": "No untranslated Vietnamese text was found in the visible interface.", "Còn chữ chưa dịch": "Untranslated text remains", "New": "New", "Editing": "Editing", "Chưa có bài": "No essays yet", "Chưa có từ": "No words yet", "Đến hạn": "Due", "Ôn": "Review", "Sai": "Incorrect", "Đúng": "Correct", "Lý do:": "Explanation:", "Luyện lại:": "Practice again:", "Dòng lỗi": "Invalid line", "Ổn áp!": "Looks good!", "Không rõ bài": "Unknown essay", "Chưa thuộc": "Not mastered", "Đã thuộc": "Mastered", "Xoá": "Delete", "Sửa bài": "Edit essay", "Thêm lỗi": "Add mistake", "Bài của bạn": "My essay", "Lỗi liên quan": "Related mistakes", "Đề bài": "Question", "Bản cải thiện": "Improved version", "Không có dữ liệu": "No data", "Ôn tiếp": "Review more", "Sửa câu sai:": "Correct the sentence:", "Kiểm tra": "Check", "Gợi ý": "Hint", "Chính xác.": "Correct.", "Đang chuyển câu tiếp theo...": "Moving to the next question...", "Chưa đúng. Hãy chọn lại.": "Not correct. Choose again.", "Chưa đúng. Sửa lại ngay trên ô này.": "Not correct. Edit the answer in this box.", "Quét lại": "Scan again", "VD: Line chart about Australian trade": "e.g. Line chart about Australian trade", "VD: Housing": "e.g. Housing", "VD: The value was increase steadily.": "e.g. The value was increase steadily.", "VD: The value increased steadily.": "e.g. The value increased steadily.", "VD: Exports increased sharply in 2009.": "e.g. Exports increased sharply in 2009.", "VD: Urbanisation": "e.g. Urbanisation", "Grammar | i think that depends | I think this depends | I luôn viết hoa và cần chủ ngữ rõ ràng | I think this depends on each person's goals.\nVocabulary | all the life | throughout their working lives | Cụm mới tự nhiên và học thuật hơn | Some employees remain loyal throughout their working lives.": "Grammar | i think that depends | I think this depends | Capitalise I and use a clear subject | I think this depends on each person's goals.\nVocabulary | all the life | throughout their working lives | The corrected phrase is more natural and academic | Some employees remain loyal throughout their working lives."};
   var WV_REV={};
   Object.keys(WV_T).forEach(function(vi){WV_REV[WV_T[vi]]=vi});
   var scanTimer=null;
@@ -2969,7 +2969,7 @@ setTimeout(function(){
     if(count)count.textContent=String(results.length);
     if(!box)return;
     if(!results.length){
-      box.innerHTML='<div class="wv-scan-empty">✓ '+esc(tr('Không tìm thấy lỗi cũ nào trong bài hiện tại.'))+
+      box.innerHTML='<div class="wv-scan-empty"><sn-icon name="success"></sn-icon> '+esc(tr('Không tìm thấy lỗi cũ nào trong bài hiện tại.'))+
         '<br><span class="mini">'+esc(tr('Web chỉ đối chiếu với lỗi đã lưu; đây không phải công cụ chấm toàn bộ ngữ pháp.'))+'</span></div>';
       applyTree(box);
       return;
@@ -2994,9 +2994,9 @@ setTimeout(function(){
           '</div>'+
           (item.reason?'<div class="mini" style="margin-top:8px"><b>'+esc(tr('Lý do'))+':</b> '+esc(item.reason)+'</div>':'')+
           '<div class="wv-scan-actions">'+
-            '<button class="btn btn-green btn-sm" onclick="wvReplaceScanResult('+index+')">✓ '+esc(tr('Thay trong bài'))+'</button>'+
-            '<button class="btn btn-blue btn-sm" onclick="wvCopyScanSuggestion('+index+')">📋 '+esc(tr('Copy gợi ý'))+'</button>'+
-            '<button class="btn btn-default btn-sm" onclick="wvOpenScanCorrection('+index+')">🧯 '+esc(tr('Mở lỗi gốc'))+'</button>'+
+            '<button class="btn btn-green btn-sm" onclick="wvReplaceScanResult('+index+')"><sn-icon name="success"></sn-icon> '+esc(tr('Thay trong bài'))+'</button>'+
+            '<button class="btn btn-blue btn-sm" onclick="wvCopyScanSuggestion('+index+')"><sn-icon name="copy"></sn-icon> '+esc(tr('Copy gợi ý'))+'</button>'+
+            '<button class="btn btn-default btn-sm" onclick="wvOpenScanCorrection('+index+')"><sn-icon name="mistake-bank"></sn-icon> '+esc(tr('Mở lỗi gốc'))+'</button>'+
           '</div>'+
         '</div>';
       }).join('');
@@ -3149,10 +3149,10 @@ setTimeout(function(){
 <div class="nv8-quick-pop" id="nv8-writing-quick">
   <div class="nv8-quick-head"><span data-nv8-vi="Thêm nhanh" data-nv8-en="Quick add">Thêm nhanh</span><span>Writing</span></div>
   <div class="nv8-quick-grid">
-    <button class="nv8-quick-action" onclick="novaWV8Quick('essay')"><span>✍️</span><b data-nv8-vi="Bài mới" data-nv8-en="New essay">Bài mới</b><small>Ctrl + Shift + 6</small></button>
-    <button class="nv8-quick-action" onclick="novaWV8Quick('mistake')"><span>🧯</span><b data-nv8-vi="Thêm lỗi" data-nv8-en="Add mistake">Thêm lỗi</b><small>Ctrl + Shift + 5</small></button>
-    <button class="nv8-quick-action" onclick="novaWV8Quick('bulk')"><span>⚡</span><b data-nv8-vi="Nhập nhanh lỗi" data-nv8-en="Quick-import mistakes">Nhập nhanh lỗi</b><small data-nv8-vi="AI → Mistake Bank" data-nv8-en="AI → Mistake Bank">AI → Mistake Bank</small></button>
-    <button class="nv8-quick-action" onclick="novaWV8Quick('vocab')"><span>📚</span><b data-nv8-vi="Mở sổ từ" data-nv8-en="Open word library">Mở sổ từ</b><small>Ctrl + Shift + 8</small></button>
+    <button class="nv8-quick-action" onclick="novaWV8Quick('essay')"><span><sn-icon name="writing-vault"></sn-icon></span><b data-nv8-vi="Bài mới" data-nv8-en="New essay">Bài mới</b><small>Ctrl + Shift + 6</small></button>
+    <button class="nv8-quick-action" onclick="novaWV8Quick('mistake')"><span><sn-icon name="mistake-bank"></sn-icon></span><b data-nv8-vi="Thêm lỗi" data-nv8-en="Add mistake">Thêm lỗi</b><small>Ctrl + Shift + 5</small></button>
+    <button class="nv8-quick-action" onclick="novaWV8Quick('bulk')"><span><sn-icon name="quick-import"></sn-icon></span><b data-nv8-vi="Nhập nhanh lỗi" data-nv8-en="Quick-import mistakes">Nhập nhanh lỗi</b><small data-nv8-vi="AI → Mistake Bank" data-nv8-en="AI → Mistake Bank">AI → Mistake Bank</small></button>
+    <button class="nv8-quick-action" onclick="novaWV8Quick('vocab')"><span><sn-icon name="vocabulary"></sn-icon></span><b data-nv8-vi="Mở sổ từ" data-nv8-en="Open word library">Mở sổ từ</b><small>Ctrl + Shift + 8</small></button>
   </div>
 </div>
 <button class="nv8-fab" id="nv8-writing-fab" onclick="novaWV8ToggleQuick()" aria-label="Quick add"><span class="nv8-fab-glyph">+</span></button>
@@ -3181,7 +3181,7 @@ setTimeout(function(){
   <div class="nv8-dialog" style="max-width:560px">
     <div class="wv-top-menu-head" style="border-bottom:1px solid var(--bd)">
       <div><b data-nv8-vi="Phím tắt NovaLab" data-nv8-en="NovaLab shortcuts">Phím tắt NovaLab</b><div class="mini">Ctrl + Shift + 1…8</div></div>
-      <button class="x" onclick="novaWV8CloseShortcuts()">✕</button>
+      <button class="x" onclick="novaWV8CloseShortcuts()"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="nv8-shortcut-list" id="nv8-writing-shortcut-list"></div>
   </div>
@@ -3256,12 +3256,12 @@ setTimeout(function(){
     var main=readMain();
     (main.words||[]).forEach(function(w){
       if(norm([w.term,w.def,w.topic,w.coll,w.ex,w.wex,w.sex,w.family].join(' ')).includes(q)){
-        out.push({type:'vocab',icon:'📚',title:w.term||'',sub:(w.def||'')+(w.coll?' · '+w.coll:'')+(w.topic?' · '+w.topic:''),data:w});
+        out.push({type:'vocab',icon:'<sn-icon name="vocabulary"></sn-icon>',title:w.term||'',sub:(w.def||'')+(w.coll?' · '+w.coll:'')+(w.topic?' · '+w.topic:''),data:w});
       }
     });
     (main.mistakes||[]).forEach(function(m){
       if(norm([m.wrong,m.right,m.reason,m.topic,m.practice,m.newSentence].join(' ')).includes(q)){
-        out.push({type:'mistake',icon:'🧯',title:m.wrong||wt('Lỗi đã lưu','Saved mistake'),sub:m.right||m.reason||'',data:m,source:'main'});
+        out.push({type:'mistake',icon:'<sn-icon name="mistake-bank"></sn-icon>',title:m.wrong||wt('Lỗi đã lưu','Saved mistake'),sub:m.right||m.reason||'',data:m,source:'main'});
       }
     });
     var reading=main.reading||{};
@@ -3269,7 +3269,7 @@ setTimeout(function(){
       (reading[group]||[]).forEach(function(item){
         if(norm(JSON.stringify(item)).includes(q)){
           out.push({
-            type:'reading',icon:'📖',
+            type:'reading',icon:'<sn-icon name="reading-hub"></sn-icon>',
             title:item.title||item.question||item.original||item.wrong||wt('Dữ liệu Reading','Reading item'),
             sub:item.text||item.answer||item.paraphrase||item.right||item.reason||'',data:item
           });
@@ -3278,17 +3278,17 @@ setTimeout(function(){
     });
     (main.speakingLogs||[]).forEach(function(item){
       if(norm(JSON.stringify(item)).includes(q)){
-        out.push({type:'speaking',icon:'🗣️',title:item.question||item.topic||'Speaking log',sub:item.answer||item.notes||item.date||'',data:item});
+        out.push({type:'speaking',icon:'<sn-icon name="speaking-studio"></sn-icon>',title:item.question||item.topic||'Speaking log',sub:item.answer||item.notes||item.date||'',data:item});
       }
     });
     (S.essays||[]).forEach(function(e){
       if(norm([e.title,e.topic,e.prompt,e.essayText,e.improvedText,e.notes].join(' ')).includes(q)){
-        out.push({type:'writing',icon:'✍️',title:e.title||e.topic||wt('Bài Writing','Writing essay'),sub:(e.task||'')+' · '+(e.topic||'')+' · '+String(e.essayText||'').slice(0,110),data:e,writingKind:'essay'});
+        out.push({type:'writing',icon:'<sn-icon name="writing-vault"></sn-icon>',title:e.title||e.topic||wt('Bài Writing','Writing essay'),sub:(e.task||'')+' · '+(e.topic||'')+' · '+String(e.essayText||'').slice(0,110),data:e,writingKind:'essay'});
       }
     });
     (S.corrections||[]).forEach(function(c){
       if(norm([c.type,c.wrong,c.right,c.reason,c.practice].join(' ')).includes(q)){
-        out.push({type:'mistake',icon:'🧯',title:c.wrong||wt('Lỗi Writing','Writing mistake'),sub:c.right||c.reason||'',data:c,source:'writing'});
+        out.push({type:'mistake',icon:'<sn-icon name="mistake-bank"></sn-icon>',title:c.wrong||wt('Lỗi Writing','Writing mistake'),sub:c.right||c.reason||'',data:c,source:'writing'});
       }
     });
     return out.slice(0,70);
@@ -3462,7 +3462,7 @@ setTimeout(function(){
 (function(){
  var THEME_KEY='novalab_theme_v1',LANG_KEY='novalab_language_v1',lastTodayMet=false,initialized=false;
  function lang(){return S&&S.lang==='en'?'en':'vi'}
- function controls(){var en=lang()==='en',l=document.getElementById('wv-header-lang'),t=document.getElementById('wv-header-theme');if(l){l.setAttribute('aria-label',en?'Switch language':'Đổi ngôn ngữ');l.title=l.getAttribute('aria-label')}if(t){var light=!!S.darkMode;t.firstElementChild.textContent=light?'☀️':'🌙';t.setAttribute('aria-label',light?(en?'Switch to light mode':'Chuyển sang giao diện sáng'):(en?'Switch to dark mode':'Chuyển sang giao diện tối'));t.title=t.getAttribute('aria-label')}}
+ function controls(){var en=lang()==='en',l=document.getElementById('wv-header-lang'),t=document.getElementById('wv-header-theme');if(l){l.setAttribute('aria-label',en?'Switch language':'Đổi ngôn ngữ');l.title=l.getAttribute('aria-label')}if(t){var light=!!S.darkMode;t.firstElementChild.innerHTML=light?'<sn-icon name="theme-light"></sn-icon>':'<sn-icon name="theme-dark"></sn-icon>';t.setAttribute('aria-label',light?(en?'Switch to light mode':'Chuyển sang giao diện sáng'):(en?'Switch to dark mode':'Chuyển sang giao diện tối'));t.title=t.getAttribute('aria-label')}}
  window.applyTheme=function(){var v;try{v=localStorage.getItem(THEME_KEY)}catch(e){}if(v==='dark'||v==='light')S.darkMode=v==='dark';else try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}document.documentElement.classList.toggle('light',!S.darkMode);document.body.classList.toggle('light',!S.darkMode);controls()};
  window.toggleTheme=function(){S.darkMode=!S.darkMode;try{localStorage.setItem(THEME_KEY,S.darkMode?'dark':'light')}catch(e){}save();applyTheme()};
  var baseLang=window.wvToggleLang;window.wvToggleLang=function(){var out=baseLang.apply(this,arguments);try{localStorage.setItem(LANG_KEY,S.lang)}catch(e){}controls();return out};

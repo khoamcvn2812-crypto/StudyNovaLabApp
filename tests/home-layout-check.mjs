@@ -20,7 +20,7 @@ check(!menu.includes('snOpenAuth()'), 'Sign-in must not remain inside the top me
 for (const handler of ["goTo('add')", "goTo('reading')", "goTo('speaking')", "goTo('review')", "goTo('test')", "goTo('vocab')"]) {
   check(html.includes(handler), `Required navigation handler is missing: ${handler}`);
 }
-check(worker.includes('novalab-pwa-v18') && worker.includes('novalab-runtime-v18'), 'Service-worker caches must be v18.');
+check(worker.includes('novalab-pwa-v19') && worker.includes('novalab-runtime-v19'), 'Service-worker caches must be v19.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 
 console.log('Home layout regression checks passed.');

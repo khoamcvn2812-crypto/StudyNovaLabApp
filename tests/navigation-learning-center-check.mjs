@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+const js=fs.readFileSync(new URL('../studynova-navigation.js',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../studynova-navigation.css',import.meta.url),'utf8');
+const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const vault=fs.readFileSync(new URL('../studynova_writing_vault.html',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
+const check=(condition,message)=>{if(!condition)throw new Error(message)};
+check(home.includes('family=Be+Vietnam+Pro')&&vault.includes('family=Be+Vietnam+Pro'),'Shared Vietnamese font import is missing');
+check(css.includes('"Be Vietnam Pro",Inter,system-ui')&&css.includes('grid-template-columns:minmax(0,1.35fr) minmax(340px,1fr)'),'Font stack or compact hero grid is missing');
+check(css.includes('grid-template-columns:repeat(3,minmax(0,1fr))')&&css.includes('@media(max-width:760px)'),'Responsive learning card grid is missing');
+check(js.includes("vi:{kicker:'TRUNG TÂM HỌC TẬP'")&&js.includes("en:{kicker:'LEARNING CENTER'"),'Bilingual learning copy is incomplete');
+check(js.includes("'từ đã lưu'")&&js.includes("'saved word'")&&js.includes('studynova-realtime-update'),'Meaningful progress labels or realtime refresh is missing');
+check(sw.includes('novalab-pwa-v18')&&sw.includes('novalab-runtime-v18'),'Service worker v18 is missing');
+console.log('Navigation and learning center checks passed.');

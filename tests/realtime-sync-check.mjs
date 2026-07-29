@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+const realtime=fs.readFileSync(new URL('../studynova-realtime.js',import.meta.url),'utf8');
+const schema=fs.readFileSync(new URL('../supabase-schema.sql',import.meta.url),'utf8');
+const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const vault=fs.readFileSync(new URL('../studynova_writing_vault.html',import.meta.url),'utf8');
+const worker=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
+const check=(condition,message)=>{if(!condition)throw new Error(message)};
+check(home.includes('studynova-realtime.js')&&vault.includes('studynova-realtime.js'),'Both applications must load the shared realtime client');
+check(realtime.includes("from('user_sync_records').upsert")&&realtime.includes("on('postgres_changes'"),'Record upsert or Realtime subscription is missing');
+check(realtime.includes('source_device_id===SN.deviceId')&&realtime.includes('row.user_id!==SN.user.id'),'Inbound event ownership/echo protection is missing');
+check(realtime.includes("dispatchEvent(new CustomEvent('studynova-realtime-update'")&&!realtime.includes('location.reload'),'Realtime updates must refresh state without page reload');
+check(schema.includes('unique (user_id, entity_type, entity_id)')&&schema.includes('alter publication supabase_realtime add table'),'Schema uniqueness or publication setup is missing');
+check(worker.includes('./studynova-realtime.js'),'Realtime client must remain available offline');
+console.log('Realtime sync regression checks passed.');

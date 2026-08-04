@@ -29,7 +29,9 @@ check(html.includes('id="sn-add-overlay"') && html.includes('aria-modal="true"')
 check(html.includes('#page-home .sn-home-dashboard{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))'), 'Home must use a 12-column desktop grid.');
 check(html.includes('#page-home .sn-home-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))'), 'Desktop statistics must use four equal columns.');
 check(html.includes('font-family:inherit'), 'New controls must inherit the existing font.');
-check(worker.includes('novalab-pwa-v22') && worker.includes('novalab-runtime-v22'), 'Service-worker caches must be v22.');
+check(html.includes('font-size:clamp(42px,3.6vw,58px)') && html.includes('letter-spacing:-.035em'), 'Home hero responsive typography is missing.');
+check(html.includes('font-size:clamp(32px,2.6vw,38px)') && html.includes('@media(max-width:600px)'), 'Responsive statistic typography is missing.');
+check(worker.includes('novalab-pwa-v23') && worker.includes('novalab-runtime-v23'), 'Service-worker caches must be v23.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 
 console.log('Home layout regression checks passed.');

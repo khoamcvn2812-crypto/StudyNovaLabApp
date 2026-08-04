@@ -20,7 +20,13 @@ check(!menu.includes('snOpenAuth()'), 'Sign-in must not remain inside the top me
 for (const handler of ["goTo('add')", "goTo('reading')", "goTo('speaking')", "goTo('review')", "goTo('test')", "goTo('vocab')"]) {
   check(html.includes(handler), `Required navigation handler is missing: ${handler}`);
 }
-check(worker.includes('novalab-pwa-v20') && worker.includes('novalab-runtime-v20'), 'Service-worker caches must be v20.');
+
+check(html.includes('id="page-learn"'), 'Dedicated learning center is missing.');
+check(html.includes('onclick="snOpenAddSheet(this)"'), 'Add navigation must open the add sheet.');
+check(html.includes('id="sn-add-overlay"') && html.includes('aria-modal="true"'), 'Accessible add sheet is missing.');
+check(html.includes('grid-template-columns:repeat(3,minmax(0,1fr))'), 'Desktop learning cards must use three columns.');
+check(html.includes('font-family:inherit'), 'New controls must inherit the existing font.');
+check(worker.includes('novalab-pwa-v21') && worker.includes('novalab-runtime-v21'), 'Service-worker caches must be v21.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 
 console.log('Home layout regression checks passed.');

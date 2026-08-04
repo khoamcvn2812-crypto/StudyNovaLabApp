@@ -1,5 +1,5 @@
-const CACHE_NAME = "novalab-pwa-v20";
-const RUNTIME_CACHE = "novalab-runtime-v20";
+const CACHE_NAME = "novalab-pwa-v21";
+const RUNTIME_CACHE = "novalab-runtime-v21";
 const APP_SHELL = ["./","./index.html","./studynova_writing_vault.html","./studynova-auth.js","./studynova-realtime.js","./studynova-auth.css","./studynova-motion.css","./writing-drafts.js","./assets/icons/studynova-icons.svg","./assets/icons/studynova-icons.css","./assets/icons/studynova-icons.js","./assets/icons/index.html","./manifest.webmanifest","./icons/icon-192.png","./icons/icon-512.png","./icons/icon-maskable-512.png","./icons/apple-touch-icon.png"];
 self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>Promise.all(APP_SHELL.map(url=>cache.add(url).catch(error=>console.warn("Optional shell asset was not cached",url,error))))))});
 self.addEventListener("message",event=>{if(event.data&&event.data.type==="SKIP_WAITING")self.skipWaiting()});

@@ -14,6 +14,9 @@ check(home.indexOf('class="sn-home-hero"') < home.indexOf('class="sn-home-priori
 check(home.indexOf('class="sn-home-stats"') < home.indexOf('class="sn-home-recent'), 'Four statistics must precede recent activity.');
 check((home.match(/class="sn-home-stat /g) || []).length === 4, 'Home must contain exactly four quick statistics.');
 check(home.includes('id="sn-home-greeting-title"') && home.includes('id="sn-home-goal-value"'), 'Dynamic greeting and goal progress are missing.');
+check(home.includes('class="sn-home-orbit home-goal-progress"') && home.includes('<svg viewBox="0 0 120 120">'), 'Home goal progress must use a compact, normalized SVG.');
+check((home.match(/<circle cx="60" cy="60" r="46"/g) || []).length === 2, 'Home goal progress must contain only its track and progress circles.');
+check(!home.includes('<ellipse') && !home.includes('transform="rotate('), 'Home goal progress must not contain an oversized orbit.');
 check(home.includes('onclick="novaV8StartToday()"') && home.includes("onclick=\"goTo('dash')\""), 'Home hero actions are missing.');
 check(home.includes('class="sn-recent-list"') && html.includes('sn-recent-empty'), 'Compact recent activity state is missing.');
 check(!home.includes('<div class="sn-module-grid">'), 'Promotional module cards must not remain on Home.');
@@ -31,6 +34,8 @@ check(html.includes('#page-home .sn-home-stats{grid-column:1/-1;display:grid;gri
 check(html.includes('font-family:inherit'), 'New controls must inherit the existing font.');
 check(html.includes('font-size:clamp(42px,3.6vw,58px)') && html.includes('letter-spacing:-.035em'), 'Home hero responsive typography is missing.');
 check(html.includes('font-size:clamp(32px,2.6vw,38px)') && html.includes('@media(max-width:600px)'), 'Responsive statistic typography is missing.');
+check(html.includes('width:clamp(108px,11vw,132px);aspect-ratio:1') && html.includes('place-items:center;overflow:hidden'), 'Home goal wrapper must be square, centered, and clipped.');
+check(html.includes('#page-home .sn-home-orbit{width:100px;margin:18px auto 0}'), 'Home goal progress must remain compact on mobile.');
 check(worker.includes('novalab-pwa-v23') && worker.includes('novalab-runtime-v23'), 'Service-worker caches must be v23.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 

@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const js=fs.readFileSync(new URL('../studynova-learning.js',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const migration=fs.readFileSync(new URL('../supabase/migrations/202608060001_learning_intelligence.sql',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
+const check=(x,m)=>{if(!x)throw new Error(m)};
+check(html.includes('page-knowledge-map')&&html.includes('km-review'),'Knowledge Map page missing');
+check(js.includes('window.StudyNovaMastery=mastery')&&js.includes('correct_streak')&&js.includes('next_review_at'),'Canonical mastery algorithm incomplete');
+check(js.includes('StudyNovaSaveReadingWord')&&js.includes("source:'Reading'")&&js.includes('contexts'),'Reading save/context flow missing');
+check(js.includes("SESSION='studynova_learning_session_v1'")&&js.includes("['flash','Flashcard']"),'Shared learning session missing');
+check(js.includes('StudyNovaAddStructuredMistake')&&js.includes('fingerprint')&&js.includes("source:'Writing'"),'Mistake automation missing');
+check(js.includes("if(due)return")&&js.includes("if(mistakes)return")&&js.includes("if(draft)return"),'Single priority ordering missing');
+check(migration.includes('enable row level security')&&migration.match(/user_id=auth.uid\(\)/g)?.length>=4&&migration.includes('unique(user_id,fingerprint)'),'RLS or dedup missing');
+check(sw.includes('novalab-pwa-v23')&&sw.includes('studynova-learning.js'),'PWA shell missing feature bundle');
+console.log('Learning intelligence regression checks passed.');

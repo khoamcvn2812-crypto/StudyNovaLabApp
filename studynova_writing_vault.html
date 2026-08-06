@@ -164,10 +164,16 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 .wv-density-card{min-height:92px;border:1px solid transparent;border-radius:21px;padding:14px 15px;background:linear-gradient(var(--glass),var(--glass)) padding-box,linear-gradient(135deg,rgba(16,212,160,.42),rgba(167,139,250,.22),rgba(96,165,250,.34)) border-box;backdrop-filter:blur(16px);box-shadow:0 12px 34px rgba(0,0,0,.16);display:flex;align-items:center;gap:12px;transition:.22s;cursor:pointer;color:var(--t1);text-align:left;font:inherit}
 .wv-density-card:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(0,0,0,.25)}.wv-density-icon{width:46px;height:46px;flex:0 0 auto;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,rgba(16,212,160,.15),rgba(96,165,250,.16));border:1px solid rgba(154,211,255,.16)}
 .wv-density-card>span:last-child{display:flex;flex-direction:column;min-width:0}.wv-density-card small{font-size:10.5px;color:var(--t3);font-weight:900;text-transform:uppercase;letter-spacing:.65px}.wv-density-card b{font-size:22px;line-height:1.12;font-weight:950;color:var(--t1);margin-top:2px}.wv-density-card em{font-style:normal;font-size:11px;color:var(--t4);font-weight:700;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wv-density-card{min-height:clamp(108px,8vw,120px);padding:clamp(18px,1.5vw,22px);align-items:center;gap:clamp(12px,1.2vw,18px)}
+.wv-density-icon{width:48px;height:48px;flex-basis:48px}.wv-density-card>span:last-child{gap:3px}.wv-density-card b{line-height:1.08;margin-top:0}.wv-density-card em{line-height:1.45;margin-top:0;white-space:normal;overflow:visible;text-overflow:clip;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sn-landing{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:stretch}.sn-hero{height:100%;display:flex;flex-direction:column;justify-content:center}.sn-module-grid{height:100%;grid-template-rows:repeat(2,minmax(0,1fr));min-width:0}.sn-module-card{min-width:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(20px,1.7vw,28px)}.sn-module-icon{margin-bottom:12px}.sn-module-desc{margin-top:8px;line-height:1.65}
+.wv-home-dashboard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}.wv-home-panel{margin-bottom:0;min-width:0;min-height:clamp(230px,25vh,330px);display:flex;flex-direction:column}.wv-home-panel .sec-title{font-size:12px}.wv-home-list{display:flex;flex:1;flex-direction:column;gap:10px;min-height:0}.wv-home-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--bd);border-radius:17px;background:var(--bg3);min-width:0}.wv-home-item-main{min-width:0}.wv-home-item-title{font-size:13.5px;font-weight:950;overflow-wrap:anywhere}.wv-home-item-meta,.wv-home-item-copy{font-size:11.5px;color:var(--t3);line-height:1.5;margin-top:4px}.wv-home-item-copy{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.wv-home-empty{flex:1;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;text-align:center;padding:24px;border:1px dashed var(--bd2);border-radius:20px;background:rgba(255,255,255,.03);color:var(--t3)}
+@media(max-width:1279px){.wv-density-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.sn-landing,.wv-home-dashboard{grid-template-columns:1fr}.sn-hero{min-height:clamp(320px,42vw,460px)}.sn-module-grid{min-height:420px}}
+@media(max-width:767px){.wv-density-strip,.sn-module-grid,.wv-home-dashboard{grid-template-columns:1fr}.sn-module-grid{grid-template-rows:none;min-height:0}.sn-module-card{min-height:170px}.sn-hero{min-height:0}.wv-home-panel{min-height:260px}.wv-home-item{grid-template-columns:1fr}.wv-home-item .btn{justify-self:start}.sn-hero-actions>*{max-width:100%}}
 .section,.stat,.sn-hero,.sn-module-card,.card{border-color:transparent!important;background:linear-gradient(var(--glass),var(--glass)) padding-box,linear-gradient(135deg,rgba(16,212,160,.20),rgba(167,139,250,.12),rgba(96,165,250,.18)) border-box!important}
 .section:hover,.stat:hover,.sn-module-card:hover{border-color:transparent!important}.sn-module-card,.stat,.card{transition:transform .22s,box-shadow .22s}.sn-module-card:hover,.stat:hover{transform:translateY(-2px);box-shadow:0 17px 42px rgba(0,0,0,.22)}
 @media(min-width:1500px){#essayList.list,#recentList.list,#correctionList.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
-@media(max-width:760px){body{padding-bottom:82px}.wv-topbar-actions{width:auto!important}.wv-menu-trigger span,.wv-account-trigger span:last-child,.wv-pill-label{display:none}.wv-account-trigger,.wv-menu-trigger{width:42px;padding:0;justify-content:center;font-size:18px;border-radius:50%}.wv-writing-pill{padding:0 10px}.wv-primary-nav{position:fixed!important;left:8px;right:8px;bottom:8px;top:auto!important;margin:0!important;padding:7px!important;border-radius:22px!important;z-index:3000;grid-template-columns:repeat(5,1fr)}.wv-primary-nav .tab{min-width:0!important;padding:9px 3px!important;font-size:10.5px!important;display:flex;flex-direction:column;gap:2px}.wv-nav-pop{position:fixed;left:10px!important;right:10px!important;top:auto!important;bottom:78px;min-width:0;border-radius:22px;padding:10px}.wv-top-menu-overlay{padding:64px 10px 90px;align-items:flex-start}.wv-top-menu{width:100%;max-height:calc(100vh - 160px);overflow:auto}.wv-density-strip{grid-template-columns:1fr 1fr}.wv-density-card{min-height:82px;padding:12px}.wv-density-icon{width:40px;height:40px;font-size:19px}.wv-density-card b{font-size:19px}}
+@media(max-width:760px){body{padding-bottom:82px}.wv-topbar-actions{width:auto!important}.wv-menu-trigger span,.wv-account-trigger span:last-child,.wv-pill-label{display:none}.wv-account-trigger,.wv-menu-trigger{width:42px;padding:0;justify-content:center;font-size:18px;border-radius:50%}.wv-writing-pill{padding:0 10px}.wv-primary-nav{position:fixed!important;left:8px;right:8px;bottom:8px;top:auto!important;margin:0!important;padding:7px!important;border-radius:22px!important;z-index:3000;grid-template-columns:repeat(5,1fr)}.wv-primary-nav .tab{min-width:0!important;padding:9px 3px!important;font-size:10.5px!important;display:flex;flex-direction:column;gap:2px}.wv-nav-pop{position:fixed;left:10px!important;right:10px!important;top:auto!important;bottom:78px;min-width:0;border-radius:22px;padding:10px}.wv-top-menu-overlay{padding:64px 10px 90px;align-items:flex-start}.wv-top-menu{width:100%;max-height:calc(100vh - 160px);overflow:auto}.wv-density-strip{grid-template-columns:1fr}.wv-density-card{min-height:108px;padding:18px}.wv-density-icon{width:48px;height:48px;font-size:19px}.wv-density-card b{font-size:19px}}
 @media(max-width:430px){.wv-density-strip,.wv-quick-grid{grid-template-columns:1fr}.wv-quick-item.wide{grid-column:auto}.sn-logo-text{font-size:16px!important}}
 /* ================= END SYNCED INTERFACE ================= */
 
@@ -1018,6 +1024,16 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
         <div class="sn-module-card"><div class="sn-module-icon"><sn-icon name="ai-coach"></sn-icon></div><div class="sn-module-title">AI Writing Coach</div><div class="sn-module-desc">Chấm band ước lượng, sửa lỗi và viết improved version.</div></div>
       </div>
     </div>
+    <div class="wv-home-dashboard">
+      <section class="section wv-home-panel">
+        <div class="sec-title"><span><sn-icon name="saving"></sn-icon> Bài viết gần đây</span></div>
+        <div id="wv-home-recent" class="wv-home-list"></div>
+      </section>
+      <section class="section wv-home-panel">
+        <div class="sec-title"><span><sn-icon name="mistake-bank"></sn-icon> Lỗi cần xem lại</span></div>
+        <div id="wv-home-mistakes" class="wv-home-list"></div>
+      </section>
+    </div>
   </div>
 
 
@@ -1837,7 +1853,7 @@ function addTopic(){let t=$('new-topic').value.trim();if(!t)return;if(!S.topics.
 function renderTopicTags(){$('topicTags').innerHTML=S.topics.map(t=>`<span class="tag" style="margin:3px">${esc(t)} <button style="background:transparent;border:0;color:var(--t4);cursor:pointer;font-weight:950" onclick="removeTopic('${esc(t)}')">×</button></span>`).join('')}
 function removeTopic(t){if(defaultTopics.includes(t)){alert('Topic mặc định thì cứ để đó cho tiện nha.');return}S.topics=S.topics.filter(x=>x!==t);save();renderAll()}
 function exportMistakeText(){let text=S.corrections.map((c,i)=>`${i+1}. [${c.type}]\nSai: ${c.wrong}\nĐúng: ${c.right}\nLý do: ${c.reason||''}\nLuyện lại: ${c.practice||''}`).join('\n\n');navigator.clipboard.writeText(text||'Chưa có lỗi nào.');alert('Đã copy sổ lỗi.')}
-function renderAll(){syncTopicSelects();renderStats();renderCharts();renderRecent();renderLibrary();renderEssaySelects();renderCorrections();renderVocabPage();renderVocabHits();renderTopicTags();liveStats();if(typeof wvRenderDensity==='function')wvRenderDensity()}
+function renderAll(){syncTopicSelects();renderStats();renderCharts();renderRecent();renderLibrary();renderEssaySelects();renderCorrections();renderVocabPage();renderVocabHits();renderTopicTags();liveStats();if(typeof wvRenderDensity==='function')wvRenderDensity();if(typeof wvRenderHomeDashboard==='function')wvRenderHomeDashboard()}
 function init(){load();applyTheme();syncTopicSelects();refreshVocab();renderAll();newEssay()}
 init();
 </script>
@@ -2065,7 +2081,16 @@ function wvRenderDensity(){
   var vocab=(typeof Vocab!=='undefined'&&Array.isArray(Vocab))?Vocab.length:0;
   [['wv-density-total',essays.length],['wv-density-drafts',drafts],['wv-density-improved',improved],['wv-density-vocab',vocab],['wv-top-essay-count',essays.length]].forEach(function(x){var el=document.getElementById(x[0]);if(el)el.textContent=x[1]});
 }
-window.addEventListener('load',function(){wvRenderDensity()});
+function wvRenderHomeDashboard(){
+  if(typeof S==='undefined')return;
+  var recent=document.getElementById('wv-home-recent'),mistakes=document.getElementById('wv-home-mistakes');
+  if(!recent||!mistakes)return;
+  var essays=(Array.isArray(S.essays)?S.essays:[]).slice().sort(function(a,b){return new Date(b.updatedAt||b.createdAt||0)-new Date(a.updatedAt||a.createdAt||0)}).slice(0,3);
+  recent.innerHTML=essays.length?essays.map(function(e){return '<article class="wv-home-item"><div class="wv-home-item-main"><div class="wv-home-item-title">'+esc(essayTitle(e))+'</div><div class="wv-home-item-meta">'+esc((e.task==='task1'?'Task 1':'Task 2')+' · '+(e.topic||'No topic')+' · '+fmt(e.updatedAt||e.createdAt))+'</div></div><button class="btn btn-blue btn-sm" onclick="viewEssay(\''+e.id+'\')">Xem</button></article>'}).join(''):'<div class="wv-home-empty"><span>Bạn chưa lưu bài viết nào</span><button class="btn btn-green" onclick="newEssay();goTo(\'write\')">Viết bài đầu tiên</button></div>';
+  var due=(Array.isArray(S.corrections)?S.corrections:[]).filter(function(c){return !c.mastered}).slice().sort(function(a,b){return new Date(b.createdAt||0)-new Date(a.createdAt||0)}).slice(0,3);
+  mistakes.innerHTML=due.length?due.map(function(c){var e=getEssay(c.essayId);return '<article class="wv-home-item"><div class="wv-home-item-main"><div class="wv-home-item-title">'+esc(c.type||'Writing')+' · '+esc(e?essayTitle(e):'Không rõ bài')+'</div><div class="wv-home-item-copy">'+esc(c.wrong||'')+' → '+esc(c.right||'')+'</div></div><button class="btn btn-default btn-sm" onclick="goTo(\'corrections\')">Ôn</button></article>'}).join(''):'<div class="wv-home-empty"><span>Chưa có lỗi nào cần ôn lại</span><button class="btn btn-blue" onclick="goTo(\'corrections\')">Mở sổ lỗi</button></div>';
+}
+window.addEventListener('load',function(){wvRenderDensity();wvRenderHomeDashboard()});
 </script>
 
 <div id="pwa-install-group" class="pwa-install-group">

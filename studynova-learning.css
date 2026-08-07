@@ -7,3 +7,4 @@
 .km-word .km-state{font-family:inherit;font-size:11px;font-weight:800;line-height:normal;letter-spacing:-.1px}
 .km-level-card,.km-dialog,.rd-save-popover,.study-mode-bar button{font-family:var(--font-app)}
 .km-filters input,.km-filters select,.km-header .btn,.km-dialog button,.rd-save-popover input,.rd-save-popover button{font-family:var(--font-app)}
+.study-mode-bar{position:relative;z-index:2;pointer-events:auto}.study-mode-bar [data-study-mode]{pointer-events:auto;flex:0 0 auto}.study-mode-bar [data-study-mode][aria-pressed="true"]{cursor:default}

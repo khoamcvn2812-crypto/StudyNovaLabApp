@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const js=fs.readFileSync(new URL('../studynova-learning.js',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../studynova-learning.css',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
+const check=(value,message)=>{if(!value)throw new Error(message)};
+for(const mode of ['flash','quiz','fill','listen','due','test'])check(js.includes(`['${mode}'`),`${mode} mode is missing`);
+check(js.includes('<button type="button" data-study-mode="')&&js.includes("closest('[data-study-mode]')"),'Mode buttons must be non-submit controls with delegated events');
+check(js.includes("mode==='quiz'?'mc':mode")&&js.includes("select.value=mapped"),'UI mode names are not mapped to the existing review engine');
+check(js.includes("if(mode==='due')")&&js.includes("pool.value='due'")&&js.includes("if(mode==='test')"),'Due and test routes are incomplete');
+check(js.includes('function renderListenStudy()')&&js.includes('data-study-listen-answer')&&js.includes('studySpeak(word.term)'),'Listen-and-choose is not functional');
+check(js.includes("page.dataset.studyModeBound")&&js.includes("page.addEventListener('click'"),'Re-render-safe delegated event binding is missing');
+check(js.includes('state.index=S.rvIdx')&&js.includes('sessionSave(state)'),'Session progress is not persisted when switching');
+check(css.includes('.study-mode-bar{position:relative;z-index:2;pointer-events:auto}')&&css.includes('[data-study-mode]{pointer-events:auto'),'Mode bar pointer protection is missing');
+check(sw.includes('novalab-pwa-v24')&&sw.includes('novalab-runtime-v24'),'Service worker cache was not invalidated');
+console.log('Study mode switching checks passed.');

@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const vault=fs.readFileSync(new URL('../studynova_writing_vault.html',import.meta.url),'utf8');
+const feature=fs.readFileSync(new URL('../studynova-learning.css',import.meta.url),'utf8');
+const check=(value,message)=>{if(!value)throw new Error(message)};
+const canonical="--font-app:'Plus Jakarta Sans','Manrope',sans-serif";
+check(home.includes(canonical)&&vault.includes(canonical),'Both applications must expose the same canonical font variable');
+check(home.includes('html,body{font-family:var(--font-app)')&&vault.includes('html,body{font-family:var(--font-app)'),'Application roots must consume the canonical font variable');
+for(const selector of ['.km-shell','.km-dialog','.rd-save-popover','.learning-toast','.study-mode-bar','#page-mistakes','#page-home .sn-home-priority'])check(feature.includes(selector),selector+' is not covered by feature typography');
+check(feature.includes('font-family:var(--font-app)')&&feature.includes('button{font-family:inherit}'),'Feature roots or controls do not inherit StudyNova typography');
+check(!/font-family\s*:\s*(Arial|Inter|system-ui)/i.test(feature)&&!/@import|@font-face|fonts\.googleapis/.test(feature),'Feature CSS must not introduce a competing font source');
+console.log('Learning feature typography checks passed.');

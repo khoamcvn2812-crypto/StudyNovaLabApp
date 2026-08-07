@@ -9,6 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
+--font-app:"Plus Jakarta Sans",Manrope,sans-serif;
 --g:#10d4a0;--p:#a78bfa;--b:#60a5fa;--y:#fbbf24;--r:#f87171;--o:#fb923c;
 --g2:#0ea5e9;--p2:#c084fc;
 --bg0:#060a12;--bg1:#0c1220;--bg2:#111827;--bg3:#1a2438;--bg4:#1e2d45;
@@ -26,7 +27,7 @@
 --card-bg:#ffffff;--card-bd:rgba(0,0,0,0.06);
 --glass:rgba(255,255,255,0.7);--glass-bd:rgba(255,255,255,0.9);
 }
-html,body{font-family:'Plus Jakarta Sans','Manrope',sans-serif;background:var(--bg0);color:var(--t1);min-height:100vh;transition:background .3s,color .3s;letter-spacing:-.1px}
+html,body{font-family:var(--font-app);background:var(--bg0);color:var(--t1);min-height:100vh;transition:background .3s,color .3s;letter-spacing:-.1px}
 
 #app{width:100%;max-width:none;margin:0;padding:20px 16px;position:relative}
 
@@ -1514,6 +1515,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <link rel="stylesheet" href="./studynova-motion.css">
 <link rel="stylesheet" href="assets/icons/studynova-icons.css">
 <script src="assets/icons/studynova-icons.js"></script>
+<link rel="stylesheet" href="studynova-learning.css">
 </head>
 <body>
 
@@ -1759,7 +1761,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
   <nav class="sn-primary-nav" aria-label="Điều hướng chính">
     <button class="tab active" data-pages="home" onclick="goTo('home')"><sn-icon name="home"></sn-icon> <span>Home</span></button>
-    <button class="tab" data-pages="learn,vocab,reading,chunks,review,test,speaking" onclick="goTo('learn')"><sn-icon name="learn"></sn-icon> <span>Học</span></button>
+    <button class="tab" data-pages="learn,vocab,knowledge-map,reading,chunks,review,test,speaking" onclick="goTo('learn')"><sn-icon name="learn"></sn-icon> <span>Học</span></button>
     <button class="tab sn-add-tab" data-pages="add" onclick="snOpenAddSheet(this)" aria-label="Thêm mới"><span class="sn-add-icon"><sn-icon name="add"></sn-icon></span> <span class="sn-add-label">Thêm</span></button>
     <button class="tab" data-pages="dash,mistakes" onclick="goTo('dash')"><sn-icon name="progress"></sn-icon> <span>Tiến độ</span></button>
     <a class="tab" data-pages="writing" href="studynova_writing_vault.html"><sn-icon name="writing"></sn-icon> <span class="sn-writing-label">Writing Vault</span></a>
@@ -1818,6 +1820,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     <div class="sn-learn-facts" id="sn-learn-facts"></div>
     <section class="sn-learn-section"><h2>Từ vựng</h2><div class="sn-learn-grid">
       <button class="sn-learn-card" onclick="goTo('vocab')"><sn-icon name="vocabulary"></sn-icon><b>Sổ từ vựng</b><span>Quản lý những từ bạn đã lưu.</span><strong id="learn-vocab-count">Chưa có từ</strong></button>
+      <button class="sn-learn-card" onclick="goTo('knowledge-map')"><sn-icon name="progress"></sn-icon><b>Bản đồ từ vựng</b><span>Xem mức độ ghi nhớ từ dữ liệu ôn tập.</span><strong id="learn-map-count">4 cấp độ</strong></button>
       <button class="sn-learn-card" onclick="goTo('review')"><sn-icon name="review"></sn-icon><b>Ôn tập</b><span>Ôn từ đến hạn theo nhịp nhớ.</span><strong id="learn-due-count">Chưa có từ đến hạn</strong></button>
       <button class="sn-learn-card" onclick="goTo('test')"><sn-icon name="test"></sn-icon><b>Kiểm tra</b><span>Kiểm tra khả năng ghi nhớ.</span><strong id="learn-test-count">Chưa làm bài</strong></button>
       <button class="sn-learn-card" onclick="goTo('chunks')"><sn-icon name="phrase-bank"></sn-icon><b>Phrase Bank</b><span>Lưu cụm từ dùng được ngay.</span><strong id="learn-chunk-count">Chưa có cụm từ</strong></button>
@@ -1834,6 +1837,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   </div>
 
   <div id="page-dash" class="page">
+    <button class="btn btn-default" type="button" onclick="goTo('knowledge-map')"><sn-icon name="progress"></sn-icon> Bản đồ từ vựng</button>
 
     <div class="section nova-today-center" id="nova-today-center">
       <div class="nova-today-head">
@@ -1948,7 +1952,19 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   </div>
 
 
+
+  <div id="page-knowledge-map" class="page">
+    <section class="km-shell" aria-labelledby="km-title">
+      <header class="km-header"><div><p class="km-kicker">STUDYNOVA MEMORY</p><h1 id="km-title">Bản đồ từ vựng</h1><p id="km-subtitle">Một nguồn dữ liệu duy nhất từ Sổ từ vựng và lịch ôn của Bạn.</p></div><button class="btn btn-green" id="km-review" type="button"><sn-icon name="review"></sn-icon> Ôn các từ này</button></header>
+      <div class="km-summary"><div><strong id="km-total">0</strong><span>Tổng số từ</span></div><div class="km-progress"><span id="km-progress-label">0% đã vững</span><div class="prog-bar"><div id="km-progress-fill" class="prog-fill"></div></div></div></div>
+      <div class="km-levels" id="km-levels"></div>
+      <div class="km-filters"><label><span>Tìm kiếm</span><input id="km-search" type="search" placeholder="Tìm từ hoặc nghĩa…"></label><label><span>Chủ đề</span><select id="km-topic"><option value="">Tất cả chủ đề</option></select></label><label><span>Cấp độ</span><select id="km-level"><option value="">Tất cả cấp độ</option><option value="new">Mới học</option><option value="learning">Đang học</option><option value="familiar">Đã quen</option><option value="mastered">Đã thành thạo</option></select></label><label><span>Trạng thái</span><select id="km-due"><option value="">Tất cả</option><option value="due">Đến hạn</option><option value="later">Chưa đến hạn</option></select></label></div>
+      <div id="km-list" class="km-list" aria-live="polite"></div>
+    </section>
+    <dialog id="km-detail" class="km-dialog"><button class="km-close" type="button" aria-label="Đóng"><sn-icon name="close"></sn-icon></button><div id="km-detail-body"></div></dialog>
+  </div>
   <div id="page-vocab" class="page">
+    <button class="btn btn-default" type="button" onclick="goTo('knowledge-map')"><sn-icon name="progress"></sn-icon> Bản đồ từ vựng</button>
     <div class="section" style="padding:14px">
       <div class="filter-row">
         <input id="f-s" data-i18n-ph="search_ph" placeholder="Tìm kiếm..." style="max-width:175px" oninput="renderVocab()">
@@ -6578,5 +6594,6 @@ setTimeout(function(){
  window.addEventListener('storage',function(e){if(!e.key||e.key==='vocabmaster_data_v1'||e.key==='writingvault_data_v1')renderHomeDashboard()});window.addEventListener('studynova-realtime-update',renderHomeDashboard);window.addEventListener('studynova-auth-change',renderHomeDashboard);setTimeout(renderHomeDashboard,180);
 })();
 </script>
+<script src="studynova-learning.js"></script>
 </body>
 </html>

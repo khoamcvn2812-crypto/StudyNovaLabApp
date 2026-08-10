@@ -14,7 +14,7 @@ for(const [name,html] of [['Home',home],['Writing Vault',vault]]){
 check(home.includes('studynova_backup_reminder_dismissed_at')&&home.includes("backup_dismiss:'Dismiss'"),'Three-day backup dismissal is incomplete');
 check(!home.includes("style.display=(total>=S.cfg.thresh)"),'Unlock banner must not override CSS display');
 check(css.includes('grid-template-columns:minmax(0,1fr) auto')&&css.includes('prefers-reduced-motion'),'Responsive banner or reduced motion support missing');
-check(sw.includes('novalab-pwa-v24')&&sw.includes('./studynova-motion.css')&&sw.includes('./studynova-auth.css')&&sw.includes('./studynova-auth.js')&&sw.includes('./assets/icons/studynova-icons.svg'),'Service worker v23 shell is incomplete');
+check(sw.includes('novalab-pwa-v25')&&sw.includes('./studynova-motion.css')&&sw.includes('./studynova-auth.css')&&sw.includes('./studynova-auth.js')&&sw.includes('./assets/icons/studynova-icons.svg'),'Service worker v25 shell is incomplete');
 check(auth.includes('auth.getSession()')&&auth.includes('auth.onAuthStateChange(')&&auth.includes('authSubscription.unsubscribe()'),'Shared session lifecycle is incomplete');
 const menu=vault.slice(vault.indexOf('id="wv-top-menu-overlay"'),vault.indexOf('id="wv-primary-nav"'));
 check(vault.includes('class="wv-account-trigger"')&&!menu.includes('snOpenAuth()'),'Writing account trigger must be outside Menu');

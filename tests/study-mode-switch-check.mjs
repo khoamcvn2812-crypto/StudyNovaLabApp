@@ -11,5 +11,5 @@ check(js.includes('function renderListenStudy()')&&js.includes('data-study-liste
 check(js.includes("page.dataset.studyModeBound")&&js.includes("page.addEventListener('click'"),'Re-render-safe delegated event binding is missing');
 check(js.includes('state.index=S.rvIdx')&&js.includes('sessionSave(state)'),'Session progress is not persisted when switching');
 check(css.includes('.study-mode-bar{position:relative;z-index:2;pointer-events:auto}')&&css.includes('[data-study-mode]{pointer-events:auto'),'Mode bar pointer protection is missing');
-check(sw.includes('novalab-pwa-v24')&&sw.includes('novalab-runtime-v24'),'Service worker cache was not invalidated');
+check(sw.includes('novalab-pwa-v25')&&sw.includes('novalab-runtime-v25'),'Service worker cache was not invalidated');
 console.log('Study mode switching checks passed.');

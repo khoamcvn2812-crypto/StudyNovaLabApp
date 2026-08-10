@@ -1512,20 +1512,27 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 @media(max-width:360px){#page-home .sn-density-strip{grid-template-columns:1fr}#page-home .sn-today-v8-stats{grid-template-columns:repeat(3,minmax(0,1fr))}#page-home .sn-today-v8-stat{padding:7px 5px}#page-home .sn-today-v8-stat small{font-size:8.5px}}
 
 /* Chinese-shell parity adapted to the IELTS visual identity. */
-:root{--bg:var(--bg0);--bg-elevated:var(--bg1);--surface:var(--glass);--surface-2:var(--bg2);--primary:#10d4a0;--secondary:#60a5fa;--accent:#a78bfa;--text:var(--t1);--text-muted:var(--t2);--border:var(--glass-bd);--focus:rgba(16,212,160,.28);--shadow:0 18px 48px rgba(2,8,23,.18);--radius:24px}
-.sn-sidebar-heading{display:none}
-#app{max-width:1500px;margin-inline:auto;padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+:root{--bg:var(--bg0);--bg-elevated:var(--bg1);--surface:var(--glass);--surface-2:var(--bg2);--primary:#10d4a0;--secondary:#60a5fa;--accent:#a78bfa;--text:var(--t1);--text-muted:var(--t2);--border:var(--glass-bd);--focus:rgba(16,212,160,.28);--shadow:0 18px 48px rgba(2,8,23,.18);--radius:24px;--sidebar-width:230px;--layout-gap:18px}
+html,body{max-width:100%;overflow-x:clip}
+.sn-sidebar-heading,.sn-sidebar-brand{display:none}
+#app{width:min(100%,1500px);max-width:1500px;margin-inline:auto;padding-bottom:calc(104px + env(safe-area-inset-bottom))}
 @media(min-width:1180px){
-  #app{max-width:1500px;padding-left:252px;padding-right:24px;padding-bottom:28px}
-  .sn-primary-nav{position:fixed;z-index:60;left:max(20px,calc((100vw - 1500px)/2));top:20px;bottom:20px;width:212px;margin:0;padding:18px 12px;display:flex!important;flex-direction:column;align-items:stretch;gap:5px;border-radius:28px;overflow:auto}
+  #app{min-height:100dvh;padding:20px;display:grid;grid-template-columns:var(--sidebar-width) minmax(0,1fr);gap:var(--layout-gap);align-items:start}
+  #app>.sn-primary-nav{grid-column:1;grid-row:1/span 40;position:sticky;top:20px;left:auto;right:auto;bottom:auto;transform:none;width:100%;max-width:100%;height:calc(100dvh - 40px);min-width:0;margin:0;padding:14px 12px 18px;display:flex!important;flex-direction:column;align-items:stretch;gap:5px;border-radius:28px;overflow:auto}
+  #app>:not(.sn-primary-nav){grid-column:2;min-width:0;max-width:100%}
+  #app>.topbar,#app>.page,#app>.backup-banner{width:100%;min-width:0;max-width:100%}
   .sn-primary-nav .tab{flex:0 0 auto;min-height:46px;justify-content:flex-start;padding:11px 13px;font-size:13px}
   .sn-primary-nav .sn-add-tab{display:none}
   .sn-sidebar-heading{display:block;padding:14px 12px 5px;color:var(--t4);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-  .sn-primary-nav .sn-sidebar-heading:first-child{padding-top:4px}
-  .topbar{position:sticky;top:12px;z-index:55}
+  .sn-sidebar-brand{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:8px 10px;margin-bottom:4px;border:0;background:transparent;color:var(--t1);font:inherit;font-weight:900;cursor:pointer;text-align:left}
+  .sn-sidebar-brand img{width:34px;height:34px;border-radius:10px}.sn-sidebar-brand span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sn-primary-nav .sn-sidebar-heading:first-of-type{padding-top:8px}
+  .topbar{position:sticky;top:12px;z-index:55;justify-content:flex-end;margin-bottom:16px}
+  .topbar>.sn-logo-home{display:none}
+  #page-home,#page-home .sn-home-dashboard,#page-home .sn-home-hero,#page-home .sn-home-priority,#page-home .sn-home-stats,#page-home .sn-home-recent{min-width:0;max-width:100%}
 }
-@media(max-width:1179px){.sn-sidebar-only,.sn-sidebar-heading{display:none!important}}
-@media(max-width:760px){#app{padding-left:10px;padding-right:10px}.sn-primary-nav{padding-bottom:calc(7px + env(safe-area-inset-bottom));bottom:0!important;left:0!important;right:0!important;border-radius:22px 22px 0 0!important}.sn-primary-nav .tab{min-height:52px}.sn-header-control,.sn-top-auth,.sn-menu-trigger{min-width:44px;min-height:44px}.sn-control-label{display:none}.sn-home-stat{height:100%}}
+@media(max-width:1179px){.sn-sidebar-only,.sn-sidebar-heading,.sn-sidebar-brand{display:none!important}}
+@media(max-width:760px){#app{display:block;width:100%;padding-left:10px;padding-right:10px}.sn-primary-nav{padding-bottom:calc(7px + env(safe-area-inset-bottom));bottom:0!important;left:0!important;right:0!important;border-radius:22px 22px 0 0!important}.sn-primary-nav .tab{min-height:52px}.sn-header-control,.sn-top-auth,.sn-menu-trigger{min-width:44px;min-height:44px}.sn-control-label{display:none}.sn-home-stat{height:100%}.nv8-toast{bottom:calc(100px + env(safe-area-inset-bottom))!important}}
 </style>
 <link rel="stylesheet" href="./studynova-auth.css">
 <link rel="stylesheet" href="./studynova-motion.css">
@@ -1776,6 +1783,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   </div>
 
   <nav class="sn-primary-nav" aria-label="Điều hướng chính">
+    <button class="sn-sidebar-brand" type="button" onclick="goTo('home')" aria-label="Về Home"><img src="icons/icon-192.png" alt=""><span>StudyNova IELTS</span></button>
     <span class="sn-sidebar-heading">Tổng quan</span>
     <button class="tab active" data-pages="home" onclick="goTo('home')"><sn-icon name="home"></sn-icon> <span>Home</span></button>
     <button class="tab" data-pages="learn,vocab,knowledge-map,reading,chunks,review,test,speaking" onclick="goTo('learn')"><sn-icon name="learn"></sn-icon> <span>Học</span></button>

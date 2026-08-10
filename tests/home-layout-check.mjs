@@ -26,7 +26,12 @@ for (const handler of ["goTo('add')", "goTo('reading')", "goTo('speaking')", "go
   check(html.includes(handler), `Required navigation handler is missing: ${handler}`);
 }
 
-check(html.includes('class="sn-sidebar-heading"') && html.includes('@media(min-width:1180px)') && html.includes('padding-left:252px'), 'Responsive desktop sidebar shell is missing.');
+check(html.includes('class="sn-sidebar-brand"') && html.includes('@media(min-width:1180px)') && html.includes('grid-template-columns:var(--sidebar-width) minmax(0,1fr)'), 'Responsive desktop grid shell is missing.');
+check(html.includes('position:sticky;top:20px') && html.includes('left:auto;right:auto;bottom:auto;transform:none'), 'Desktop sidebar must be sticky without fixed-position offsets.');
+const desktopShell = html.slice(html.indexOf('@media(min-width:1180px)'), html.indexOf('@media(max-width:1179px)'));
+check(!desktopShell.includes('position:fixed') && !desktopShell.includes('margin-left') && !desktopShell.includes('100vw'), 'Desktop shell must not mix grid with fixed offsets or viewport widths.');
+check(html.includes('#app>:not(.sn-primary-nav){grid-column:2;min-width:0;max-width:100%}'), 'Main children must occupy the non-overlapping grid column.');
+check(html.includes('.topbar>.sn-logo-home{display:none}') && html.includes('@media(max-width:1179px){.sn-sidebar-only'), 'Desktop and mobile brand visibility rules are missing.');
 check(html.includes('--primary:#10d4a0') && html.includes('--secondary:#60a5fa') && html.includes('--accent:#a78bfa'), 'IELTS semantic design tokens are missing.');
 check(html.includes('env(safe-area-inset-bottom)') && html.includes('@media(max-width:760px)'), 'Mobile safe-area handling is missing.');
 check(html.includes('id="page-learn"'), 'Dedicated learning center is missing.');
@@ -39,7 +44,7 @@ check(html.includes('font-size:clamp(42px,3.6vw,58px)') && html.includes('letter
 check(html.includes('font-size:clamp(32px,2.6vw,38px)') && html.includes('@media(max-width:600px)'), 'Responsive statistic typography is missing.');
 check(html.includes('width:clamp(108px,11vw,132px);aspect-ratio:1') && html.includes('place-items:center;overflow:hidden'), 'Home goal wrapper must be square, centered, and clipped.');
 check(html.includes('#page-home .sn-home-orbit{width:100px;margin:18px auto 0}'), 'Home goal progress must remain compact on mobile.');
-check(worker.includes('novalab-pwa-v25') && worker.includes('novalab-runtime-v25'), 'Service-worker caches must be v25.');
+check(worker.includes('novalab-pwa-v26') && worker.includes('novalab-runtime-v26'), 'Service-worker caches must be v26.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 
 console.log('Home layout regression checks passed.');

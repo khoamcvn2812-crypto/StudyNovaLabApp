@@ -1,13 +1,13 @@
 import fs from 'node:fs';
-const pages=['index.html','studynova_writing_vault.html'];
 const check=(condition,message)=>{if(!condition)throw new Error(message)};
-for(const page of pages){
-  const html=fs.readFileSync(new URL(`../${page}`,import.meta.url),'utf8');
-  check(html.includes('id="pwa-install-group"')&&html.includes('id="pwa-install-more"'),`${page}: split install controls missing`);
-  check(html.includes('aria-label="Cài đặt NovaLab"'),`${page}: plus button accessible name missing`);
-  check(html.includes('.pwa-install-group.show{display:flex}')&&html.includes('gap:8px'),`${page}: responsive flex wrapper missing`);
-  check(html.includes('.pwa-install-more{width:46px;min-width:44px'),`${page}: plus button touch target is too small`);
-  check(!html.includes('.pwa-install-btn.show{display:flex}'),`${page}: visibility must belong to the wrapper`);
-  check(html.includes('installMore.addEventListener("click"'),`${page}: plus button must preserve install behavior`);
-}
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const topbar=html.slice(html.indexOf('<div class="topbar">'),html.indexOf('<div class="sn-top-menu-overlay"'));
+check(topbar.includes('id="pwa-install-group"')&&topbar.includes('id="pwa-install-btn"'),'Install control must live in the top bar.');
+check(topbar.includes('<sn-icon name="continue">')&&topbar.includes('Cài NovaLab'),'Install control must retain its icon and desktop label.');
+check(topbar.includes('class="sn-header-add"')&&topbar.includes('aria-label="Thêm nội dung"'),'Accessible add control must live in the top bar.');
+check(topbar.indexOf('pwa-install-group')<topbar.indexOf('sn-header-add')&&topbar.indexOf('sn-header-add')<topbar.indexOf('sn-top-auth'),'Desktop control order is incorrect.');
+check(html.includes('.sn-header-add{width:44px;min-width:44px;height:44px'),'Add control touch target is too small.');
+check(html.includes('@media(max-width:900px){.sn-header-add{display:none}}'),'Mobile duplicate add control is not hidden.');
+check(!html.includes('id="nv8-main-fab"')&&!html.includes('id="nv8-main-quick"'),'Legacy floating add controls remain.');
+check(html.includes('beforeinstallprompt')&&html.includes('deferredInstallPrompt.prompt()'),'Existing PWA install handler is missing.');
 console.log('PWA install layout regression checks passed.');

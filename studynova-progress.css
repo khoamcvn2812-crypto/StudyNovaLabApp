@@ -11,7 +11,7 @@
 .sn-progress-shell {
   width: 100%;
   display: grid;
-  gap: 18px;
+  gap: 24px;
 }
 
 .sn-progress-hero,
@@ -23,13 +23,13 @@
 }
 
 .sn-progress-hero {
-  min-height: 178px;
-  padding: clamp(22px, 3vw, 36px);
-  border-radius: 26px;
+  min-height: 230px;
+  padding: clamp(30px, 3.4vw, 50px);
+  border-radius: 30px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 28px;
+  gap: 36px;
   background:
     radial-gradient(circle at 92% 8%, rgba(96, 165, 250, .15), transparent 30%),
     linear-gradient(135deg, rgba(16, 212, 160, .08), transparent 45%),
@@ -38,7 +38,7 @@
 
 .sn-progress-hero-copy {
   min-width: 0;
-  max-width: 760px;
+  max-width: 900px;
 }
 
 .sn-progress-kicker,
@@ -47,21 +47,21 @@
   align-items: center;
   gap: 7px;
   color: #34d399;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .11em;
 }
 
 .sn-progress-kicker sn-icon {
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
 }
 
 .sn-progress-hero h1 {
-  max-width: 720px;
-  margin: 10px 0 8px;
+  max-width: 860px;
+  margin: 14px 0 11px;
   color: var(--t1);
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(38px, 4.3vw, 64px);
   font-weight: 850;
   letter-spacing: -.045em;
   line-height: 1.08;
@@ -73,7 +73,7 @@
 .sn-progress-next p {
   margin: 0;
   color: var(--t3);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 650;
   line-height: 1.55;
 }
@@ -81,29 +81,29 @@
 .sn-progress-controls {
   flex: 0 0 auto;
   display: grid;
-  gap: 10px;
+  gap: 12px;
   justify-items: end;
 }
 
 .sn-progress-range {
   display: grid;
-  grid-template-columns: repeat(2, minmax(78px, 1fr));
-  gap: 4px;
-  padding: 4px;
+  grid-template-columns: repeat(2, minmax(92px, 1fr));
+  gap: 5px;
+  padding: 5px;
   border: 1px solid var(--bd);
   border-radius: 15px;
   background: var(--bg2);
 }
 
 .sn-progress-range button {
-  min-width: 78px;
-  min-height: 44px;
-  padding: 0 13px;
+  min-width: 92px;
+  min-height: 48px;
+  padding: 0 16px;
   border: 0;
   border-radius: 11px;
   background: transparent;
   color: var(--t3);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 850;
   cursor: pointer;
 }
@@ -115,23 +115,23 @@
 }
 
 .sn-progress-goal {
-  min-height: 48px;
+  min-height: 54px;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 7px 5px 13px;
+  padding: 6px 8px 6px 15px;
   border: 1px solid var(--bd);
   border-radius: 15px;
   color: var(--t3);
   background: var(--bg2);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
 }
 
 .sn-progress-goal .goal-inp {
-  width: 52px;
-  min-height: 36px;
+  width: 58px;
+  min-height: 40px;
   padding: 5px;
   border-radius: 10px;
 }
@@ -139,28 +139,28 @@
 .sn-progress-kpis {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 
 .sn-progress-kpi {
   min-width: 0;
-  min-height: 132px;
-  padding: 17px;
+  min-height: 170px;
+  padding: 22px;
   border: 1px solid var(--bd);
-  border-radius: 20px;
+  border-radius: 24px;
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr);
+  grid-template-columns: 56px minmax(0, 1fr);
   grid-template-rows: auto auto 1fr;
-  column-gap: 12px;
+  column-gap: 15px;
   color: var(--t1);
   background: var(--glass, var(--bg1));
 }
 
 .sn-progress-kpi-icon {
   grid-row: 1 / 4;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 17px;
   display: grid;
   place-items: center;
   color: var(--kpi-color, #60a5fa);
@@ -168,14 +168,14 @@
 }
 
 .sn-progress-kpi-icon sn-icon {
-  width: 23px;
-  height: 23px;
+  width: 28px;
+  height: 28px;
 }
 
 .sn-progress-kpi-label {
   overflow: hidden;
   color: var(--t4);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .065em;
   text-overflow: ellipsis;
@@ -184,9 +184,9 @@
 }
 
 .sn-progress-kpi-value {
-  margin-top: 3px;
+  margin-top: 5px;
   color: var(--t1);
-  font-size: clamp(25px, 2.2vw, 34px);
+  font-size: clamp(32px, 2.8vw, 44px);
   font-weight: 900;
   letter-spacing: -.04em;
   line-height: 1.05;
@@ -194,9 +194,9 @@
 
 .sn-progress-kpi-meta {
   align-self: end;
-  margin-top: 8px;
+  margin-top: 11px;
   color: var(--t3);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -208,7 +208,7 @@
 
 .sn-progress-grid {
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
 
 .sn-progress-grid-top {
@@ -222,8 +222,8 @@
 .sn-progress-panel,
 .sn-progress-section {
   min-width: 0;
-  padding: 20px;
-  border-radius: 22px;
+  padding: 28px;
+  border-radius: 26px;
 }
 
 .sn-progress-panel-head,
@@ -232,8 +232,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 16px;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .sn-progress-panel-head h2,
@@ -241,7 +241,7 @@
 .sn-progress-next h2 {
   margin: 0 0 4px;
   color: var(--t1);
-  font-size: 17px;
+  font-size: 22px;
   font-weight: 900;
   letter-spacing: -.025em;
 }
@@ -249,18 +249,18 @@
 #sn-progress-active-days,
 .sn-progress-streak-summary {
   flex: none;
-  padding: 7px 10px;
+  padding: 9px 13px;
   border: 1px solid rgba(52, 211, 153, .25);
   border-radius: 999px;
   color: #34d399;
   background: rgba(52, 211, 153, .08);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
 }
 
 .sn-progress-chart {
   width: 100%;
-  min-height: 238px;
+  min-height: 326px;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: thin;
@@ -268,25 +268,25 @@
 
 .sn-progress-bars {
   min-width: 100%;
-  height: 224px;
+  height: 306px;
   display: flex;
   align-items: stretch;
-  gap: 7px;
-  padding: 10px 2px 0;
+  gap: 9px;
+  padding: 14px 3px 0;
   border-bottom: 1px solid var(--bd);
 }
 
 .sn-progress-bars.is-30 {
-  min-width: 720px;
-  gap: 4px;
+  min-width: 960px;
+  gap: 5px;
 }
 
 .sn-progress-day {
   min-width: 0;
   flex: 1 1 0;
   display: grid;
-  grid-template-rows: 1fr 24px;
-  gap: 7px;
+  grid-template-rows: 1fr 28px;
+  gap: 9px;
   align-items: end;
 }
 
@@ -298,7 +298,7 @@
 }
 
 .sn-progress-stack {
-  width: min(28px, 70%);
+  width: min(38px, 74%);
   min-height: 4px;
   display: flex;
   flex-direction: column-reverse;
@@ -325,7 +325,7 @@
 .sn-progress-day-label {
   overflow: hidden;
   color: var(--t4);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   text-align: center;
   text-overflow: ellipsis;
@@ -339,41 +339,41 @@
 .sn-progress-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px 14px;
-  padding-top: 13px;
+  gap: 11px 18px;
+  padding-top: 17px;
 }
 
 .sn-progress-legend span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   color: var(--t3);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 750;
 }
 
 .sn-progress-legend i {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 3px;
   background: var(--legend-color);
 }
 
 .sn-progress-next {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 58px minmax(0, 1fr);
   grid-template-rows: 1fr auto;
-  gap: 14px;
+  gap: 17px;
   background:
     radial-gradient(circle at 100% 0, rgba(167, 139, 250, .13), transparent 42%),
     var(--glass, var(--bg1));
 }
 
 .sn-progress-next-icon {
-  width: 48px;
-  height: 48px;
+  width: 58px;
+  height: 58px;
   border: 1px solid rgba(52, 211, 153, .22);
-  border-radius: 15px;
+  border-radius: 18px;
   display: grid;
   place-items: center;
   color: #34d399;
@@ -381,40 +381,41 @@
 }
 
 .sn-progress-next-icon sn-icon {
-  width: 25px;
-  height: 25px;
+  width: 29px;
+  height: 29px;
 }
 
 .sn-progress-next .btn {
   grid-column: 1 / -1;
-  min-height: 48px;
-  margin-top: 4px;
+  min-height: 54px;
+  margin-top: 7px;
+  font-size: 14px;
 }
 
 .sn-progress-skills {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 11px;
+  gap: 15px;
 }
 
 .sn-progress-skill {
   min-width: 0;
-  min-height: 166px;
-  padding: 16px;
+  min-height: 210px;
+  padding: 21px;
   border: 1px solid var(--bd);
-  border-radius: 19px;
+  border-radius: 23px;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: 50px minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
-  gap: 10px 11px;
+  gap: 13px 14px;
   color: var(--t1);
   background: var(--bg2);
 }
 
 .sn-progress-skill-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 13px;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
   display: grid;
   place-items: center;
   color: var(--skill-color, #60a5fa);
@@ -422,8 +423,8 @@
 }
 
 .sn-progress-skill-icon sn-icon {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
 }
 
 .sn-progress-skill-copy {
@@ -438,14 +439,14 @@
 
 .sn-progress-skill-copy b {
   color: var(--t2);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 850;
 }
 
 .sn-progress-skill-copy strong {
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--t1);
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 900;
   letter-spacing: -.03em;
 }
@@ -454,7 +455,7 @@
   margin-top: 3px;
   overflow: hidden;
   color: var(--t4);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -466,7 +467,7 @@
 }
 
 .sn-progress-skill-progress div {
-  height: 7px;
+  height: 9px;
   overflow: hidden;
   border: 1px solid var(--bd);
   border-radius: 999px;
@@ -482,20 +483,20 @@
 
 .sn-progress-skill-progress small {
   display: block;
-  margin-top: 6px;
+  margin-top: 8px;
   color: var(--t4);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 750;
 }
 
 .sn-progress-skill-action {
   grid-column: 1 / -1;
-  min-height: 44px;
+  min-height: 48px;
   border: 1px solid var(--bd2);
   border-radius: 13px;
   color: var(--t2);
   background: var(--bg3);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 850;
   cursor: pointer;
 }
@@ -508,20 +509,20 @@
 .sn-progress-calendar {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 7px;
+  gap: 9px;
 }
 
 .sn-progress-calendar-day {
   min-width: 0;
   aspect-ratio: 1;
-  padding: 5px;
+  padding: 7px;
   border: 1px solid var(--bd);
-  border-radius: 11px;
+  border-radius: 13px;
   display: grid;
   place-items: center;
   color: var(--t4);
   background: var(--bg3);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 850;
 }
 
@@ -532,47 +533,47 @@
 
 .sn-progress-timeline {
   display: grid;
-  gap: 8px;
+  gap: 11px;
 }
 
 .sn-progress-event {
   min-width: 0;
-  min-height: 58px;
-  padding: 9px 11px;
+  min-height: 72px;
+  padding: 12px 14px;
   border: 1px solid var(--bd);
-  border-radius: 15px;
+  border-radius: 18px;
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 10px;
+  gap: 13px;
   background: var(--bg2);
 }
 
 .sn-progress-event-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
   display: grid;
   place-items: center;
   color: #60a5fa;
   background: rgba(96, 165, 250, .09);
 }
 
-.sn-progress-event-icon sn-icon { width: 19px; height: 19px; }
-.sn-progress-event b { display: block; overflow: hidden; color: var(--t2); font-size: 11px; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
-.sn-progress-event p { margin: 3px 0 0; overflow: hidden; color: var(--t4); font-size: 10px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
-.sn-progress-event time { color: var(--t4); font-size: 9px; font-weight: 750; white-space: nowrap; }
+.sn-progress-event-icon sn-icon { width: 23px; height: 23px; }
+.sn-progress-event b { display: block; overflow: hidden; color: var(--t2); font-size: 13px; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
+.sn-progress-event p { margin: 4px 0 0; overflow: hidden; color: var(--t4); font-size: 12px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.sn-progress-event time { color: var(--t4); font-size: 11px; font-weight: 750; white-space: nowrap; }
 
 .sn-progress-empty {
-  min-height: 158px;
-  padding: 22px;
+  min-height: 190px;
+  padding: 28px;
   border: 1px dashed var(--bd2);
   border-radius: 17px;
   display: grid;
   place-items: center;
   color: var(--t4);
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.55;
 }
@@ -588,6 +589,10 @@
   .sn-progress-shell { gap: 12px; }
   .sn-progress-hero { min-height: 0; padding: 20px 17px; border-radius: 21px; align-items: stretch; flex-direction: column; gap: 18px; }
   .sn-progress-hero h1 { font-size: clamp(28px, 9vw, 38px); }
+  .sn-progress-hero p,
+  .sn-progress-panel-head p,
+  .sn-progress-section-head p,
+  .sn-progress-next p { font-size: 13px; }
   .sn-progress-controls { width: 100%; grid-template-columns: minmax(0, 1fr) auto; align-items: center; justify-items: stretch; }
   .sn-progress-range { width: 100%; }
   .sn-progress-goal { justify-content: center; }
@@ -596,11 +601,29 @@
   .sn-progress-kpi { min-height: 122px; padding: 13px; grid-template-columns: 40px minmax(0, 1fr); column-gap: 9px; }
   .sn-progress-kpi-icon { width: 40px; height: 40px; }
   .sn-progress-kpi-value { font-size: 25px; }
+  .sn-progress-kpi-label { font-size: 10px; }
+  .sn-progress-kpi-meta { font-size: 11px; }
   .sn-progress-panel,
   .sn-progress-section { padding: 16px; border-radius: 19px; }
+  .sn-progress-panel-head h2,
+  .sn-progress-section-head h2,
+  .sn-progress-next h2 { font-size: 18px; }
+  .sn-progress-chart { min-height: 258px; }
+  .sn-progress-bars { height: 240px; }
+  .sn-progress-bars.is-30 { min-width: 760px; }
+  .sn-progress-day-label { font-size: 9px; }
+  .sn-progress-legend span { font-size: 10px; }
   .sn-progress-skills { grid-template-columns: 1fr; }
   .sn-progress-skill { min-height: 150px; }
+  .sn-progress-skill-copy b { font-size: 13px; }
+  .sn-progress-skill-copy strong { font-size: 25px; }
+  .sn-progress-skill-copy span { font-size: 11px; }
+  .sn-progress-calendar-day { font-size: 9px; }
   .sn-progress-event { grid-template-columns: 36px minmax(0, 1fr); }
+  .sn-progress-event-icon { width: 36px; height: 36px; }
+  .sn-progress-event-icon sn-icon { width: 19px; height: 19px; }
+  .sn-progress-event b { font-size: 12px; }
+  .sn-progress-event p { font-size: 11px; }
   .sn-progress-event time { grid-column: 2; }
 }
 

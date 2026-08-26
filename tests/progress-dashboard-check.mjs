@@ -17,7 +17,7 @@ check(js.includes("localStorage.getItem(WRITING_STORE)")&&js.includes('speakingL
 check(js.includes("addEventListener('studynova-realtime-update'")&&js.includes("addEventListener('storage'"),'Progress dashboard does not react to realtime/cross-tab updates');
 check(js.includes("data.cfg.progressRange=range")&&js.includes("typeof window.save==='function'"),'Selected range is not persisted in the synced app state');
 check(!js.includes('Math.random()*100'),'Progress dashboard must not generate fake metrics');
-check(css.includes('@media (max-width: 700px)')&&css.includes('min-height: 44px')&&css.includes('.sn-progress-bars.is-30'),'Responsive/touch-safe progress layout is incomplete');
+check(css.includes('@media (max-width: 700px)')&&/min-height:\s*(?:4[4-9]|[5-9]\d|\d{3,})px/.test(css)&&css.includes('.sn-progress-bars.is-30'),'Responsive/touch-safe progress layout is incomplete');
 check(worker.includes('novalab-pwa-v29')&&worker.includes('./studynova-progress.css')&&worker.includes('./studynova-progress.js'),'Progress assets are missing from the updated PWA shell');
 
 const listeners={};

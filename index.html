@@ -1484,6 +1484,7 @@ html,body{width:100%;min-height:100%;margin:0}
 <link rel="stylesheet" href="assets/icons/studynova-icons.css">
 <script src="assets/icons/studynova-icons.js"></script>
 <link rel="stylesheet" href="studynova-learning.css">
+<link rel="stylesheet" href="studynova-progress.css">
 </head>
 <body>
 
@@ -1816,59 +1817,53 @@ html,body{width:100%;min-height:100%;margin:0}
   </div>
 
   <div id="page-dash" class="page">
-    <button class="btn btn-default" type="button" onclick="goTo('knowledge-map')"><sn-icon name="progress"></sn-icon> Bản đồ từ vựng</button>
-
-    <div class="section nova-today-center" id="nova-today-center">
-      <div class="nova-today-head">
-        <div>
-          <div class="nova-today-title"><sn-icon name="learn"></sn-icon> Trung tâm học hôm nay</div>
-          <div class="nova-today-sub" id="nova-today-summary">Web đang tính kế hoạch phù hợp với dữ liệu của bạn.</div>
+    <main class="sn-progress-shell" aria-labelledby="sn-progress-title">
+      <section class="sn-progress-hero">
+        <div class="sn-progress-hero-copy">
+          <span class="sn-progress-kicker"><sn-icon name="progress" aria-hidden="true"></sn-icon><span id="sn-progress-kicker">TIẾN TRÌNH HỌC TẬP</span></span>
+          <h1 id="sn-progress-title">Nhìn rõ tiến bộ, học đúng việc tiếp theo.</h1>
+          <p id="sn-progress-subtitle">Theo dõi nhịp học, độ ghi nhớ và tiến trình IELTS từ dữ liệu thật của bạn.</p>
         </div>
-        <div class="nova-today-score" id="nova-today-score">0/5</div>
-      </div>
-      <div class="nova-plan-progress">
-        <div class="prog-bar"><div class="prog-fill" id="nova-plan-fill" style="width:0%"></div></div>
-      </div>
-      <div class="nova-plan-grid-v5" id="nova-plan-grid"></div>
-    </div>
-    <div class="stat-grid" id="stat-grid"></div>
-    <div class="section">
-      <div class="streak-header">
-        <div class="streak-big">
-          <svg class="streak-dashboard-fire" style="width:44px;height:52px;animation:flicker 1.5s ease-in-out infinite;flex-shrink:0" viewBox="0 0 36 44" fill="none"><path d="M18 40C9 40 3 33 3 25C3 16 10 10 14 5C14 5 13 15 20 17C20 17 16 9 22 3C22 3 26 13 30 17C34 21 34 27 32 32" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" fill="#f59e0b" fill-opacity="0.2"/><path d="M18 40C12 40 8 34 8 29C8 24 12 20 14 16C14 16 14 22 18 24C18 24 16 18 20 15C20 15 22 20 24 24C26 28 25 33 22 37" fill="#fbbf24" fill-opacity="0.9" stroke="#fef3c7" stroke-width="1" stroke-linecap="round"/><ellipse cx="18" cy="32" rx="5" ry="6" fill="#fff" fill-opacity="0.4"/></svg>
-          <div class="streak-info">
-            <div class="streak-lbl" data-i18n="streak_lbl">CHUỖI NGÀY HỌC</div>
-            <div class="streak-fire-num" id="streak-disp">0</div>
-            <div class="streak-sub" id="streak-sub-txt">Ngày liên tiếp</div>
+        <div class="sn-progress-controls">
+          <div class="sn-progress-range" role="group" aria-label="Khoảng thời gian">
+            <button type="button" data-progress-range="7" aria-pressed="true">7 ngày</button>
+            <button type="button" data-progress-range="30" aria-pressed="false">30 ngày</button>
           </div>
+          <label class="sn-progress-goal" for="inline-goal"><span id="sn-progress-goal-label">Mục tiêu/ngày</span><input type="number" class="goal-inp" id="inline-goal" min="1" max="100" value="5" inputmode="numeric" onchange="saveGoal();StudyNovaProgress.render()"><span id="sn-progress-goal-unit">từ</span></label>
         </div>
-        <div class="inline-goal-wrap">
-          <span data-i18n="goal_label">Mục tiêu mỗi ngày:</span>
-          <input type="number" class="goal-inp" id="inline-goal" min="1" max="100" value="5" inputmode="numeric" onchange="saveGoal()">
-          <span data-i18n="word_unit">từ</span>
-        </div>
+      </section>
+
+      <section class="sn-progress-kpis" id="sn-progress-kpis" aria-label="Tổng quan tiến trình"></section>
+
+      <div class="sn-progress-grid sn-progress-grid-top">
+        <section class="sn-progress-panel sn-progress-activity" aria-labelledby="sn-progress-activity-title">
+          <header class="sn-progress-panel-head"><div><h2 id="sn-progress-activity-title">Hoạt động học tập</h2><p id="sn-progress-activity-subtitle">Tổng hợp các hoạt động theo ngày.</p></div><strong id="sn-progress-active-days">0 ngày</strong></header>
+          <div class="sn-progress-chart" id="sn-progress-chart" role="img" aria-label="Biểu đồ hoạt động học tập"></div>
+          <div class="sn-progress-legend" id="sn-progress-legend"></div>
+        </section>
+        <aside class="sn-progress-panel sn-progress-next" aria-labelledby="sn-progress-next-title">
+          <span class="sn-progress-next-icon"><sn-icon name="continue" aria-hidden="true"></sn-icon></span>
+          <div><span class="sn-progress-eyebrow" id="sn-progress-next-eyebrow">BƯỚC TIẾP THEO</span><h2 id="sn-progress-next-title">Đang chọn hoạt động phù hợp...</h2><p id="sn-progress-next-copy"></p></div>
+          <button class="btn btn-green" id="sn-progress-next-action" type="button">Bắt đầu</button>
+        </aside>
       </div>
-      <div style="margin-bottom:6px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-          <span style="font-size:12px;color:var(--t3);font-weight:600"><span data-i18n="today_progress">Tiến độ hôm nay:</span> <span id="today-txt">0/5</span></span>
-          <span style="font-size:12px;font-weight:700" id="today-status"></span>
-        </div>
-        <div class="prog-bar"><div class="prog-fill" id="today-fill" style="width:0%"></div></div>
+
+      <section class="sn-progress-section" aria-labelledby="sn-progress-skills-title">
+        <header class="sn-progress-section-head"><div><h2 id="sn-progress-skills-title">Tiến trình theo kỹ năng</h2><p id="sn-progress-skills-subtitle">Số liệu được lấy trực tiếp từ các khu vực học.</p></div></header>
+        <div class="sn-progress-skills" id="sn-progress-skills"></div>
+      </section>
+
+      <div class="sn-progress-grid sn-progress-grid-bottom">
+        <section class="sn-progress-panel" aria-labelledby="sn-progress-streak-title">
+          <header class="sn-progress-panel-head"><div><h2 id="sn-progress-streak-title">Lịch học</h2><p id="sn-progress-streak-subtitle">Mỗi ô là một ngày có hoạt động hợp lệ.</p></div><span class="sn-progress-streak-summary" id="sn-progress-streak-summary"></span></header>
+          <div class="sn-progress-calendar" id="sn-progress-calendar"></div>
+        </section>
+        <section class="sn-progress-panel" aria-labelledby="sn-progress-recent-title">
+          <header class="sn-progress-panel-head"><div><h2 id="sn-progress-recent-title">Hoạt động gần đây</h2><p id="sn-progress-recent-subtitle">Những thay đổi mới nhất trong quá trình học.</p></div></header>
+          <div class="sn-progress-timeline" id="sn-progress-timeline"></div>
+        </section>
       </div>
-      <div class="sec-title" style="margin-top:18px;margin-bottom:10px">
-        <span data-i18n="streak_history">Lịch sử streak</span>
-        <span style="font-size:11px;color:var(--t4);font-weight:500;margin-left:auto" data-i18n="streak_legend"><sn-icon name="warning"></sn-icon> đạt &nbsp; <sn-icon name="success"></sn-icon> vượt mục tiêu</span>
-      </div>
-      <div class="streak-grid" id="streak-grid"></div>
-    </div>
-    <div class="charts-row">
-      <div class="section"><div class="sec-title" data-i18n="chart_topic_title"><sn-icon name="vocabulary"></sn-icon> Theo chủ đề</div><div id="chart-topic"></div></div>
-      <div class="section"><div class="sec-title" data-i18n="chart_type_title"><sn-icon name="filter"></sn-icon> Theo loại từ</div><div id="chart-type"></div></div>
-    </div>
-    <div class="unlock-card" id="unlock-card">
-      <div class="unlock-content"><span class="unlock-icon" aria-hidden="true"><sn-icon name="complete"></sn-icon></span><div><div class="unlock-title" data-i18n="unlock_title">Đã đủ từ để làm bài kiểm tra!</div><div class="unlock-desc" data-i18n="unlock_desc">Bạn đã tích lũy đủ từ vựng. Hãy thử sức ngay!</div></div></div>
-      <button class="btn btn-purple" onclick="goTo('test')"><span data-i18n="unlock_btn">Làm bài kiểm tra →</span></button>
-    </div>
+    </main>
   </div>
 
   <div id="page-add" class="page">
@@ -2489,11 +2484,11 @@ function t(key){return (I18N[S.lang]&&I18N[S.lang][key]!=null)?I18N[S.lang][key]
 function tf(key,repl){var s=t(key);for(var k in repl){s=s.split('{'+k+'}').join(repl[k])}return s}
 
 /* ============ STATE ============ */
-var S={words:[],topics:['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture','Công nghệ','Kinh doanh','Du lịch','Học thuật','Đời sống','IELTS','Giao tiếp'],cfg:{daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},days:{},testsDone:0,mistakes:[],speakingLogs:[],rvIdx:0,rvWords:[],chItems:[],chIdx:0,chCorrect:0,chChecked:false,txWords:[],txIdx:0,txAns:[],txActive:false,darkMode:true,lang:'vi',lastBackup:null};
+var S={words:[],topics:['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture','Công nghệ','Kinh doanh','Du lịch','Học thuật','Đời sống','IELTS','Giao tiếp'],cfg:{daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7,progressRange:7},days:{},activityDays:{},testHistory:[],testsDone:0,mistakes:[],speakingLogs:[],rvIdx:0,rvWords:[],chItems:[],chIdx:0,chCorrect:0,chChecked:false,txWords:[],txIdx:0,txAns:[],txActive:false,darkMode:true,lang:'vi',lastBackup:null};
 var KEY='vocabmaster_data_v1';
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},S.cfg);if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}}catch(e){}}
+function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);S=Object.assign({},S,p);S.cfg=Object.assign({daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7,progressRange:7},S.cfg);if(!S.activityDays)S.activityDays={};if(!Array.isArray(S.testHistory))S.testHistory=[];if(!S.mistakes)S.mistakes=[];if(!S.speakingLogs)S.speakingLogs=[];addDefaultIELTSTopics();upgradeOldWords();ensureReadingState()}}catch(e){}}
 function addDefaultIELTSTopics(){['Education','Work & Career','Technology','Health','Environment','Government','Society','Sport','Crime','Media','Travel','Culture'].forEach(function(x){if(!S.topics.includes(x))S.topics.push(x)})}
 function upgradeOldWords(){S.words.forEach(function(w){if(!w.status)w.status='learning';if(!w.coll)w.coll='';if(!w.wex)w.wex='';if(!w.sex)w.sex='';if(!w.family)w.family=''})}
 function statusLabel(st){return ({new:'New',learning:'Learning',weak:'Weak',mastered:'Mastered',ielts_ready:'IELTS-ready'}[st]||'Learning')}
@@ -3435,6 +3430,7 @@ function applyImportedBackupData(data){
     cfg:{daily:5,thresh:20,qs:10,sdays:28,backupReminderDays:7},
     days:{},
     activityDays:{},
+    testHistory:[],
     testsDone:0,
     mistakes:[],
     speakingLogs:[],
@@ -4014,7 +4010,7 @@ function renderTxResult(){
 }
 function resetAll(){
   if(!confirm(t('confirm_delete_all')))return;
-  S.words=[];S.days={};S.activityDays={};S.testsDone=0;S.speakingLogs=[];S.txActive=false;
+  S.words=[];S.days={};S.activityDays={};S.testHistory=[];S.testsDone=0;S.speakingLogs=[];S.txActive=false;
   save();renderDash();renderVocab();renderBackupBanner();
 }
 ensureActivityState();
@@ -4928,6 +4924,14 @@ function novaSrsLabel(word){
 function novaApplySrs(word,rating){
   var s=novaEnsureSrs(word);
   var old=Math.max(0,Number(s.interval)||0);
+  if(typeof StudyNovaRecordAnswer==='function'){
+    StudyNovaRecordAnswer(word,rating!=='again');
+  }else{
+    word.correct_count=(Number(word.correct_count)||0)+(rating==='again'?0:1);
+    word.wrong_count=(Number(word.wrong_count)||0)+(rating==='again'?1:0);
+    word.correct_streak=rating==='again'?0:(Number(word.correct_streak)||0)+1;
+    word.last_reviewed_at=new Date().toISOString();
+  }
   if(rating==='again'){
     s.interval=1;
     s.ease=Math.max(1.3,s.ease-0.2);
@@ -5581,6 +5585,7 @@ function beginTest(forceMode){
   S.txRetryState=null;
   S.txSessionToken=Date.now()+'-'+Math.random();
   S.txRecordedToken=null;
+  S.txHistoryRecordedToken=null;
   renderTxQ();
 }
 function novaTestState(){
@@ -5741,6 +5746,22 @@ function renderTxResult(){
   var finalCorrect=S.txAns.filter(function(a){return a.finalOk!==false}).length;
   var firstPct=total?Math.round(firstCorrect/total*100):0;
   var finalPct=total?Math.round(finalCorrect/total*100):0;
+  if(!Array.isArray(S.testHistory))S.testHistory=[];
+  if(S.txSessionToken&&S.txHistoryRecordedToken!==S.txSessionToken){
+    S.txHistoryRecordedToken=S.txSessionToken;
+    S.testHistory.unshift({
+      id:'test-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),
+      date:new Date().toISOString(),
+      mode:S.txMode||'mix',
+      behavior:S.txBehavior||'practice',
+      total:total,
+      firstCorrect:firstCorrect,
+      finalCorrect:finalCorrect,
+      firstPct:firstPct,
+      finalPct:finalPct
+    });
+    S.testHistory=S.testHistory.slice(0,100);
+  }
   if(typeof recordTestCompletion==='function')recordTestCompletion();
   S.txActive=false;
   save();
@@ -6558,5 +6579,6 @@ setTimeout(function(){
 })();
 </script>
 <script src="studynova-learning.js"></script>
+<script src="studynova-progress.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ for(const file of files){const source=fs.readFileSync(new URL('../'+file,import.
 const runtime=fs.readFileSync(new URL('../assets/icons/studynova-icons.js',import.meta.url),'utf8');
 if(!runtime.includes('function novaIcon(')||!runtime.includes("customElements.define('sn-icon'"))throw new Error('Shared icon helper/custom element is missing');
 for(const page of ['index.html','studynova_writing_vault.html']){const html=fs.readFileSync(new URL('../'+page,import.meta.url),'utf8');if(!html.includes('<sn-icon name="home"')||!html.includes('studynova-icons.js'))throw new Error(`${page}: static SVG icon integration missing`)}
-const worker=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');if(!worker.includes('novalab-pwa-v28')||!worker.includes('studynova-icons.svg'))throw new Error('Icon cache shell/version is stale');
+const worker=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');if(!worker.includes('novalab-pwa-v29')||!worker.includes('studynova-icons.svg'))throw new Error('Icon cache shell/version is stale');
 const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const todaySource=home.slice(home.indexOf('function todayTask()'),home.indexOf('window.novaV8StartToday'));
 if(/icon:'<sn-icon/.test(todaySource))throw new Error('Dynamic task models must store icon names, not HTML markup');

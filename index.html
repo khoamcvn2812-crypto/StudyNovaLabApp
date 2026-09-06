@@ -1480,6 +1480,7 @@ html,body{width:100%;min-height:100%;margin:0}
 @media(max-width:760px){#app{display:block;width:100%;padding-left:10px;padding-right:10px}.sn-primary-nav{padding-bottom:calc(7px + env(safe-area-inset-bottom));bottom:0!important;left:0!important;right:0!important;border-radius:22px 22px 0 0!important}.sn-primary-nav .tab{min-height:52px}.sn-header-control,.sn-top-auth,.sn-menu-trigger{min-width:44px;min-height:44px}.sn-control-label{display:none}.sn-home-stat{height:100%}.nv8-toast{bottom:calc(100px + env(safe-area-inset-bottom))!important}}
 </style>
 <link rel="stylesheet" href="./studynova-auth.css">
+<link rel="stylesheet" href="./studynova-ai-coach.css">
 <link rel="stylesheet" href="./studynova-motion.css">
 <link rel="stylesheet" href="assets/icons/studynova-icons.css">
 <script src="assets/icons/studynova-icons.js"></script>
@@ -3628,57 +3629,35 @@ renderBackupBanner();
   </div>
 </div>
 
-<div class="sn-modal" id="sn-ai-modal" onclick="if(event.target===this)snCloseAiPanel()">
+<div class="sn-modal" id="sn-ai-modal" role="dialog" aria-modal="true" aria-labelledby="sn-ai-title" onclick="if(event.target===this)snCloseAiPanel()">
   <div class="sn-modal-box">
     <div class="sn-modal-head">
-      <div class="sn-modal-title"><sn-icon name="ai-coach"></sn-icon> StudyNova AI Coach</div>
-      <button class="sn-close" onclick="snCloseAiPanel()"><sn-icon name="close"></sn-icon></button>
+      <div class="sn-modal-title" id="sn-ai-title"><sn-icon name="ai-coach"></sn-icon> StudyNova AI Coach</div>
+      <button class="sn-close" type="button" onclick="snCloseAiPanel()" aria-label="Đóng"><sn-icon name="close"></sn-icon></button>
     </div>
     <div class="sn-modal-body">
-      <div class="sn-small" style="margin-bottom:12px">Dùng AI Coach để nhập từ từ ảnh, chữa Writing, chữa Speaking và tạo gợi ý học nhanh hơn. Nếu AI trực tiếp chưa khả dụng, web sẽ tạo prompt để bạn dùng với ChatGPT/Claude.</div>
-      <div class="sn-ai-tabs">
-        <button class="btn btn-green btn-sm" onclick="snAiTab('vocab')"><sn-icon name="image-import"></sn-icon> Nhập từ ảnh</button>
-        <button class="btn btn-blue btn-sm" onclick="snAiTab('writing')"><sn-icon name="writing-vault"></sn-icon> Chữa Writing</button>
-        <button class="btn btn-purple btn-sm" onclick="snAiTab('speaking')"><sn-icon name="speaking-studio"></sn-icon> Chữa Speaking</button>
-        <button class="btn btn-amber btn-sm" onclick="snCloseAiPanel();goTo('reading')"><sn-icon name="reading-hub"></sn-icon> Reading Coach</button>
-        <button class="btn btn-default btn-sm" onclick="snCloseAiPanel();toggleAI()"><sn-icon name="ai-coach"></sn-icon> Hỏi nhanh</button>
+      <div class="sn-ai-notice" data-sn-ai="notice">AI Coach là trợ lý AI. Nội dung bạn gửi sẽ được chuyển đến OpenAI để xử lý. Lịch sử chỉ được giữ trong phiên này; không gửi email hoặc toàn bộ dữ liệu học tập.</div>
+      <div class="sn-ai-starters" aria-label="Gợi ý câu hỏi">
+        <button class="btn btn-default btn-sm" type="button" onclick="snAiStarter('Giải thích từ/cụm từ này, gồm nghĩa, cách dùng, collocations và ví dụ IELTS: ')" data-sn-ai="vocab">Từ vựng</button>
+        <button class="btn btn-blue btn-sm" type="button" onclick="snAiStarter('Hãy sửa câu sau và giải thích từng lỗi: ')" data-sn-ai="correct">Sửa câu</button>
+        <button class="btn btn-green btn-sm" type="button" onclick="snAiStarter('Nhận xét bài IELTS Writing sau. Nếu ước lượng band, hãy ghi rõ đây không phải điểm chính thức:\n')">Writing</button>
+        <button class="btn btn-purple btn-sm" type="button" onclick="snAiStarter('Hãy luyện IELTS Speaking với tôi bằng hội thoại văn bản. Không nhận xét phát âm từ văn bản.')">Speaking</button>
       </div>
-      <div id="sn-ai-vocab" class="sn-ai-pane active">
-        <label>Ảnh trang từ vựng / sách</label>
-        <input id="sn-ai-image" type="file" accept="image/*">
-        <label style="margin-top:10px">Ghi chú cho AI</label>
-        <textarea id="sn-ai-vocab-note" placeholder="VD: Chuyển toàn bộ từ trong ảnh thành format StudyNova: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example"></textarea>
-        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn btn-green" onclick="snRunVocabImage()"><sn-icon name="ai-coach"></sn-icon> Chuyển ảnh thành dữ liệu</button>
-          <button class="btn btn-blue" onclick="snPutAiOutputToBulk()"><sn-icon name="export"></sn-icon> Đưa vào ô Nhập nhanh</button>
+      <div class="sn-ai-chat" id="sn-ai-chat" aria-live="polite"></div>
+      <div class="sn-ai-compose">
+        <label for="sn-ai-input" data-sn-ai="message">Tin nhắn</label>
+        <textarea id="sn-ai-input" maxlength="6000" placeholder="Nhập câu hỏi… Enter để gửi, Shift+Enter để xuống dòng"></textarea>
+        <div class="sn-ai-actions">
+          <button class="btn btn-default" data-sn-ai="new_chat" type="button" onclick="snAiNewChat()">Cuộc trò chuyện mới</button>
+          <button class="btn btn-red" id="sn-ai-stop" type="button" onclick="snAiStop()" hidden>Dừng</button>
+          <button class="btn btn-default" id="sn-ai-retry" type="button" onclick="snAiRetry()" hidden>Thử lại</button>
+          <button class="btn btn-green sn-ai-send" id="sn-ai-send" type="button" onclick="snAiSend()">Gửi</button>
         </div>
+        <div class="sn-ai-msg" id="sn-ai-status" role="status"></div>
       </div>
-      <div id="sn-ai-writing" class="sn-ai-pane">
-        <label>Bài Writing / đoạn cần chữa</label>
-        <textarea id="sn-ai-writing-text" placeholder="Dán bài Writing hoặc bấm nút, web sẽ tự lấy từ ô bài viết nếu đang ở Writing Vault."></textarea>
-        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn btn-blue" onclick="snFillWritingFromPage()">Lấy bài hiện tại</button>
-          <button class="btn btn-green" onclick="snRunWritingCoach()"><sn-icon name="ai-coach"></sn-icon> Chữa bài</button>
-        </div>
-      </div>
-      <div id="sn-ai-speaking" class="sn-ai-pane">
-        <label>Transcript / ý chính câu trả lời Speaking</label>
-        <textarea id="sn-ai-speaking-text" placeholder="Dán transcript Speaking hoặc bấm nút lấy từ Speaking Studio nếu có."></textarea>
-        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn btn-purple" onclick="snFillSpeakingFromPage()">Lấy speaking hiện tại</button>
-          <button class="btn btn-green" onclick="snRunSpeakingCoach()"><sn-icon name="ai-coach"></sn-icon> Chữa Speaking</button>
-        </div>
-      </div>
-      <label style="margin-top:12px">Kết quả AI / dữ liệu nhập nhanh</label>
-      <textarea id="sn-ai-output" class="sn-ai-output" placeholder="Kết quả sẽ hiện ở đây..."></textarea>
-      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:10px">
-        <button class="btn btn-default" onclick="snCopyAiOutput()"><sn-icon name="copy"></sn-icon> Copy kết quả</button>
-      </div>
-      <div id="sn-ai-msg" class="msg"></div>
     </div>
   </div>
 </div>
-
 
 <script>
 /* Splash safety is deliberately independent from every cloud script. */
@@ -3689,96 +3668,7 @@ setTimeout(snHideSplash,1200);
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="./studynova-auth.js"></script>
 <script defer src="./studynova-realtime.js"></script>
-<script>
-function snOpenAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.add('open');}
-function snCloseAiPanel(){var m=document.getElementById('sn-ai-modal'); if(m)m.classList.remove('open');}
-function snAiTab(name){
-  ['vocab','writing','speaking'].forEach(function(x){
-    var el=document.getElementById('sn-ai-'+x);
-    if(el)el.classList.toggle('active',x===name);
-  });
-}
-function snSetAiMsg(text, ok){
-  var el=document.getElementById('sn-ai-msg'); if(!el)return;
-  el.textContent=text; el.className='msg '+(ok?'ok':'no'); el.style.display='block';
-  setTimeout(function(){el.style.display='none'},3600);
-}
-function snOutput(text){var el=document.getElementById('sn-ai-output'); if(el)el.value=text||'';}
-function snCopyText(text){
-  if(navigator.clipboard){navigator.clipboard.writeText(text||'').catch(function(){})}
-}
-function snReadFile(file){
-  return new Promise(function(resolve,reject){
-    var r=new FileReader();
-    r.onload=function(){resolve(r.result)};
-    r.onerror=reject;
-    r.readAsDataURL(file);
-  });
-}
-async function snAiRequest(payload){
-  try{
-    var res=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(!res.ok){throw new Error(await res.text())}
-    var data=await res.json();
-    return data.text||data.output||'';
-  }catch(e){
-    var prompt=payload.prompt || '';
-    if(payload.task==='vocabImage'){
-      prompt='Hãy đọc ảnh từ vựng trong sách và chuyển thành format StudyNova, mỗi dòng: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example. Nếu có chữ mờ, đánh dấu [không chắc].';
-    }
-    snCopyText(prompt);
-    throw new Error('AI endpoint chưa chạy hoặc chưa có OPENAI_API_KEY. StudyNova đã copy prompt để bạn dán vào ChatGPT/Claude.');
-  }
-}
-async function snRunVocabImage(){
-  var file=(document.getElementById('sn-ai-image')||{}).files?.[0];
-  if(!file){snSetAiMsg('Chọn ảnh trước đã.',false);return}
-  snSetAiMsg('Đang gửi ảnh cho AI...',true);
-  var image=await snReadFile(file);
-  var note=(document.getElementById('sn-ai-vocab-note')||{}).value||'';
-  var prompt='Bạn là trợ lý nhập liệu cho StudyNova Lab. Hãy đọc ảnh từ vựng/sách và xuất đúng format nhập nhanh, mỗi dòng: term | meaning | topic | type | level | example | collocations | IELTS Writing example | IELTS Speaking example. Nghĩa phải tự nhiên bằng tiếng Việt, ví dụ phù hợp IELTS. '+note;
-  try{
-    var text=await snAiRequest({task:'vocabImage',prompt:prompt,image:image});
-    snOutput(text); snSetAiMsg('Xong. Kiểm tra lại rồi bấm đưa vào ô Nhập nhanh.',true);
-  }catch(e){snSetAiMsg(e.message,false);}
-}
-function snPutAiOutputToBulk(){
-  var out=(document.getElementById('sn-ai-output')||{}).value||'';
-  var bulk=document.getElementById('bulk-in');
-  if(!bulk){snSetAiMsg('Trang này không có ô Nhập nhanh vocab.',false);return}
-  bulk.value=out;
-  snCloseAiPanel();
-  if(typeof goTo==='function')goTo('add');
-}
-function snFillWritingFromPage(){
-  var text='';
-  if(document.getElementById('e-text')) text=document.getElementById('e-text').value||'';
-  if(!text && typeof S!=='undefined' && S.spCurrent) text=S.spCurrent.question||'';
-  var el=document.getElementById('sn-ai-writing-text'); if(el)el.value=text;
-}
-async function snRunWritingCoach(){
-  var text=(document.getElementById('sn-ai-writing-text')||{}).value||'';
-  if(!text.trim()){snSetAiMsg('Dán bài Writing trước đã.',false);return}
-  var prompt='Hãy chữa bài IELTS Writing này cho học sinh Việt Nam. Chấm band ước lượng theo 4 tiêu chí, chỉ ra lỗi sai theo bảng: câu sai -> câu đúng -> lý do, rồi viết bản improved version band 6.5-7.5 dễ học. Bài: \n\n'+text;
-  try{var out=await snAiRequest({task:'writingCoach',prompt:prompt,text:text}); snOutput(out); snSetAiMsg('Đã chữa Writing xong.',true)}catch(e){snSetAiMsg(e.message,false)}
-}
-function snFillSpeakingFromPage(){
-  var text='';
-  if(document.getElementById('sp-answer')) text=document.getElementById('sp-answer').value||'';
-  if(typeof S!=='undefined' && S.spCurrent){text='Question: '+S.spCurrent.question+'\n\nAnswer:\n'+text}
-  var el=document.getElementById('sn-ai-speaking-text'); if(el)el.value=text;
-}
-async function snRunSpeakingCoach(){
-  var text=(document.getElementById('sn-ai-speaking-text')||{}).value||'';
-  if(!text.trim()){snSetAiMsg('Dán transcript Speaking trước đã.',false);return}
-  var prompt='Hãy chữa IELTS Speaking transcript này. Chấm Fluency, Vocabulary, Grammar, Pronunciation ước lượng, sửa lỗi tự nhiên, viết bản trả lời hay hơn nhưng vừa sức band 6.0-7.0, và cho 5 chunks nên học. Transcript:\n\n'+text;
-  try{var out=await snAiRequest({task:'speakingCoach',prompt:prompt,text:text}); snOutput(out); snSetAiMsg('Đã chữa Speaking xong.',true)}catch(e){snSetAiMsg(e.message,false)}
-}
-function snCopyAiOutput(){
-  var out=(document.getElementById('sn-ai-output')||{}).value||'';
-  snCopyText(out); snSetAiMsg('Đã copy kết quả.',true);
-}
-</script>
+<script defer src="./studynova-ai-coach.js"></script>
 <!--  -->
 
 

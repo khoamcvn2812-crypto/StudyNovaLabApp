@@ -16,7 +16,20 @@ function envInt(name, fallback, min, max) {
   return Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
 }
 
-function send(res, status, code, language = 'vi', details = {}) {
+function requestIdFor(req) {
+  const platformId = String(req.headers?.['x-vercel-id'] || '').trim();
+  if (platformId && platformId.length <= 128) return platformId;
+  return globalThis.crypto?.randomUUID?.() || `ai-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function logResult(req, status, code) {
+  // Deliberately exclude authorization, request bodies, OpenAI errors, and user data.
+  console[status >= 500 ? 'error' : status >= 400 ? 'warn' : 'info'](JSON.stringify({
+    event: 'ai_coach_request', requestId: req.aiCoachRequestId, method: req.method, status, code
+  }));
+}
+
+function send(req, res, status, code, language = 'vi', details = {}) {
   const messages = {
     disabled: ['AI Coach chưa được bật.', 'AI Coach is not enabled.'],
     not_configured: ['AI Coach chưa được cấu hình đầy đủ.', 'AI Coach is not fully configured.'],
@@ -28,11 +41,14 @@ function send(res, status, code, language = 'vi', details = {}) {
     model_unavailable: ['Model được cấu hình không khả dụng hoặc không hỗ trợ yêu cầu này.', 'The configured model is unavailable or does not support this request.'],
     timeout: ['AI Coach phản hồi quá lâu. Vui lòng thử lại.', 'AI Coach took too long to respond. Please try again.'],
     empty_response: ['AI Coach không trả về nội dung. Vui lòng thử lại.', 'AI Coach returned no content. Please try again.'],
+    openai_auth_error: ['Dịch vụ AI chưa được xác thực đúng ở máy chủ.', 'The AI service is not correctly authenticated on the server.'],
     server_error: ['AI Coach tạm thời gặp lỗi. Vui lòng thử lại sau.', 'AI Coach is temporarily unavailable. Please try again later.']
   };
+  res.setHeader('X-Request-ID', req.aiCoachRequestId);
   res.status(status).setHeader('Content-Type', 'application/json; charset=utf-8');
   Object.entries(NO_STORE).forEach(([key, value]) => res.setHeader(key, value));
-  res.end(JSON.stringify({ error: { code, message: (messages[code] || messages.server_error)[language === 'en' ? 1 : 0], ...details } }));
+  logResult(req, status, code);
+  res.end(JSON.stringify({ error: { code, message: (messages[code] || messages.server_error)[language === 'en' ? 1 : 0], requestId: req.aiCoachRequestId, ...details } }));
 }
 
 function validateBody(body) {
@@ -58,6 +74,7 @@ function classifyOpenAIError(error) {
   const status = Number(error?.status || 0);
   const code = String(error?.code || error?.error?.code || '').toLowerCase();
   if (error?.name === 'AbortError') return [504, 'timeout'];
+  if (status === 401 || status === 403 || code.includes('invalid_api_key')) return [502, 'openai_auth_error'];
   if (status === 429 && (code.includes('quota') || code.includes('billing'))) return [402, 'billing_error'];
   if (status === 429) return [429, 'rate_limited'];
   if (status === 404 || code.includes('model')) return [400, 'model_unavailable'];
@@ -66,36 +83,37 @@ function classifyOpenAIError(error) {
 
 export function createHandler(deps = {}) {
   return async function handler(req, res) {
+    req.aiCoachRequestId = requestIdFor(req);
     Object.entries(NO_STORE).forEach(([key, value]) => res.setHeader(key, value));
-    if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return send(res, 405, 'invalid_request'); }
+    if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return send(req, res, 405, 'invalid_request'); }
     const length = Number(req.headers['content-length'] || 0);
-    if (length > MAX_BODY_BYTES) return send(res, 413, 'invalid_request');
-    if (process.env.AI_COACH_ENABLED !== 'true') return send(res, 503, 'disabled');
+    if (length > MAX_BODY_BYTES) return send(req, res, 413, 'invalid_request');
+    if (process.env.AI_COACH_ENABLED !== 'true') return send(req, res, 503, 'disabled');
     const apiKey = process.env.OPENAI_API_KEY;
     const model = process.env.OPENAI_MODEL;
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
-    if (!apiKey || !model || !supabaseUrl || !supabaseKey) return send(res, 503, 'not_configured');
+    if (!apiKey || !model || !supabaseUrl || !supabaseKey) return send(req, res, 503, 'not_configured');
     const body = validateBody(req.body);
     const language = body?.language || 'vi';
-    if (!body) return send(res, 400, 'invalid_request', language);
+    if (!body) return send(req, res, 400, 'invalid_request', language);
     const token = String(req.headers.authorization || '').match(/^Bearer\s+(.+)$/i)?.[1];
-    if (!token) return send(res, 401, 'unauthorized', language);
+    if (!token) return send(req, res, 401, 'unauthorized', language);
 
     try {
       const createClient = deps.supabase ? null : (deps.createClient || (await import('@supabase/supabase-js')).createClient);
       const supabase = deps.supabase || createClient(supabaseUrl, supabaseKey, { auth: { persistSession: false, autoRefreshToken: false }, global: { headers: { Authorization: `Bearer ${token}` } } });
       const auth = await supabase.auth.getUser(token);
-      if (auth.error || !auth.data?.user) return send(res, 401, 'unauthorized', language);
+      if (auth.error || !auth.data?.user) return send(req, res, 401, 'unauthorized', language);
       const limits = {
         p_minute_limit: envInt('AI_RATE_LIMIT_PER_MINUTE', 5, 1, 100),
         p_daily_limit: envInt('AI_RATE_LIMIT_PER_DAY', 30, 1, 10000),
         p_app_daily_limit: envInt('AI_APP_LIMIT_PER_DAY', 1000, 1, 1000000)
       };
       const quota = await supabase.rpc('consume_ai_coach_quota', limits);
-      if (quota.error) return send(res, 503, 'not_configured', language);
+      if (quota.error) return send(req, res, 503, 'not_configured', language);
       const allowed = Array.isArray(quota.data) ? quota.data[0]?.allowed : quota.data?.allowed;
-      if (!allowed) return send(res, 429, 'quota_exceeded', language, { retryAfterSeconds: 60 });
+      if (!allowed) return send(req, res, 429, 'quota_exceeded', language, { retryAfterSeconds: 60 });
 
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), envInt('AI_REQUEST_TIMEOUT_MS', 25000, 3000, 60000));
@@ -111,17 +129,19 @@ export function createHandler(deps = {}) {
           store: false
         }, { signal: controller.signal });
         const text = String(response.output_text || '').trim();
-        if (!text) return send(res, 502, 'empty_response', language);
+        if (!text) return send(req, res, 502, 'empty_response', language);
+        res.setHeader('X-Request-ID', req.aiCoachRequestId);
         res.status(200).setHeader('Content-Type', 'application/json; charset=utf-8');
-        return res.end(JSON.stringify({ text }));
+        logResult(req, 200, 'ok');
+        return res.end(JSON.stringify({ text, requestId: req.aiCoachRequestId }));
       } catch (error) {
         const [status, code] = classifyOpenAIError(error);
-        return send(res, status, code, language);
+        return send(req, res, status, code, language);
       } finally { clearTimeout(timer); }
-    } catch { return send(res, 500, 'server_error', language); }
+    } catch { return send(req, res, 500, 'server_error', language); }
   };
 }
 
 export const handler = createHandler();
 export default handler;
-export { validateBody, classifyOpenAIError, MAX_BODY_BYTES };
+export { validateBody, classifyOpenAIError, requestIdFor, MAX_BODY_BYTES };

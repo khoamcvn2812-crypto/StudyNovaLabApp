@@ -39,5 +39,12 @@ check(classifyAuthError({message:'unexpected parse failure',status:500}) === 'ge
 check(js.includes("reportAuthError('sign_in_password',e)") && js.includes("operation:operation,url:request.url,method:request.method"), 'Safe sign-in diagnostics are not wired.');
 check(!js.includes("console.warn(JSON.stringify({event:'studynova_auth_failure',email"), 'Authentication diagnostics must not contain email.');
 check(!modal.includes('auth.sign_in') && !modal.includes('undefined'), 'A raw translation key is visible in the modal.');
+check(i18n.vi.profile_load_error && i18n.en.retry_profile, 'Profile-load failures need a separate retryable message.');
+check(modal.includes('id="sn-profile-message"') && modal.includes('onclick="snRetryProfile()"'), 'Signed-in profile retry UI is missing.');
+check(js.includes("SN.user=r.data.user;authChanged();refresh()"), 'A successful auth response must activate its session without waiting for the profile query.');
+check(js.includes("profileMessage(profile.error)") && js.includes("event:'studynova_profile_failure'"), 'Profile failures must be reported separately from auth failures.');
+const loginSource=js.slice(js.indexOf('window.snLoginEmail='),js.indexOf(';window.snLoginFacebook'));
+check(loginSource.includes('password:pass') && !loginSource.includes('pass.trim'), 'The password must be submitted exactly as entered.');
+check(loginSource.includes('finally{busy(b,false)}'), 'The sign-in button must always leave its loading state.');
 
 console.log('Account internationalization regression checks passed.');

@@ -3606,6 +3606,10 @@ renderBackupBanner();
       </section>
       <section id="sn-signed-in-view" hidden>
         <div class="sn-account-hero"><div class="sn-account-avatar"><sn-icon name="account"></sn-icon></div><div><h3 id="sn-welcome"></h3><p data-sn-auth="cloud_description">Dữ liệu của bạn có thể được sao lưu và đồng bộ an toàn.</p></div></div>
+        <div id="sn-profile-message" class="sn-message error" role="status" aria-live="polite">
+          <span data-sn-auth="profile_load_error">Đã đăng nhập, nhưng chưa tải được hồ sơ. Phiên đăng nhập vẫn được giữ.</span>
+          <button id="sn-profile-retry" class="btn btn-default btn-sm" type="button" onclick="snRetryProfile()" data-sn-auth="retry_profile">Thử tải lại hồ sơ</button>
+        </div>
       <div class="nova-cloud-panel" id="nova-cloud-panel">
         <div class="nova-cloud-grid">
           <div class="nova-cloud-stat"><b data-sn-auth="local_data">Dữ liệu máy</b><span id="nova-local-summary">Đang đọc...</span></div>

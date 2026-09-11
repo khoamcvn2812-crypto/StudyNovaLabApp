@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+const code=fs.readFileSync('shared/chinese-transfer.js','utf8'),sandbox={module:{exports:{}},crypto:{randomUUID:()=>`new-${Math.random()}`}};vm.runInNewContext(code,sandbox);const T=sandbox.module.exports;
+const word=(id='a',meaning='hello')=>({id,hanzi:'你好',pinyin:'nǐ hǎo',meaning});
+test('duplicate identity includes Hanzi, Pinyin and meaning',()=>{const p=T.preview({version:2,chinese:{words:[word('b'),word('c','greeting')]}},{words:[word()]});assert.equal(p.count.duplicate,1);assert.equal(p.count.valid,1)});
+test('repeat import is idempotent and remaps references',()=>{const payload={formatVersion:3,chinese:{words:[word('same')],reviewLog:[{wordId:'same',correct:true}]}};const first=T.merge(payload,{words:[{...word('same'),meaning:'other'}]},()=> 'replacement');assert.equal(first.data.words.length,2);assert.equal(first.data.reviewLog[0].wordId,'replacement');const second=T.merge(payload,first.data,()=> 'unused');assert.equal(second.data.words.length,2)});
+test('invalid payload cannot mutate current data',()=>{const current={words:[word()]};assert.throws(()=>T.merge({version:99,chinese:{words:[]}},current));assert.equal(current.words.length,1)});
+test('export includes source, version and timestamp',()=>{const value=T.exportPayload({words:[]},{});assert.equal(value.source,'StudyNova Chinese');assert.equal(value.formatVersion,3);assert.ok(value.exportedAt)});

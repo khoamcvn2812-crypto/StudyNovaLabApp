@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 /* Local-first, record-level sync shared by Home and Writing Vault. */
-var STORES={vocabmaster_data_v1:'vocabulary',writingvault_data_v1:'writing'};
+var STORES={vocabmaster_data_v1:'english_vocabulary',writingvault_data_v1:'english_writing',chinesemaster_data_v1:'chinese_vocabulary',chinesewritingvault_data_v1:'chinese_writing'};
 var QUEUE='novalab_realtime_queue_v1',IDS='novalab_realtime_ids_v1',REVS='novalab_realtime_revisions_v1';
 var nativeSet=Storage.prototype.setItem,nativeRemove=Storage.prototype.removeItem;
 var applying=false,startedFor='',channel=null,flushTimer=null,snapshots={};
@@ -29,9 +29,9 @@ function localChanged(storeKey,raw){
 }
 Storage.prototype.setItem=function(key,value){nativeSet.call(this,key,value);if(this===localStorage)localChanged(String(key),String(value))};
 Storage.prototype.removeItem=function(key){var old=this===localStorage&&STORES[key]?localStorage.getItem(key):null;nativeRemove.call(this,key);if(old!==null)localChanged(String(key),'{}')};
-function storeFor(type){return type.indexOf('vocabulary_')===0?'vocabmaster_data_v1':type.indexOf('writing_')===0?'writingvault_data_v1':''}
-function arrayName(type){return type.replace(/^(vocabulary|writing)_/,'').replace(/_([a-z])/g,function(_,c){return c.toUpperCase()})}
-function notify(storeKey,row){window.dispatchEvent(new CustomEvent('studynova-realtime-update',{detail:{storageKey:storeKey,entityType:row.entity_type,entityId:row.entity_id}}));setTimeout(function(){try{if(typeof window.load==='function')window.load();if(storeKey==='writingvault_data_v1'&&typeof window.renderAll==='function')window.renderAll();if(storeKey==='vocabmaster_data_v1'){if(typeof window.renderDash==='function')window.renderDash();if(typeof window.renderVocab==='function')window.renderVocab();if(typeof window.novaV8RenderToday==='function')window.novaV8RenderToday();if(typeof window.refreshVocab==='function')window.refreshVocab()}}catch(e){console.warn('Realtime UI refresh failed',e)}},0)}
+function storeFor(type){return type.indexOf('english_vocabulary_')===0?'vocabmaster_data_v1':type.indexOf('english_writing_')===0?'writingvault_data_v1':type.indexOf('chinese_vocabulary_')===0?'chinesemaster_data_v1':type.indexOf('chinese_writing_')===0?'chinesewritingvault_data_v1':''}
+function arrayName(type){return type.replace(/^(english_vocabulary|english_writing|chinese_vocabulary|chinese_writing)_/,'').replace(/_([a-z])/g,function(_,c){return c.toUpperCase()})}
+function notify(storeKey,row){window.dispatchEvent(new CustomEvent('studynova-realtime-update',{detail:{storageKey:storeKey,entityType:row.entity_type,entityId:row.entity_id}}));setTimeout(function(){try{if(typeof window.load==='function')window.load();if(storeKey==='writingvault_data_v1'&&typeof window.renderAll==='function')window.renderAll();if(storeKey==='chinesemaster_data_v1'){if(typeof window.renderAll==='function')window.renderAll()}if(storeKey==='vocabmaster_data_v1'){if(typeof window.renderDash==='function')window.renderDash();if(typeof window.renderVocab==='function')window.renderVocab();if(typeof window.novaV8RenderToday==='function')window.novaV8RenderToday();if(typeof window.refreshVocab==='function')window.refreshVocab()}}catch(e){console.warn('Realtime UI refresh failed',e)}},0)}
 function applyRow(row){
   if(!row||!window.SN||!SN.user||row.user_id!==SN.user.id||row.source_device_id===SN.deviceId)return;
   var storeKey=storeFor(row.entity_type);if(!storeKey)return;var revs=json(localStorage.getItem(REVS),{}),rk=recordKey(row.entity_type,row.entity_id);if(Number(revs[rk])>=Number(row.revision))return;

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const html = fs.readFileSync(new URL('../english.html', import.meta.url), 'utf8');
 const js = fs.readFileSync(new URL('../studynova-auth.js', import.meta.url), 'utf8');
 const css = fs.readFileSync(new URL('../studynova-auth.css', import.meta.url), 'utf8');
 const modal = html.slice(html.indexOf('id="sn-auth-modal"'), html.indexOf('id="sn-ai-modal"'));

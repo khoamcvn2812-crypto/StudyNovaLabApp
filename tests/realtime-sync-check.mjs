@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 const realtime=fs.readFileSync(new URL('../studynova-realtime.js',import.meta.url),'utf8');
 const schema=fs.readFileSync(new URL('../supabase-schema.sql',import.meta.url),'utf8');
-const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const home=fs.readFileSync(new URL('../english.html',import.meta.url),'utf8');
 const vault=fs.readFileSync(new URL('../studynova_writing_vault.html',import.meta.url),'utf8');
 const worker=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
 const check=(condition,message)=>{if(!condition)throw new Error(message)};

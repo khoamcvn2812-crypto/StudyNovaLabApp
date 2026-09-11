@@ -12,6 +12,7 @@ window.STUDYNOVA_TRANSLATIONS = {
       data: "Dữ liệu"
     },
     common: {
+      platformHomeLabel: "Về trang chủ StudyNova",
       days: "ngày",
       language: "Ngôn ngữ",
       theme: "Giao diện",
@@ -152,6 +153,7 @@ window.STUDYNOVA_TRANSLATIONS = {
       data: "数据"
     },
     common: {
+      platformHomeLabel: "返回 StudyNova 主页",
       days: "天",
       language: "语言",
       theme: "界面主题",
@@ -257,7 +259,7 @@ window.STUDYNOVA_TRANSLATIONS = {
   en: {
     brandTagline: "LEARN CHINESE",
     nav: { overview: "Overview", vocabulary: "Vocabulary", review: "Review", hskPath: "HSK Roadmap", speaking: "Speaking", writingVault: "Writing Vault", data: "Data" },
-    common: { days: "days", language: "Language", theme: "Theme", changeTheme: "Change theme", close: "Close", delete: "Delete", stopRecording: "Stop recording", microphoneUnavailable: "The microphone is unavailable.", invalidBackup: "This backup file is invalid.", installApp: "Install app", appInstalled: "StudyNova Chinese installed", installInstructions: "To install the app, tap Share, then select “Add to Home Screen”.", installTitle: "Install StudyNova Chinese", menu: "Menu" },
+    common: { platformHomeLabel: "Go to StudyNova home", days: "days", language: "Language", theme: "Theme", changeTheme: "Change theme", close: "Close", delete: "Delete", stopRecording: "Stop recording", microphoneUnavailable: "The microphone is unavailable.", invalidBackup: "This backup file is invalid.", installApp: "Install app", appInstalled: "StudyNova Chinese installed", installInstructions: "To install the app, tap Share, then select “Add to Home Screen”.", installTitle: "Install StudyNova Chinese", menu: "Menu" },
     home: { streak: "Learning streak", localFirst: "Learn consistently and progress at your own pace.", welcome: "WELCOME BACK", learnChinese: "Master Chinese", oneStep: "one step every day.", heroText: "From Chinese characters and tones to natural conversation — all in one private learning space.", addWord: "Add new words", reviewNow: "Review now", words: "Words learned", personalVault: "Personal vocabulary", due: "Due today", spaced: "Spaced repetition", keepGoing: "Keep going", mastery: "Mastery", hskRange: "HSK 1–9", spaces: "Learning spaces", viewProgress: "View progress", dailyGoal: "Daily goal", todayPriority: "Today's priority", estimatedTime: "About 5 minutes", priorityReview: "Review due words", priorityReviewDescription: "Reinforce the words due today and keep your learning rhythm going.", priorityAdd: "Create your first vocabulary set", priorityAddDescription: "Add new words to begin your personal learning path.", priorityLearn: "Continue learning", priorityLearnDescription: "Choose the right activity in the Learning Center.", startReview: "Start review", startAdding: "Add new words", startLearning: "Start learning", tests: "Tests", testsDescription: "No tests due", savedWords: "Saved vocabulary", savedWordsDescription: "In your personal vault", dueDescription: "Ready to review", streakDescription: "Current learning rhythm", explore: "Explore", yourJourney: "Your journey", recentActivity: "Recent activity", viewAll: "View all", noActivity: "No learning activity yet.", noActivityDescription: "Start an activity to build your learning rhythm.", activityReview: "Reviewed vocabulary", activityLearning: "Learning activity", today: "Today", openModule: "Open" },
     learning: { eyebrow: "LEARNING CENTER", title: "What would you like to learn today?", description: "Choose a learning space that matches your goal." },
     vocabulary: { title: "Vocabulary", description: "Save your own Chinese characters, Pinyin, meanings, and examples.", search: "Search characters, Pinyin, or meanings...", newWord: "New word", meaning: "Meaning", topic: "Topic", example: "Example", save: "Save word", empty: "No words yet. Add your first word!", saved: "New word saved.", deleted: "Word deleted." },

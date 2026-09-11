@@ -26,3 +26,16 @@ This transfer keeps the IELTS application as the implementation source of truth 
 ## Desktop overlap correction
 
 The desktop shell uses `#app` as the sole two-column CSS Grid owner. The sidebar is a sticky grid child—not fixed or absolutely positioned—and every main child is constrained to column two with `min-width: 0`. The desktop brand lives in the sidebar while the existing topbar brand remains available below the desktop breakpoint.
+
+## Unified learning-space contract (2026-09-11)
+
+| Shared contract | English / IELTS | Chinese |
+|---|---|---|
+| Scope | `data-learning-space="english"` | `data-learning-space="chinese"` |
+| Identity | Existing `#10d4a0` teal token | Existing red `#c9362b`; gold is limited to focus/warning emphasis |
+| Structure | Shared 44px controls, 12/16/22px radii, spacing scale and card/modal shadows | Same |
+| Forms and vocabulary | Shared control geometry and focus behavior; IPA/collocation/IELTS fields remain unchanged | Same geometry; Hanzi/Pinyin/HSK fields remain unchanged |
+| Review | Shared tabs, option spacing, progress and explicit semantic states | Same |
+| Responsive/accessibility | Shared 600px/340px guards, visible focus and reduced-motion policy | Same |
+
+The common platform home is explicitly scoped as `home` and does not consume either subject accent. Theme preference uses `novalab_theme_v1` in both learning spaces, while UI locale remains independent. This layer is presentation-only: routes, handlers, storage schemas, review scheduling, scoring, Supabase, and active module paths are unchanged.

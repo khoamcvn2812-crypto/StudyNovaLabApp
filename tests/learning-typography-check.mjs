@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const home=fs.readFileSync(new URL('../english.html',import.meta.url),'utf8');
 const vault=fs.readFileSync(new URL('../studynova_writing_vault.html',import.meta.url),'utf8');
 const feature=fs.readFileSync(new URL('../studynova-learning.css',import.meta.url),'utf8');
 const check=(value,message)=>{if(!value)throw new Error(message)};

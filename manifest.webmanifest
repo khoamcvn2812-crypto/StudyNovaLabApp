@@ -1,18 +1,18 @@
 {
   "id": "./",
-  "name": "NovaLab",
-  "short_name": "NovaLab",
-  "description": "Ứng dụng học từ vựng, Reading, Speaking và IELTS Writing.",
+  "name": "StudyNova",
+  "short_name": "StudyNova",
+  "description": "Nền tảng học ngoại ngữ English và Chinese.",
   "lang": "vi",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "display_override": [
     "standalone",
     "minimal-ui"
   ],
-  "background_color": "#060a12",
-  "theme_color": "#060a12",
+  "background_color": "#F5F4F1",
+  "theme_color": "#34322E",
   "categories": [
     "education",
     "productivity"

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 const check=(condition,message)=>{if(!condition)throw new Error(message)};
-const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../english.html',import.meta.url),'utf8');
 const topbar=html.slice(html.indexOf('<div class="topbar">'),html.indexOf('<div class="sn-top-menu-overlay"'));
 check(topbar.includes('id="pwa-install-group"')&&topbar.includes('id="pwa-install-btn"'),'Install control must live in the top bar.');
 check(topbar.includes('<sn-icon name="install">')&&topbar.includes('Cài NovaLab'),'Install control must retain its icon and desktop label.');

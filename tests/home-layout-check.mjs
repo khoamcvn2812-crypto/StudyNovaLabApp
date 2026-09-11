@@ -47,7 +47,7 @@ check(html.includes('font-size:clamp(42px,3.6vw,58px)') && html.includes('letter
 check(html.includes('font-size:clamp(32px,2.6vw,38px)') && html.includes('@media(max-width:600px)'), 'Responsive statistic typography is missing.');
 check(html.includes('width:clamp(108px,11vw,132px);aspect-ratio:1') && html.includes('place-items:center;overflow:hidden'), 'Home goal wrapper must be square, centered, and clipped.');
 check(html.includes('#page-home .sn-home-orbit{width:100px;margin:18px auto 0}'), 'Home goal progress must remain compact on mobile.');
-check(worker.includes('studynova-platform-v32') && worker.includes('studynova-runtime-v32'), 'Service-worker caches must be v32.');
+check(worker.includes('studynova-platform-v33') && worker.includes('studynova-runtime-v33'), 'Service-worker caches must be v33.');
 check(!html.includes(['studynova', 'lab.vercel.app'].join('')), 'Legacy production URL remains in Home.');
 
 console.log('Home layout regression checks passed.');

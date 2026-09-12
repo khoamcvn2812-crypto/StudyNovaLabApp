@@ -9,20 +9,20 @@
 .km-filters input,.km-filters select,.km-header .btn,.km-dialog button,.rd-save-popover input,.rd-save-popover button{font-family:var(--font-app)}
 .study-mode-bar{position:relative;z-index:2;pointer-events:auto}.study-mode-bar [data-study-mode]{pointer-events:auto;flex:0 0 auto}.study-mode-bar [data-study-mode][aria-pressed="true"]{cursor:default}
 
-/* Device-specific composition: one learning state, presented as a roomy desktop
-   workspace or a touch-first single-column flow without duplicating content. */
+/* The platform link has one focusable instance per layout; subject Overview stays separate. */
+.mobile-platform-home{display:none}
 @media(min-width:1024px){
   #app{max-width:1360px;margin-inline:auto}
-  .sn-primary-nav .sn-sidebar-brand{color:var(--t1);text-decoration:none}
-  .sn-primary-nav .sn-sidebar-brand:after{content:"Nền tảng";display:block;margin-left:auto;color:var(--t4);font-size:9px;font-weight:700}
+  .sn-sidebar-brand{display:flex;color:var(--t1);text-decoration:none}
+  .sn-sidebar-brand:after{content:"Nền tảng";display:block;margin-left:auto;color:var(--t4);font-size:9px;font-weight:700}
   #page-review #rv-area,.review-shell{max-width:920px}
   .modal-box,.ai-box,.backup-box{max-width:min(680px,calc(100vw - 48px))}
 }
 @media(max-width:1023px){input,select,textarea{font-size:16px}}
 @media(max-width:760px){
-  .sn-logo-home{display:flex!important;width:44px!important;min-width:44px;height:44px;padding:5px!important;border:1px solid var(--glass-bd);border-radius:13px;background:var(--glass);-webkit-text-fill-color:initial}
-  .sn-logo-home .sn-logo-svg{width:32px!important;height:32px!important}
-  .topbar{min-height:60px;flex-wrap:nowrap!important}
+  .mobile-platform-home{display:flex!important}
+  .sn-logo-home{width:44px!important;min-width:44px;height:44px;padding:5px!important;border:1px solid var(--glass-bd);border-radius:13px;background:var(--glass);-webkit-text-fill-color:initial}
+  .sn-logo-home .sn-logo-svg{width:32px!important;height:32px!important}.topbar{min-height:60px;flex-wrap:nowrap!important}
   .word-item{display:grid;grid-template-columns:minmax(0,1fr) auto;overflow-wrap:anywhere}
   .word-item>div:last-child{min-width:44px}.word-item .btn{min-width:44px;min-height:44px;justify-content:center}
   .filter-row{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}

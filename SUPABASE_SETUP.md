@@ -9,6 +9,10 @@ The frontend uses the public Supabase browser client and keeps `localStorage` as
 3. In **Authentication → URL Configuration**, set the production site URL to `https://studynovaielts.vercel.app` and add the Vercel preview URL as an allowed redirect before testing the preview.
 4. Enable email confirmation and configure the email templates/SMTP required by the project.
 
+## Chinese subject store rollout
+
+Apply `supabase/migrations/202609130001_split_chinese_learning_store.sql` on local/test before deploying the matching frontend. Follow `docs/SUBJECT_DATA_SPLIT.md` and run the read-only `scripts/chinese-migration-dry-run.sql` after a backup. Do not run the migration or any copy against production until its dry-run evidence and two-account RLS tests have been reviewed.
+
 ## Facebook / Meta
 
 1. Enable the Facebook provider in Supabase Authentication and provide the Meta App ID and secret **only in the Supabase dashboard**.
